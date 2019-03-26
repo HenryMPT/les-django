@@ -1,0 +1,16 @@
+
+{% extends "main/header.html" %}
+
+{% block content %}
+
+	<body class="text-center"><br>
+		<form class="form-signin" method="POST">
+		{% csrf_token %}
+		<div>
+		{{form.as_p}}
+	</div>
+		<button class="btn btn-lg btn-block text-white" style="max-width:15vh;float:right;" type="submit">Login</button><!--bg-info-->
+
+		</form>
+		
+		{% endblock %}
