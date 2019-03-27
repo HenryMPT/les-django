@@ -32,7 +32,7 @@
 						<a href="#"><i class="material-icons">play_arrow</i> Padrões</a>
 					</li>
 					<li>
-						<a href="#"><i class="material-icons">play_arrow</i> Processos</a>
+						<a href="/processos"><i class="material-icons">play_arrow</i> Processos</a>
 					</li>
 					<ul class="list-unstyled components">
 						<li>
@@ -75,7 +75,7 @@
 										<a class="dropdown-item" href="#">Agrupamentos</a>
 										<a class="dropdown-item" href="#">Padrões</a>
 										<a class="dropdown-item" href="#">Atividades</a>
-										<a class="dropdown-item" href="#">Processos</a>
+										<a class="dropdown-item" href="/processos">Processos</a>
 									</div>
 									<span class="input-group-btn">
 										<button class="btn btn-default text-white">
@@ -139,7 +139,7 @@
 								{% for proc in procs %}
 								<tr class="d-flex">
 									{% if proc.user == user %}
-										<td class="col-3"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
+										<td class="col-2"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
 										<td class="col-3"><b>Criado por: </b> {{proc.user.username}} </td>
 										<td class="col-3"><b>Descrição: </b>{{proc.description}}</span></td>
 										<td class="col-3 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>

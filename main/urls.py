@@ -27,5 +27,5 @@ urlpatterns = [
     path("gparea", views.gparea, name="gparea"),
     path("snippets", views.snippets, name="snippets"),
     path("processos", views.processos, name="processos"),
-    path("<single_slug>", views.single_slug, name="single_slug"),
+
 ]
