@@ -47,6 +47,11 @@ def gparea(request):
 				  template_name="main/gparea.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+def processos(request):
+	return render(request=request,
+				  template_name="main/processos.html",
+				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
+
 
 
 @login_required(login_url='/login')
