@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tutorial, TutorialCategory, TutorialSeries, Post, Process, Activity
+from .models import Tutorial, TutorialCategory, TutorialSeries, Post, Process, Activity, Role
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm, PostForm
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required
 
 
 def homepage(request):
@@ -48,8 +49,15 @@ def gparea(request):
 
 
 
-
-
+@login_required(login_url='/login')
+def home(request):
+	return render(request=request,
+				  template_name="main/homepage.html",
+				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
+				   			"roles": Role.objects.all()									
+				   
+				   }
+				   )
 	
 
 def post(request):

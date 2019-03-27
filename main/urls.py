@@ -19,10 +19,10 @@ from . import views
 app_name = "main"
 
 urlpatterns = [
-    path("", views.homepage, name="homepage"),
+    path("", views.home, name="homepage"),
     path("register", views.register, name="register"),
     path("logout", views.logout_request, name="logout"),
-    path("login", views.login2_request, name="login"),
+    path("login", views.login_request, name="login"),
     path("post", views.post, name="post"),
     path("gparea", views.gparea, name="gparea"),
     path("snippets", views.snippets, name="snippets"),

@@ -27,7 +27,7 @@
 					</li>
 				</ul>
 				
-					
+				{% if perms.main.test_GProc or  perms.main.test_Analist %}
 					<li>
 						<a href="#"><i class="material-icons">play_arrow</i> Padrões</a>
 					</li>
@@ -46,6 +46,7 @@
 						</li>
 					</ul>
 				</ul>
+				{% endif %}
 				<div class="CTAs">
                     <a href="#"><i class="material-icons">help_outline</i></a>
 				</div>
@@ -113,7 +114,7 @@
 									<a class="dropdown-item" href="#">Gerir conta</a>
 									<a class="dropdown-item" href="#">Definições</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="">Terminar sessão</a>
+									<a class="dropdown-item" href="/logout">Terminar sessão</a>
 								</div>
 							</li>
 						</ul>
@@ -137,10 +138,12 @@
 						<tbody>
 								{% for proc in procs %}
 								<tr class="d-flex">
+									{% if proc.user == user %}
 										<td class="col-3"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
 										<td class="col-3"><b>Criado por: </b> {{proc.user.username}} </td>
 										<td class="col-3"><b>Descrição: </b>{{proc.description}}</span></td>
 										<td class="col-3 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
+										{% endif %}
 									</tr>
 									{% endfor %}
 							<tr class="d-flex">
@@ -156,8 +159,9 @@
 							<tr class="d-flex">
 								<th class="col-9">MINHAS ATIVIDADES</th>
 								<th class="col-3 text-right">
-									<a class="ropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
+									<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
 									<div class="dropdown-menu">
+										
 										<a class="dropdown-item" href="#">Mais antigo</a>
 										<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
 										<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
