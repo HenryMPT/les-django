@@ -25,7 +25,7 @@ def register(request):
 		if form.is_valid(): 
 			user = form.save()
 			role = form.cleaned_data.get('username')
-			group = Group.objects.get(name=user.user_role)
+			group = Group.objects.get(name=user.user_profile)
 			user.groups.add(group)
 			username = form.cleaned_data.get('username')
 			messages.success(request, f"New Account Created: {username}")
