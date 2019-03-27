@@ -106,7 +106,13 @@ class TutorialSeries(models.Model):
         return self.tutorial_series
 
 
-
+class Product(models.Model):
+    product_name = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=1)
+    product_format = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.product_name
 
 
 class Tutorial(models.Model):
