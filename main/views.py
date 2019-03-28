@@ -51,7 +51,7 @@ def processos(request):
 
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login2')
 def home(request):
 	return render(request=request,
 				  template_name="main/homepage.html",
