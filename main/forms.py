@@ -8,7 +8,7 @@ from django.forms import ModelForm
 
 class NewUserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
-	c =(("Funcionario", "FUNCIONARIO"), ("Analista", "ANALISTA") , ("Gestor de Processos", "GESTOR DE PROCESSOS"))
+	c =(("Funcionario", "FUNCIONARIO"), ("Analista", "ANALISTA") , ("Gestor de Processos", "GESTOR DE PROCESSOS") , ("Admin", "ADMINISTRADOR"))
 	user_profile = forms.ChoiceField(choices=c , label="Perfil")
 	
 	class Meta:

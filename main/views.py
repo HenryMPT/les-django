@@ -53,6 +53,14 @@ def processos(request):
 
 @login_required(login_url='/login2')
 def home(request):
+	if( request.user.has_perm("test_Func") ):
+		print("func")
+	if( request.user.has_perm("test_GP") ):
+		print("analist")
+	if( request.user.has_perm("test_analist") ):
+		print("gp")	
+	if( request.user.has_perm("Admin") ):
+		print("gp")		
 	return render(request=request,
 				  template_name="main/homepage.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),

@@ -66,16 +66,11 @@ class User(models.Model):
 
     class Meta:
             permissions = ( 
-            ("can_eat_apples", "Permission to eat apples"), 
-            ("can_go_in_ac_bus", "To provide AC-Bus facility"), 
-            ("can_stay_ac-room", "To provide staying at AC room"), 
-            ("test_GProc", "Teste de permissao Gestor de Processos"), 
-            ("test_Analist", "Teste de permissao Analista"), 
-            ("test_Func", "Teste de permissao Funcionário"), 
-            ("can_go_mussoorie", "Trip to Mussoorie"), 
-            ("can_go_haridwaar", "Trip to Haridwaar"), 
-            ("can_go_rishikesh", "Trip to Rishikesh"),)
-
+            ("test_GProc", "Teste de permissao geral Gestor de Processos"), 
+            ("test_Analist", "Teste de permissao geral Analista"), 
+            ("test_Func", "Teste de permissao geral Funcionário"), 
+            ("test_Admin", "Teste de permissao geral Administrador"),)
+       
 
 
 
