@@ -16,6 +16,14 @@ class PostAdmin(admin.ModelAdmin):
 	}
 
 
+class UserAdmin(admin.ModelAdmin):
+	fieldsets = [
+		("Name/email", {"fields": ["username", "published"]}),
+		("Profile", {"fields":["profile"]})
+	]
+
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Organization)
 admin.site.register(Process)

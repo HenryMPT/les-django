@@ -20,6 +20,7 @@ app_name = "main"
 
 urlpatterns = [
     path("", views.home, name="homepage"),
+    path("adminarea", views.home, name="adminarea"),
     path("register", views.register, name="register"),
     path("logout", views.logout_request, name="logout"),
     path("login", views.login_request, name="login"),

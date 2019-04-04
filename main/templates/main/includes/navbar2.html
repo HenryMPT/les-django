@@ -16,7 +16,7 @@
       {% if  user|has_group:"Funcionario" %}
       <li><a href="">Registo de Praticas</a></li>
       {% endif %}
-      {% if perm.canSkrrt %}
+      {% if perms.canSkrrt %}
       <li><a href="">Bora Bora</a></li>
       {% endif %}
           <li><a href="/account/?{{user.id}}">{{user.username}}</a></li>

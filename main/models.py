@@ -60,7 +60,7 @@ class Organization(models.Model):
 class User(models.Model):
     user = models.OneToOneField(User, on_delete="cascade")
     Organization = models.ForeignKey(Organization, default="None", on_delete=models.SET_DEFAULT)
-    user_profile = models.CharField(max_length = 100, default="Funcionario")
+    profile = models.CharField(max_length =100, default="Funcionario")
 
 
 

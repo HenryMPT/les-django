@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Post, Process, Activity, Role
+from .models import Post, Process, Activity, Role, Organization
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -22,13 +22,12 @@ def register(request):
 		form = NewUserForm(request.POST)
 		if form.is_valid(): 
 			user = form.save()
-			role = form.cleaned_data.get('username')
-			group = Group.objects.get(name=user.user_profile)
-			user.groups.add(group)
+			profile= Group.objects.get(name=form.cleaned_data.get('profile'))
+			user.groups.add(profile)
 			username = form.cleaned_data.get('username')
 			messages.success(request, f"New Account Created: {username}")
-			login(request, user)
-			messages.info(request, f"You are now logged in as {username}")
+	#		login(request, user)
+	#		messages.info(request, f"You are now logged in as {username}")
 			return redirect("main:homepage")
 		else:
 			for msg in form.error_messages:
@@ -53,18 +52,11 @@ def processos(request):
 
 @login_required(login_url='/login2')
 def home(request):
-	if( request.user.has_perm("test_Func") ):
-		print("func")
-	if( request.user.has_perm("test_GP") ):
-		print("analist")
-	if( request.user.has_perm("test_analist") ):
-		print("gp")	
-	if( request.user.has_perm("Admin") ):
-		print("gp")		
 	return render(request=request,
 				  template_name="main/homepage.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
-				   			"roles": Role.objects.all()									
+				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
+							 "orgs" : Organization.objects.all(),								
 
 				   }
 				   )

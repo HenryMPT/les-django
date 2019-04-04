@@ -9,16 +9,16 @@ from django.forms import ModelForm
 class NewUserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	c =(("Funcionario", "FUNCIONARIO"), ("Analista", "ANALISTA") , ("Gestor de Processos", "GESTOR DE PROCESSOS") , ("Admin", "ADMINISTRADOR"))
-	user_profile = forms.ChoiceField(choices=c , label="Perfil")
+	profile = forms.ChoiceField(choices=c , label="Perfil")
 	
 	class Meta:
 		model = User
-		fields = ("username", "email","user_profile", "password1", "password2")
+		fields = ("username", "email","profile", "password1", "password2")
 
 	def save(self, commit=True):
 		user = super(NewUserForm, self).save(commit=False)
 		user.email = self.cleaned_data['email']
-		user.user_profile = self.cleaned_data['user_profile']
+		profile = self.cleaned_data['profile']
 		if commit:
 			user.save()
 		return user
