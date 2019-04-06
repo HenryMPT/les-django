@@ -21,6 +21,8 @@ app_name = "main"
 urlpatterns = [
     path("", views.home, name="homepage"),
     path("adminarea", views.home, name="adminarea"),
+    path("utilizadores", views.utilizadores, name="utilizadores"),
+    path("UserDelete/<int:pk>", views.UserDelete.as_view(success_url=('/utilizadores')),  name="UserDelete"),
     path("register", views.register, name="register"),
     path("logout", views.logout_request, name="logout"),
     path("login", views.login_request, name="login"),

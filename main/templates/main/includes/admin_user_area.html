@@ -1,0 +1,42 @@
+
+				<div class="container">
+					<table class="table table-hover header-fixed">
+						<thead>
+							<tr class="d-flex">
+								<th class="col-9">Utilizadores</th>
+								<th class="col-3 text-right">
+									<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="#">Mais antigo</a>
+										<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
+										<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+								{% for utilizador in users %}
+								<tr class="d-flex">
+										<td class="col-3"><span><b>Nome: </b><a href="#">{{utilizador.username}} </a></span></td>
+										<td class="col-3"><b>Perfil: </b>{% for group in utilizador.groups.all %}
+										<p>{{group.name}}</p>	
+										{% endfor %} </td>
+										<td class="col-3"><b>Email: </b>{{utilizador.email}}</span></td>
+										<td class="col-1"><b>Editar</span></td>
+										<td class="col-1"><b><a href="/UserDelete/{{utilizador.id}} ">Eliminar</a></span></td>
+									
+									</tr>
+									{% endfor %}
+							<tr class="d-flex">
+								<td class="col-9"><b><a href="/register" class="novo"><i class="material-icons">add</i>Registar utilizador</a></b></td>
+								<td class="col-3 text-right"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="brk">
+					</div>
+					
+				</div>
+            </div>
+		</div>
+		

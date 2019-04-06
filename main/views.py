@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect 
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Post, Process, Activity, Role, Organization
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,7 +8,7 @@ from django.contrib import messages
 from .forms import NewUserForm, PostForm
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic.edit import DeleteView
 
 
 
@@ -37,6 +38,15 @@ def register(request):
 				  "main/register.html",
 				  {"form":form})
 
+class UserDelete(DeleteView):
+	model = User
+	sucess_url = "/utilizadores"
+	template_name = "main/forms/user_confirm_delete.html"
+
+
+def deleteUser(request, id):
+    user_to_delete = get_object_or_404(User, pk=id).delete()
+    return redirect(utilizadores)
 
 def gparea(request):
 	return render(request=request,
@@ -48,6 +58,10 @@ def processos(request):
 				  template_name="main/processos.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+def utilizadores(request):
+	return render(request=request,
+					template_name="main/utilizadores.html",
+					context={"users" : User.objects.all(),})
 
 
 @login_required(login_url='/login2')

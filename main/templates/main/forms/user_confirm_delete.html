@@ -1,0 +1,10 @@
+{% extends "main/header2.html" %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete user "{{ utilizador}}"?</p>
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock %}
