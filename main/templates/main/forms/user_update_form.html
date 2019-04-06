@@ -5,8 +5,8 @@
 {% include "main/includes/sidenav_admin.html" %}
 <div class="container">
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete user<b>"{{ object.username}}</b>"?</p>
-    <input type="submit" value="Confirm"> <a href="/utilizadores">Cancelar</a>
+        {{ form.as_p }}
+    <input type="submit" value="Confirmar"> <a href="/utilizadores">Cancelar</a>
 </form>
 </div>
 {% endblock %}

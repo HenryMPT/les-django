@@ -8,7 +8,7 @@ from django.contrib import messages
 from .forms import NewUserForm, PostForm
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 
 
 
@@ -42,6 +42,13 @@ class UserDelete(DeleteView):
 	model = User
 	sucess_url = "/utilizadores"
 	template_name = "main/forms/user_confirm_delete.html"
+
+
+class UserUpdate(UpdateView):
+	model = User
+	fields = ['username']
+	sucess_url = "/utilizadores"
+	template_name = "main/forms/user_update_form.html"
 
 
 def deleteUser(request, id):
