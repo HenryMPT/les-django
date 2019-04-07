@@ -46,14 +46,11 @@ class UserDelete(DeleteView):
 
 class UserUpdate(UpdateView):
 	model = User
-	fields = ['username']
+	fields = ['username', 'email']
 	sucess_url = "/utilizadores"
 	template_name = "main/forms/user_update_form.html"
 
 
-def deleteUser(request, id):
-    user_to_delete = get_object_or_404(User, pk=id).delete()
-    return redirect(utilizadores)
 
 def gparea(request):
 	return render(request=request,
@@ -68,7 +65,9 @@ def processos(request):
 def utilizadores(request):
 	return render(request=request,
 					template_name="main/utilizadores.html",
-					context={"users" : User.objects.all(),})
+					context={"users" : User.objects.all(),
+					"groups" : Group.objects.all(),
+					 "orgs" : Organization.objects.all(), })
 
 
 @login_required(login_url='/login2')

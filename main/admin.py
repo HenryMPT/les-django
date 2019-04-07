@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import  Post, Organization, Process, Activity, Role, Product
+from .models import  User, Post, Organization, Process, Activity, Role, Product
 from tinymce.widgets import TinyMCE
 from django.db import models
+from .forms import NewUserForm
 
 # Register your models here.
 
@@ -17,13 +18,12 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class UserAdmin(admin.ModelAdmin):
-	fieldsets = [
-		("Name/email", {"fields": ["username", "published"]}),
-		("Profile", {"fields":["profile"]})
-	]
+		form = NewUserForm
 
 
 
+
+admin.site.register(User, UserAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Organization)
 admin.site.register(Process)

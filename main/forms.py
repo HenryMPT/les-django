@@ -3,22 +3,24 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from tinymce.widgets import TinyMCE
 from django.db import models
-from .models import Post
+from .models import   Post, Organization
 from django.forms import ModelForm
 
 class NewUserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	c =(("Funcionario", "FUNCIONARIO"), ("Analista", "ANALISTA") , ("Gestor de Processos", "GESTOR DE PROCESSOS") , ("Admin", "ADMINISTRADOR"))
 	profile = forms.ChoiceField(choices=c , label="Perfil")
-	
+	Organization = forms.ModelChoiceField(queryset=Organization.objects.all())
 	class Meta:
 		model = User
-		fields = ("username", "email","profile", "password1", "password2")
+		
+		fields = ("username" ,"email","profile","Organization", "password1", "password2",)
 
 	def save(self, commit=True):
 		user = super(NewUserForm, self).save(commit=False)
 		user.email = self.cleaned_data['email']
-		profile = self.cleaned_data['profile']
+		user.profile = self.cleaned_data['profile']
+		Organization = self.cleaned_data['Organization']
 		if commit:
 			user.save()
 		return user
