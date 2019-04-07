@@ -1,21 +1,27 @@
 from django.contrib import admin
-from .models import  User, Post, Organization, Process, Activity, Role, Product
+from django.contrib.auth.admin import UserAdmin
+from .models import  User, Organization, Process, Activity, Role, Product
 from tinymce.widgets import TinyMCE
 from django.db import models
 from .forms import NewUserForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Register your models here.
 
 
-class PostAdmin(admin.ModelAdmin):
-	fieldsets = [
-		("Title/date", {"fields": ["username", "published"]}),
-		("Body", {"fields":["body"]})
-	]
-	formfield_overrides = {
-		models.TextField: {'widget': TinyMCE()}
-	}
 
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('organization',)
+
+
+class MyUserAdmin(UserAdmin):
+        add_form = CustomUserCreationForm
+        fieldsets = UserAdmin.fieldsets + (
+                (None, {'fields': ('organization',)}),
+)
 
 class UserAdmin(admin.ModelAdmin):
 		form = NewUserForm
@@ -23,8 +29,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(User, UserAdmin)
-admin.site.register(Post, PostAdmin)
+admin.site.register(User, MyUserAdmin)
 admin.site.register(Organization)
 admin.site.register(Process)
 admin.site.register(Activity)

@@ -2,7 +2,7 @@ import django
 from django.db import models
 from django.conf import settings
 from datetime import datetime
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import AbstractUser, Group
 
 # Create your models here.
 
@@ -10,15 +10,48 @@ from django.contrib.auth.models import User, Group
 
 
 
+class Organization(models.Model):
+    name = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+    class Meta:
+            permissions =( ("can_do", "Permission to do stuff"),)
+             
 
-class Post(models.Model):
-		title = models.CharField(max_length=200)
-		body = models.TextField()
-		username = models.ForeignKey(User,  on_delete="cascade")
-		published = models.DateTimeField("date published", default=django.utils.timezone.now())
+    
+class User(AbstractUser):
+    id = models.AutoField(db_column='ID',primary_key=True)
+    username = models.CharField(db_column='UserName',
+                                max_length=255,
+                                unique=True,
+                                blank=True,
+                                null=True)
+    useremail = models.CharField(db_column='UserEmail',
+                                 max_length=255,
+                                 blank=True,
+                                 null=True)
+    password = models.CharField(db_column='Password',
+                                max_length=255,
+                                blank=True,null=True)
 
-		def __str__(self):
-			return self.title
+
+    organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL)
+
+
+
+
+    class Meta:
+        managed = True
+        db_table = 'User'
+        permissions = ( 
+            ("test_GProc", "Teste de permissao geral Gestor de Processos"), 
+            ("test_Analist", "Teste de permissao geral Analista"), 
+            ("test_Func", "Teste de permissao geral Funcionário"), 
+            ("test_Admin", "Teste de permissao geral Administrador"),)
+       
+
+
 
 
 class Process(models.Model):
@@ -45,33 +78,6 @@ class Role(models.Model):
 
         def __str__(self):
             return self.role_name
-
-class Organization(models.Model):
-    name = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
-    def __str__(self):
-        return self.name
-    class Meta:
-            permissions =( ("can_do", "Permission to do stuff"),)
-             
-
-    
-
-class User(models.Model):
-    user = models.OneToOneField(User, on_delete="cascade")
-    Organization = models.ForeignKey(Organization, default="None", on_delete=models.SET_DEFAULT)
-    profile = models.CharField(max_length =100, default="Funcionario")
-
-
-
-    class Meta:
-            permissions = ( 
-            ("test_GProc", "Teste de permissao geral Gestor de Processos"), 
-            ("test_Analist", "Teste de permissao geral Analista"), 
-            ("test_Func", "Teste de permissao geral Funcionário"), 
-            ("test_Admin", "Teste de permissao geral Administrador"),)
-       
-
 
 
 

@@ -4,6 +4,7 @@
 
 {% include "main/includes/sidenav_admin.html" %}
 <div class="container">
+    
 <form method="post">{% csrf_token %}
         {{ form.as_p }}
         <p>Grupos:</p>
@@ -11,8 +12,8 @@
         <p><b> {{group.name}} </b></p>
         {% endfor %}
         <p>Orgs</p>
-        {% for group in object.orgs.all %}
-        <p> <b> {{group.name}} </b></p>
+        {% for org in object.orgs.all %}
+        <p> <b> {{org.name}} </b></p>
         {% endfor %}
     <input type="submit" value="Confirmar"> <a href="/utilizadores">Cancelar</a>
 
