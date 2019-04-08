@@ -5,12 +5,8 @@
 	
 				{% if perms.main.test_Admin %}
 				{% include "main/includes/sidenav_admin.html" %}
-				{% endif %}
-				
-			
-				{% if perms.main.test_Admin %}
-				{% include "main/includes/admin_user_area.html" %}
+				{% include "main/includes/admin_org_area.html" %}
 				{% endif %}
 			
-		
+	
 {% endblock %}

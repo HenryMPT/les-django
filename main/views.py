@@ -8,7 +8,7 @@ from django.contrib import messages
 from .forms import NewUserForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
 
 def register(request):
@@ -50,17 +50,43 @@ def gparea(request):
 				  template_name="main/gparea.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+@login_required(login_url='/login2')
 def processos(request):
 	return render(request=request,
 				  template_name="main/processos.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+@login_required(login_url='/login2')
 def utilizadores(request):
 	return render(request=request,
 					template_name="main/utilizadores.html",
 					context={"users" : User.objects.all(),
 					"groups" : Group.objects.all(),
 					 "orgs" : Organization.objects.all(), })
+
+@login_required(login_url='/login2')
+def empresas(request):
+	return render(request=request,
+					template_name="main/empresas.html",
+					context={"users" : User.objects.all(),
+					"groups" : Group.objects.all(),
+					 "orgs" : Organization.objects.all(), })
+
+class OrganizationCreate(CreateView):
+	model = Organization
+	fields = ['name', 'location']
+	template_name = "main/forms/organization_form.html"
+
+
+class OrganizationDelete(DeleteView):
+	model = Organization
+	sucess_url = "&empresas"
+	template_name = "main/forms/organization_confirm_delete.html"
+
+class OrganizationUpdate(UpdateView):
+	model = Organization
+	fields = ['name', 'location']
+	template_name = "main/forms/organization_form.html"
 
 
 @login_required(login_url='/login2')

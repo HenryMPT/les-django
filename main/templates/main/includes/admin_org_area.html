@@ -3,7 +3,7 @@
 					<table class="table table-hover header-fixed">
 						<thead>
 							<tr class="d-flex">
-								<th class="col-9">Utilizadores</th>
+								<th class="col-9">Empresas</th>
 								<th class="col-3 text-right">
 									<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
 									<div class="dropdown-menu">
@@ -15,15 +15,12 @@
 							</tr>
 						</thead>
 						<tbody>
-								{% for utilizador in users %}
+								{% for org in orgs %}
 								<tr class="d-flex">
-										<td class="col-3"><span><b>Nome: </b><a href="#">{{utilizador.username}} </a></span></td>
-										<td class="col-3"><b>Perfil: </b>{% for group in utilizador.groups.all %}
-										<p>{{group.name}}</p>	
-										{% endfor %} </td>
-										<td class="col-3"><b>Email: </b>{{utilizador.email}}</span></td>
-										<td class="col-1"><b><a href="utilizadores/UserUpdate/{{utilizador.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="utilizadores/UserDelete/{{utilizador.id}} ">Eliminar</a></span></td>
+										<td class="col-3"><span><b>Nome: </b><a href="#">{{org.name}} </a></span></td>
+										<td class="col-3"><span><b>Localização: </b><a href="#">{{org.location}} </a></span></td>	
+										<td class="col-1"><b><a href="empresas/OrganizationUpdate/{{org.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="empresas/OrganizationDelete/{{org.id}} ">Eliminar</a></span></td>
 									
 									</tr>
 									{% endfor %}
@@ -33,7 +30,7 @@
 						</tbody>
 						<tfoot>
 							<tr class="d-flex">
-								<td class="col-9"><b><a href="/register" class="novo"><i class="material-icons">add</i>Registar utilizador</a></b></td>
+								<td class="col-9"><b><a href="/empresas/OrganizationCreate" class="novo"><i class="material-icons">add</i>Registar Empresa</a></b></td>
 								<td class="col-3 text-right"></td>
 						</tfoot>
 					</table>
