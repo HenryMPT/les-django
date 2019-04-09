@@ -55,20 +55,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="d-flex">
-				<td class="col-9"><b><a href="criaratividade.html" class="novo"><i class="material-icons">add</i> Nova atividade</a></b></td>
-				<td class="col-3 text-right"></td>
-			</tr>
+		
 			{% for act in acts %}
-			{% if act.user == user %}
+			
 			<tr class="d-flex">
 					<td class="col-3"><b>Actividade: </b> <a href="#">{{act.activity_name}}</a></td>
 					<td class="col-3"><b>Descrição: </b> {{act.description}}</td>
 					<td class="col-3"><b>Processo: </b><a href="#">{{act.process.process_name}}</a></td>
+					<td class="col-1"><b><a href="actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
+					<td class="col-1"><b><a href="actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
 				</tr>
-				{% endif %}
+			
 				{% endfor %}
 		</tbody>
+		<tfoot>
+			<tr class="d-flex">
+				<td class="col-9"><b><a href="/actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova atividade</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+
+
+		</tfoot>
 	</table>
 	<table class="table table-hover header-fixed">
 		<thead>

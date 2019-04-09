@@ -57,6 +57,28 @@ def processos(request):
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
 
+@login_required(login_url='/login2')
+def actividades(request):
+	return render(request=request,
+				  template_name="main/actividades.html",
+				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
+
+class ActivityCreate(CreateView):
+	model = Activity
+	fields = ['activity_name', 'description', 'process'] 
+	template_name = "main/forms/activity_form.html"
+
+class ActivityUpdate(UpdateView):
+	model = Activity
+	fields = ['activity_name', 'description', 'process'] 
+	template_name = "main/forms/activity_update_form.html"
+
+class ActivityDelete(DeleteView):
+	model = Activity
+	template_name ="main/forms/activity_confirm_delete.html"
+
+
+
 class ProcessCreate(CreateView):
 	model = Process
 	fields = ['process_name', 'description', 'user' ]

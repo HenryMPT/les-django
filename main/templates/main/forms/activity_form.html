@@ -1,0 +1,16 @@
+{% extends "main/header2.html" %}
+{% load auth_extras %}
+{% block content %}
+
+{% include "main/includes/sidenav_admin.html" %}
+<div class="container">
+    
+<form method="post">{% csrf_token %}
+        {{ form.as_p }}
+    
+    <input type="submit" value="Confirmar"> <a href="/actividades">Cancelar</a>
+
+</form>
+
+</div>
+{% endblock %}

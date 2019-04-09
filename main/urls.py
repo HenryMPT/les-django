@@ -37,5 +37,8 @@ urlpatterns = [
     path("processos/ProcessCreate", views.ProcessCreate.as_view(success_url=('/processos')), name="ProcessCreate"),
     path("processos/ProcessUpdate/<int:pk>", views.ProcessUpdate.as_view(success_url=('/processos')), name="ProcessUpdate"),
     path("processos/ProcessDelete/<int:pk>", views.ProcessDelete.as_view(success_url=('/processos')), name="ProcessDelete"),
-
+    path("actividades", views.actividades, name="actividades"),
+    path("actividades/ActivityCreate", views.ActivityCreate.as_view(success_url=('/actividades')), name="ActivityCreate"),
+    path("actividades/ActivityUpdate/<int:pk>", views.ActivityUpdate.as_view(success_url=('/processos')), name="ProcessUpdate"),
+    path("actividades/ActivityDelete/<int:pk>", views.ActivityDelete.as_view(success_url=('/processos')), name="ProcessDelete"),
 ]
