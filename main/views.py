@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect 
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import User, Process, Activity, Role, Organization
+from .models import User, Process, Activity, Role, Organization, Product
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -56,6 +56,22 @@ def processos(request):
 				  template_name="main/processos.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+
+class ProcessCreate(CreateView):
+	model = Process
+	fields = ['process_name', 'description', 'user' ]
+	template_name = "main/forms/process_form.html"
+
+class ProcessUpdate(UpdateView):
+	model = Process
+	fields = ['process_name', 'description', 'user' ]
+	template_name = "main/forms/process_update_form.html"
+
+class ProcessDelete(DeleteView):
+	model = Process
+	sucess_url = "/processos"
+	template_name = "main/forms/process_confirm_delete.html"
+
 @login_required(login_url='/login2')
 def utilizadores(request):
 	return render(request=request,
@@ -95,7 +111,7 @@ def home(request):
 				  template_name="main/homepage.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
 				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
-							 "orgs" : Organization.objects.all(),								
+							 "orgs" : Organization.objects.all(), "prods" : Product.objects.all(),							
 
 				   }
 				   )

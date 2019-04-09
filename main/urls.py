@@ -34,5 +34,8 @@ urlpatterns = [
     path("login2", views.login2_request, name="login2"),
     path("gparea", views.gparea, name="gparea"),
     path("processos", views.processos, name="processos"),
+    path("processos/ProcessCreate", views.ProcessCreate.as_view(success_url=('/processos')), name="ProcessCreate"),
+    path("processos/ProcessUpdate/<int:pk>", views.ProcessUpdate.as_view(success_url=('/processos')), name="ProcessUpdate"),
+    path("processos/ProcessDelete/<int:pk>", views.ProcessDelete.as_view(success_url=('/processos')), name="ProcessDelete"),
 
 ]

@@ -16,19 +16,25 @@
 		<tbody>
 				{% for proc in procs %}
 				<tr class="d-flex">
-					{% if proc.user == user %}
+				
 						<td class="col-2"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
 						<td class="col-3"><b>Criado por: </b> {{proc.user.username}} </td>
 						<td class="col-3"><b>Descrição: </b>{{proc.description}}</span></td>
 						<td class="col-3 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
-						{% endif %}
+						<td class="col-1"><b><a href="processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
+						<td class="col-1"><b><a href="processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
+			
 					</tr>
 					{% endfor %}
-			<tr class="d-flex">
-				<td class="col-9"><b><a href="#" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
-				<td class="col-3 text-right"></td>
-			</tr>
+		
 		</tbody>
+		<tfoot>
+				<tr class="d-flex">
+						<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
+						<td class="col-3 text-right"></td>
+					</tr>
+
+		</tfoot>
 	</table>
 	<div class="brk">
 	</div>
@@ -43,6 +49,7 @@
 						<a class="dropdown-item" href="#">Mais antigo</a>
 						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
 						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
+						
 					</div>
 				</th>
 			</tr>
@@ -62,6 +69,74 @@
 				{% endif %}
 				{% endfor %}
 		</tbody>
+	</table>
+	<table class="table table-hover header-fixed">
+		<thead>
+			<tr class="d-flex">
+				<th class="col-9">MEUS PAPÉIS</th>
+				<th class="col-3 text-right">
+					<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
+					<div class="dropdown-menu">
+						
+						<a class="dropdown-item" href="#">Mais antigo</a>
+						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
+						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for role in roles %}
+			{% if role.user == user %}
+			<tr class="d-flex">
+					<td class="col-3"><b>Actividade: </b> <a href="#">{{role.activity_name}}</a></td>
+					<td class="col-3"><b>Descrição: </b> {{role.description}}</td>
+					<td class="col-3"><b>Processo: </b><a href="#">{{role.process.process_name}}</a></td>
+				</tr>
+				{% endif %}
+				{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr class="d-flex">
+				<td class="col-9"><b><a href="criaratividade.html" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+		</tfoot>
+	</table>
+	<table class="table table-hover header-fixed">
+		<thead>
+			<tr class="d-flex">
+				<th class="col-9">MEUS PRODUTOS</th>
+				<th class="col-3 text-right">
+					<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
+					<div class="dropdown-menu">
+						
+						<a class="dropdown-item" href="#">Mais antigo</a>
+						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
+						<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			{% for prod in prods %}
+			{% if prod.user == user %}
+			<tr class="d-flex">
+					<td class="col-3"><b>Actividade: </b> <a href="#">{{prod.activity_name}}</a></td>
+					<td class="col-3"><b>Descrição: </b> {{prod.description}}</td>
+					<td class="col-3"><b>Processo: </b><a href="#">{{prod.process.process_name}}</a></td>
+				</tr>
+				{% endif %}
+				{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr class="d-flex">
+				<td class="col-9"><b><a href="criaratividade.html" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+
+		</tfoot>
 	</table>
 </div>
 </div>
