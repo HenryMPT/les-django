@@ -94,18 +94,19 @@
 		</thead>
 		<tbody>
 			{% for role in roles %}
-			{% if role.user == user %}
+			{% if role.activity.process.user == user %}
 			<tr class="d-flex">
-					<td class="col-3"><b>Actividade: </b> <a href="#">{{role.activity_name}}</a></td>
+					<td class="col-3"><b>Papel: </b> <a href="#">{{role.role_name}}</a></td>
 					<td class="col-3"><b>Descrição: </b> {{role.description}}</td>
-					<td class="col-3"><b>Processo: </b><a href="#">{{role.process.process_name}}</a></td>
+					<td class="col-3"><b>Actividade: </b> {{role.activity}}</td>
+					<td class="col-3"><b>Processo: </b> {{role.activity.process}}</td>
 				</tr>
 				{% endif %}
 				{% endfor %}
 		</tbody>
 		<tfoot>
 			<tr class="d-flex">
-				<td class="col-9"><b><a href="criaratividade.html" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
+				<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
 		</tfoot>

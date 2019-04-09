@@ -37,6 +37,12 @@ class UserDelete(DeleteView):
 	template_name = "main/forms/user_confirm_delete.html"
 
 
+class UserCreate(CreateView):
+	model = User
+	form_class = NewUserForm
+	sucess_url = "/utilizadores"
+	template_name = "main/forms/user_form.html"
+
 class UserUpdate(UpdateView):
 	model = User
 	fields = ['username', 'email', 'organization', 'groups']
