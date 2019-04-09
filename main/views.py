@@ -110,6 +110,16 @@ def empresas(request):
 					"groups" : Group.objects.all(),
 					 "orgs" : Organization.objects.all(), })
 
+@login_required(login_url='/login2')
+def produtos(request):
+	return render(request=request,
+					template_name="main/produtos.html",
+					context={"users" : User.objects.all(),
+					"groups" : Group.objects.all(),
+					 "prods" : Product.objects.all() })
+
+
+
 class OrganizationCreate(CreateView):
 	model = Organization
 	fields = ['name', 'location']
@@ -127,6 +137,37 @@ class OrganizationUpdate(UpdateView):
 	template_name = "main/forms/organization_form.html"
 
 
+class ProductCreate(CreateView):
+	model = Product
+	fields = ['product_name', 'product_format']
+	template_name = "main/forms/product_form.html"
+
+class ProductUpdate(UpdateView):
+	model = Product
+	fields = ['product_name', 'product_format']
+	template_name = "main/forms/product_update_form.html"
+
+class ProductDelete(DeleteView):
+	model = Product
+	sucess_url = "/produtos"
+	template_name = "main/forms/product_confirm_delete.html"
+
+class RoleCreate(CreateView):
+	model = Role
+	fields = ['role_name' , 'description', 'activity']
+	template_name = "main/forms/role_form.html"
+
+class RoleUpdate(UpdateView):
+	model = Role
+	fields = ['role_name' , 'description', 'activity']
+	template_name = "main/forms/role_update_form.html"
+
+class RoleDelete(DeleteView):
+	model = Role
+	sucess_url = "/papeis"
+	template_name = "main/forms/role_confirm_delete.html"
+
+
 @login_required(login_url='/login2')
 def home(request):
 	return render(request=request,
@@ -135,6 +176,16 @@ def home(request):
 				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
 							 "orgs" : Organization.objects.all(), "prods" : Product.objects.all(),							
 
+				   }
+				   )
+
+@login_required(login_url='/login2')
+def papeis(request):
+	return render(request=request,
+				  template_name="main/papeis.html",
+				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
+				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
+							  "prods" : Product.objects.all(),							
 				   }
 				   )
 	

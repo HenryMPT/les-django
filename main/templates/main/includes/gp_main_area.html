@@ -133,13 +133,15 @@
 					<td class="col-3"><b>Actividade: </b> <a href="#">{{prod.activity_name}}</a></td>
 					<td class="col-3"><b>Descrição: </b> {{prod.description}}</td>
 					<td class="col-3"><b>Processo: </b><a href="#">{{prod.process.process_name}}</a></td>
+					<td class="col-1"><b><a href="produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
+					<td class="col-1"><b><a href="produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
 				</tr>
 				{% endif %}
 				{% endfor %}
 		</tbody>
 		<tfoot>
 			<tr class="d-flex">
-				<td class="col-9"><b><a href="criaratividade.html" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
+				<td class="col-9"><b><a href="/produtos/ProductCreate" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
 
