@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig',
+    'processes.apps.ProcessConfig',
     'tinymce',
 ]
 
@@ -156,4 +156,4 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'login2'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-AUTH_USER_MODEL = 'main.User'
+AUTH_USER_MODEL = 'processes.User'
