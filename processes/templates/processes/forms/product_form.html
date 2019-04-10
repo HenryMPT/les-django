@@ -1,0 +1,16 @@
+{% extends "processes/header2.html" %}
+{% load auth_extras %}
+{% block content %}
+
+{% include "processes/includes/sidenav_gpanalist.html" %}
+<div class="container">
+    
+<form method="post">{% csrf_token %}
+        {{ form.as_p }}
+    
+    <input type="submit" value="Confirmar"> <a href="/produtos">Cancelar</a>
+
+</form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "processes/header2.html" %}
+
+{% block content %}
+	
+	
+				{% if perms.processes.test_Admin %}
+				{% include "processes/includes/sidenav_admin.html" %}
+				{% include "processes/includes/admin_org_area.html" %}
+				{% endif %}
+			
+	
+{% endblock %}
