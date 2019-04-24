@@ -3,12 +3,12 @@
 {% block content %}
 	
 	
-				{% if perms.processes.test_Admin %}
+				{% if perms.Users.test_Admin %}
 				{% include "processes/includes/sidenav_admin.html" %}
 				{% endif %}
 				
 			
-				{% if perms.processes.test_Admin %}
+				{% if perms.Users.test_Admin %}
 				{% include "processes/includes/admin_user_area.html" %}
 				{% endif %}
 			
