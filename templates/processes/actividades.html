@@ -1,12 +1,13 @@
 {% extends "processes/header2.html" %}
+<p>boo</p>
 				{% block content %}
-				{% if perms.processes.test_GProc or  perms.processes.test_Analist %}
+				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				{% include "processes/includes/sidenav_gpanalist.html" %}
 				<div class="container">
 					<table class="table table-hover header-fixed">
 						<thead>
 							<tr class="d-flex">
-								<th class="col-9">PROCESSOS</th>
+								<th class="col-9">ACTIVIDADES</th>
 								<th class="col-3 text-right">
 									<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
 									<div class="dropdown-menu">
@@ -18,30 +19,28 @@
 							</tr>
 						</thead>
 						<tbody>
-								{% for proc in procs %}
+								{% for act in acts %}
 								<tr class="d-flex">
 								
-										<td class="col-2"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
-										<td class="col-2"><b>Criado por: </b> {{proc.user.username}} </td>
-										<td class="col-2"><b>Descrição: </b>{{proc.description}}</span></td>
-										<td class="col-2 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
-										<td class="col-1"><b><a href="processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
+										<td class="col-3"><b>Atividade: </b><a href="#">{{act.activity_name}} </a></td>
+										<td class="col-3"><b>Descrição: </b>{{act.description}}</td>
+										<td class="col-1"><b><a href="actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
+						
 									</tr>
 									{% endfor %}
-						
-						</tbody>
-						<tfoot>
 							<tr class="d-flex">
-								<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
+								<td class="col-9"><b><a href="actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova Atividade</a></b></td>
 								<td class="col-3 text-right"></td>
 							</tr>
-
-						</tfoot>
+						</tbody>
 					</table>
 				
             </div>
 		</div>
-		{% endif %}
+	</div>
+				{% endif %}
+			
 
-		{% endblock %}
+				
+	{% endblock %}

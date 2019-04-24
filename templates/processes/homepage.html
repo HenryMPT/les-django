@@ -3,17 +3,17 @@
 {% block content %}
 
 				
-				{% if perms.processes.test_GProc or  perms.processes.test_Analist %}
+				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				{% include "processes/includes/sidenav_gpanalist.html" %}
-				{% elif perms.processes.test_Admin %}
+				{% elif perms.Users.test_Admin %}
 				{% include "processes/includes/sidenav_admin.html" %}
 				{% endif %}
 				
 				
 		
-				{% if perms.processes.test_GProc or  perms.processes.test_Analist %}
+				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				{% include "processes/includes/gp_main_area.html" %}
-				{% elif perms.processes.test_Admin %}
+				{% elif perms.Users.test_Admin %}
 				{% include "processes/includes/admin_main_area.html" %}
 				{% endif %}
 			

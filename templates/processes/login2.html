@@ -2,7 +2,7 @@
 
 {% block content %}
 	<body class="text-center"><br>
-		<form class="form-signin" method="POST" action="{% url 'processes:login2' %}">
+		<form class="form-signin" method="POST" action="{% url 'Users:login2' %}">
 			{% csrf_token %}
 
 			<h2>LOGIN</h2><br>

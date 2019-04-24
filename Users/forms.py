@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from tinymce.widgets import TinyMCE
 from django.db import models
-from Users.models import   User, Organization
+from .models import   User, Organization
 from django.forms import ModelForm
 
 class NewUserForm(UserCreationForm):

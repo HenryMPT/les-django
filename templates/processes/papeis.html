@@ -1,12 +1,12 @@
 {% extends "processes/header2.html" %}
 				{% block content %}
-				{% if perms.processes.test_GProc or  perms.processes.test_Analist %}
+				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				{% include "processes/includes/sidenav_gpanalist.html" %}
 				<div class="container">
 					<table class="table table-hover header-fixed">
 						<thead>
 							<tr class="d-flex">
-								<th class="col-9">PRODUTOS</th>
+								<th class="col-9">PAPÉIS</th>
 								<th class="col-3 text-right">
 									<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
 									<div class="dropdown-menu">
@@ -18,21 +18,23 @@
 							</tr>
 						</thead>
 						<tbody>
-								{% for prod in prods %}
+								{% for role in roles %}
 								<tr class="d-flex">
 								
-										<td class="col-3"><span><b>Produto: </b><a href="#">{{prod.product_name}} </a></span></td>
-										<td class="col-3"><b>Formato: </b>{{prod.product_format}}</span></td>
-										<td class="col-1"><b><a href="produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
+										<td class="col-2"><span><b>Papel: </b><a href="#">{{role.role_name}} </a></span></td>
+										<td class="col-2"><b>Descrição: </b>{{role.description}}</span></td>
+										<td class="col-2"><b>Actividade: </b>{{role.activity}}</span></td>
+										<td class="col-2"><b>Processo: </b> {{role.activity.process}}</td>
+										<td class="col-1"><b><a href="papeis/RoleUpdate/{{role.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="papeis/RoleDelete/{{role.id}} ">Eliminar</a></span></td>
 						
 									</tr>
 									{% endfor %}
-						
+							
 						</tbody>
 						<tfoot>
 							<tr class="d-flex">
-								<td class="col-9"><b><a href="/produtos/ProductCreate" class="novo"><i class="material-icons">add</i> Novo Produto</a></b></td>
+								<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i>Registar Papel</a></b></td>
 								<td class="col-3 text-right"></td>
 							</tr>
 						</tfoot>
