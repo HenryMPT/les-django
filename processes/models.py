@@ -24,15 +24,15 @@ class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
     process = models.ForeignKey(Process, null=True, blank=True, on_delete=models.SET_NULL)
     description = models.TextField(max_length=200)
+    role = models.ManyToManyField('Role', blank=True)
 
     def __str__(self):
         return self.activity_name
 
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
-    activity = models.ForeignKey(Activity, null=True, blank=True, on_delete=models.SET_NULL)
     description = models.TextField(max_length=200)
-
+    product = models.ManyToManyField('Product', blank=True)
     def __str__(self):
         return self.role_name
 
@@ -42,6 +42,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=200)
     product_type = models.CharField(max_length=1)
     product_format = models.CharField(max_length=200)
+    activity = models.ManyToManyField(Activity, blank=True)
 
     def __str__(self):
         return self.product_name
