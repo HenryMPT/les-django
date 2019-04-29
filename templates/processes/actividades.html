@@ -24,6 +24,10 @@
 								
 										<td class="col-3"><b>Atividade: </b><a href="#">{{act.activity_name}} </a></td>
 										<td class="col-3"><b>Descrição: </b>{{act.description}}</td>
+										<td class="col-3"><b>Papéis: </b>{% for rol in act.role.all %}
+											{{rol}}<br>
+											{% endfor %}
+										</td>
 										<td class="col-1"><b><a href="actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
 										<td class="col-1"><b><a href="actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
 						

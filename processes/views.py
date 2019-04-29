@@ -33,12 +33,12 @@ def actividades(request):
 
 class ActivityCreate(CreateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'process'] 
+	fields = ['activity_name', 'description', 'process', 'role'] 
 	template_name = "processes/forms/activity_form.html"
 
 class ActivityUpdate(UpdateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'process'] 
+	fields = ['activity_name', 'description', 'process', 'role'] 
 	template_name = "processes/forms/activity_update_form.html"
 
 class ActivityDelete(DeleteView):
@@ -76,12 +76,12 @@ def produtos(request):
 
 class ProductCreate(CreateView):
 	model = Product
-	fields = ['product_name', 'product_format']
+	fields = ['product_name', 'product_format', 'activity']
 	template_name = "processes/forms/product_form.html"
 
 class ProductUpdate(UpdateView):
 	model = Product
-	fields = ['product_name', 'product_format']
+	fields = ['product_name', 'product_format', 'activity']
 	template_name = "processes/forms/product_update_form.html"
 
 class ProductDelete(DeleteView):
@@ -91,12 +91,12 @@ class ProductDelete(DeleteView):
 
 class RoleCreate(CreateView):
 	model = Role
-	fields = ['role_name' , 'description', 'activity']
+	fields = ['role_name' , 'description', 'product']
 	template_name = "processes/forms/role_form.html"
 
 class RoleUpdate(UpdateView):
 	model = Role
-	fields = ['role_name' , 'description', 'activity']
+	fields = ['role_name' , 'description', 'product']
 	template_name = "processes/forms/role_update_form.html"
 
 class RoleDelete(DeleteView):
