@@ -7,10 +7,6 @@ from Users.models import User
 
 # Create your models here.
 
-
-
-
-
 class Process(models.Model):
     process_name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
@@ -22,7 +18,7 @@ class Process(models.Model):
 
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
-    process = models.ForeignKey(Process, null=True, blank=True, on_delete=models.SET_NULL)
+    process = models.ManyToManyField(Process, null=True, blank=True)
     description = models.TextField(max_length=200)
     role = models.ManyToManyField('Role', blank=True)
 
