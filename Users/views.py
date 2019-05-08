@@ -10,7 +10,7 @@ from .forms import NewUserForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-
+from django.views.generic.detail import DetailView
 # Create your views here.
 
 def register(request):
@@ -37,6 +37,15 @@ class UserDelete(DeleteView):
 	model = User
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_confirm_delete.html"
+
+
+
+class UserDetail(DetailView):
+	model = User
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		return context
 
 
 class UserCreate(CreateView):

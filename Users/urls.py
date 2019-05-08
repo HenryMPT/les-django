@@ -23,6 +23,7 @@ urlpatterns = [
     path("utilizadores/UserCreate", views.UserCreate.as_view(success_url=('/utilizadores')),  name="UserCreate"),
     path("utilizadores/UserDelete/<int:pk>", views.UserDelete.as_view(success_url=('/utilizadores')),  name="UserDelete"),
     path("utilizadores/UserUpdate/<int:pk>", views.UserUpdate.as_view(success_url=('/utilizadores')),  name="UserUpdate"),
+    path("utilizadores/UserDetail/<int:pk>",views.UserDetail.as_view(), name="UserDetail"  ),
     path("empresas", views.empresas, name="empresas"),
     path("empresas/OrganizationCreate", views.OrganizationCreate.as_view(success_url=('/empresas')), name="empresas"),
     path("empresas/OrganizationDelete/<int:pk>", views.OrganizationDelete.as_view(success_url=('/empresas')),  name="OrganizationDelete"),
