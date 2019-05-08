@@ -3,10 +3,46 @@
 
 {% include "processes/includes/sidenav_admin2.html" %}
 
-<div class="container"></div>
-<h1>Nome : {{object.username}}</h1>
 
+<div class="container">
+<h3>Nome: {{object.username}}</h3>
+<hr>
+    <div class="row">
+        <div class="col-sm-1">Email: </div> 
+        <div class="col-sm-1"> {{object.email}}</div>
+        </div>
+        <hr>
+ <div class="row">
+        <div class="col-sm-1"> Empresa:</div>
+        <div class="col-sm-1">{{object.organization}}</div>
+    </div>
+  <hr>
+    <div class="row">
+        <div class="col-sm-1">Perfis: </div>
+{% for group in object.groups.all %}
+<div class="col-sm-2">{{group.name}}</div>
+{% endfor %}
 
+</div>
+<p><a href="/utilizadores/UserUpdate/{{object.id}}"> Editar user </a></p>
+<br>
+<h3>Processos do utilizador</h3>
+<hr>
 
+{% for proc in procs %}
+{% if proc.user.id == object.id %}
+<div class="row">
+<div class="col-sm-1"> Processo:</div>
+<div class="col-sm-3">{{proc}}</div>
+<div class="col-sm-1"> Descrição:</div>
+<div class="col-sm-4">{{proc.description}}</div>
+{% if perms.Users.test_GProc %}
+<div class="col-sm-1"><a href="/processos/ProcessUpdate/{{proc.id}}">Editar</a></div>
+{% endif %}
+</div>
+{% endif %}
+{% endfor %}
+
+<hr>
 </div>
 {% endblock %}

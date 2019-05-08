@@ -30,7 +30,7 @@ class User(AbstractUser):
                                 blank=True, null=True)
 
 
-    organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL)
+    organization = models.ForeignKey(Organization, null=True,blank=True, on_delete=models.SET_NULL)
 
 
 
