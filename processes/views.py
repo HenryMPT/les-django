@@ -10,7 +10,7 @@ from Users.forms import NewUserForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-
+from django import forms
 
 
 def gparea(request):
@@ -49,12 +49,19 @@ class ActivityDelete(DeleteView):
 
 class ProcessCreate(CreateView):
 	model = Process
-	fields = ['process_name', 'description', 'user' ]
+	fields = ['process_name', 'user' , 'description']
 	template_name = "processes/forms/process_form.html"
+	
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(ProcessCreate, self).get_form(form_class)
+		form.fields['user'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
+		return form 
 
 class ProcessUpdate(UpdateView):
 	model = Process
-	fields = ['process_name', 'description', 'user' ]
+	fields = ['process_name', 'user' , 'description']
 	template_name = "processes/forms/process_update_form.html"
 
 class ProcessDelete(DeleteView):

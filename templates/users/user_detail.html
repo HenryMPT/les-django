@@ -28,7 +28,6 @@
 <br>
 <h3>Processos do utilizador</h3>
 <hr>
-
 {% for proc in procs %}
 {% if proc.user.id == object.id %}
 <div class="row">
@@ -42,7 +41,13 @@
 </div>
 {% endif %}
 {% endfor %}
-
 <hr>
+
+
+
+
+
+
+
 </div>
 {% endblock %}
