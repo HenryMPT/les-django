@@ -1,0 +1,42 @@
+{% extends "processes/header2.html" %}
+{% block content %}
+
+{% include "processes/includes/sidenav_gpanalist.html" %}
+<div class="container">
+        <h3>Processo: {{object.process_name}} </h3>
+        <hr>
+            <div class="row">
+                <div class="col-sm-2">Criado por: </div> 
+                <div class="col-sm-2"> {{object.user}}</div>
+                </div>
+                <hr>
+         <div class="row">
+                <div class="col-sm-2"> Data criação:</div>
+                <div class="col-sm-3">{{object.creation_date}}</div>
+            </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-2"> Descrição:</div>
+            <div class="col-sm-4">{{object.description}}</div>
+        </div>
+      <hr>
+         
+        <p><a href="/processos/ProcessUpdate/{{object.id}}"> Editar processo</a></p>
+        <br>
+        <h3>Actividades do Processo</h3>
+        <hr>
+        {% for act in proc_acts %}
+        <div class="row">
+        <div class="col-sm-1"> Actividade:</div>
+        <div class="col-sm-3">{{act}}</div>
+        <div class="col-sm-1"> Descrição:</div>
+        <div class="col-sm-4">{{act.description}}</div>
+        {% if perms.Users.test_GProc %}
+        <div class="col-sm-1"><a href="/actividades/ActivityUpdate/{{act.id}}">Editar</a></div>
+        {% endif %}
+        </div>
+        {% endfor %}
+        <hr>
+
+        </div>
+        {% endblock %}

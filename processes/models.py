@@ -13,6 +13,8 @@ class Process(models.Model):
     creation_date = models.DateTimeField("date created", default=django.utils.timezone.now())
     description = models.TextField(max_length=200)
 
+
+
     def __str__(self):
         return self.process_name
 
@@ -21,6 +23,8 @@ class Activity(models.Model):
     process = models.ManyToManyField(Process, null=True, blank=True)
     description = models.TextField(max_length=200)
     role = models.ManyToManyField('Role', blank=True)
+    class Meta:
+        verbose_name = ("Activity")
 
     def __str__(self):
         return self.activity_name

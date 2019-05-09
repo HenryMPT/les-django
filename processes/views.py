@@ -10,6 +10,7 @@ from Users.forms import NewUserForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.views.generic.detail import DetailView
 from django import forms
 
 
@@ -69,6 +70,16 @@ class ProcessDelete(DeleteView):
 	sucess_url = "/processos"
 	template_name = "processes/forms/process_confirm_delete.html"
 
+class ProcessDetail(DetailView):
+	model = Process
+	template_name = "processes/forms/process_detail.html"
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		proc_id = self.object.id
+		context['idd'] = proc_id
+		context['proc_acts'] = Activity.objects.all().filter(process__id=proc_id)
+		context['all_acts'] = Activity.objects.all()
+		return context
 
 @login_required(login_url='/login2')
 def produtos(request):
@@ -95,6 +106,8 @@ class ProductDelete(DeleteView):
 	model = Product
 	sucess_url = "/produtos"
 	template_name = "processes/forms/product_confirm_delete.html"
+
+
 
 class RoleCreate(CreateView):
 	model = Role

@@ -14,10 +14,10 @@
 			</tr>
 		</thead>
 		<tbody>
-				{% for proc in procs %}
+				{% for proc in procs %} 
 				<tr class="d-flex">
 				
-						<td class="col-2"><span><b>Processo: </b><a href="#">{{proc.process_name}} </a></span></td>
+						<td class="col-2"><span><b>Processo: </b><a href="processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
 						<td class="col-3"><b>Criado por: </b> {{proc.user.username}} </td>
 						<td class="col-3"><b>Descrição: </b>{{proc.description}}</span></td>
 						<td class="col-3 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>

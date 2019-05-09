@@ -32,7 +32,7 @@
 {% if proc.user.id == object.id %}
 <div class="row">
 <div class="col-sm-1"> Processo:</div>
-<div class="col-sm-3">{{proc}}</div>
+<div class="col-sm-3"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a></div>
 <div class="col-sm-1"> Descrição:</div>
 <div class="col-sm-4">{{proc.description}}</div>
 {% if perms.Users.test_GProc %}
