@@ -33,10 +33,16 @@ def actividades(request):
 				  template_name="processes/actividades.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
-def removeAct(request, **kwargs):
+def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
 	this_act.process.remove(this_proc)
+	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
+
+def addActivityToProcess(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
+	this_act.process.add(this_proc)
 	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
 
 class ActivityCreate(CreateView):
@@ -103,7 +109,9 @@ class ProcessDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		proc_id = self.object.id
 		context['pid'] = self.kwargs['pk']
-		context['proc_acts'] = Activity.objects.all().filter(process__id=proc_id)
+		our_acts = Activity.objects.all().filter(process__id=proc_id)
+		context['proc_acts'] = our_acts
+		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
 		context['all_acts'] = Activity.objects.all()
 		return context
 
