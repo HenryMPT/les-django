@@ -23,7 +23,7 @@
          
         <p><a href="/processos/ProcessUpdate/{{object.id}}"> Editar processo</a></p>
         <br>
-        <h3>Actividades do Processo</h3>
+        <h3>Actividades do Processo </h3>
         <hr>
         {% for act in proc_acts %}
         <div class="row">
@@ -32,7 +32,7 @@
         <div class="col-sm-1"> Descrição:</div>
         <div class="col-sm-4">{{act.description}}</div>
         {% if perms.Users.test_GProc %}
-        <div class="col-sm-1"><a href="/actividades/ActivityUpdate/{{act.id}}">Editar</a></div>
+        <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Editar</a></div>
         {% endif %}
         </div>
         {% endfor %}

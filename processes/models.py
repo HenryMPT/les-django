@@ -20,7 +20,7 @@ class Process(models.Model):
 
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
-    process = models.ManyToManyField(Process, null=True, blank=True)
+    process = models.ManyToManyField(Process, blank=True)
     description = models.TextField(max_length=200)
     role = models.ManyToManyField('Role', blank=True)
     class Meta:

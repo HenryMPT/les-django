@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from Users.forms import NewUserForm
+from .forms import  SwapActivityForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
@@ -47,6 +48,20 @@ class ActivityDelete(DeleteView):
 	template_name = "processes/forms/activity_confirm_delete.html"
 
 
+class ActivitySwap(CreateView):
+	model = Activity
+	sucess_url = "/actividades"
+	template_name = "processes/forms/activity_update_form.html"
+	fields = ['activity_name', 'description','role'] 
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(ActivitySwap, self).get_form(form_class)
+		form.fields['activity_name'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
+		form.fields['description'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all())
+		form.initial['role'] = Role.objects.all()[0]
+		return form   
 
 class ProcessCreate(CreateView):
 	model = Process
@@ -76,7 +91,7 @@ class ProcessDetail(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		proc_id = self.object.id
-		context['idd'] = proc_id
+		context['pid'] = self.kwargs['pk']
 		context['proc_acts'] = Activity.objects.all().filter(process__id=proc_id)
 		context['all_acts'] = Activity.objects.all()
 		return context
