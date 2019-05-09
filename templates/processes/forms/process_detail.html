@@ -30,9 +30,10 @@
         <div class="col-sm-1"> Actividade:</div>
         <div class="col-sm-3">{{act}}</div>
         <div class="col-sm-1"> Descrição:</div>
-        <div class="col-sm-4">{{act.description}}</div>
+        <div class="col-sm-3">{{act.description}}</div>
         {% if perms.Users.test_GProc %}
         <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Editar</a></div>
+        <div class="col-sm-1"><a href="/actividades/ActivityDessociate/{{act.id}}/{{pid}}">Remover</a></div>
         {% endif %}
         </div>
         {% endfor %}

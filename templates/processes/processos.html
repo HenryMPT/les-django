@@ -21,7 +21,7 @@
 								{% for proc in procs %}
 								<tr class="d-flex">
 								
-										<td class="col-2"><span><b>Processo: </b><a href="processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
+										<td class="col-2"><span><b>Processo: </b><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
 										<td class="col-2"><b>Criado por: </b> {{proc.user.username}} </td>
 										<td class="col-2"><b>Descrição: </b>{{proc.description}}</span></td>
 										<td class="col-2">Actividades:  </td>
@@ -29,8 +29,8 @@
 										<td class="col-1">proc.actividade  </td>
 										{% endfor %}
 										<td class="col-2 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
-										<td class="col-1"><b><a href="processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
+										<td class="col-1"><b><a href="/processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="/processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
 									</tr>
 									{% endfor %}
 						

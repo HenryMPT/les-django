@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import  Process, Activity, Role, Product
 from Users.models import User, Organization
 from django.contrib.auth.forms import AuthenticationForm
@@ -33,6 +33,12 @@ def actividades(request):
 				  template_name="processes/actividades.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+def removeAct(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
+	this_act.process.remove(this_proc)
+	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
+
 class ActivityCreate(CreateView):
 	model = Activity
 	fields = ['activity_name', 'description', 'process', 'role'] 
@@ -47,20 +53,25 @@ class ActivityDelete(DeleteView):
 	model = Activity
 	template_name = "processes/forms/activity_confirm_delete.html"
 
-
 class ActivitySwap(CreateView):
 	model = Activity
 	sucess_url = "/actividades"
 	template_name = "processes/forms/activity_update_form.html"
-	fields = ['activity_name', 'description','role'] 
+	fields = ['activity_name', 'description','role', 'process'] 
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ActivitySwap, self).get_form(form_class)
-		form.fields['activity_name'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
-		form.fields['description'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all())
-		form.initial['role'] = Role.objects.all()[0]
+		this_act = Activity.objects.filter(pk =self.kwargs['pk'])[0]
+		this_proc = Process.objects.filter(pk =self.kwargs['fk'])[0]
+		form.fields['activity_name'].widget = forms.TextInput(attrs={'value': this_act.activity_name})
+		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
+		form.initial['process'] = this_proc
+		all_roles = Role.objects.all()
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles)
+		roles = Role.objects.filter(pk__in = this_act.role.all())
+		form.initial['role'] = roles
+		
 		return form   
 
 class ProcessCreate(CreateView):
