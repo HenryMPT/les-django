@@ -28,8 +28,8 @@
 											{{rol}}<br>
 											{% endfor %}
 										</td>
-										<td class="col-1"><b><a href="actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
+										<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
 						
 									</tr>
 									{% endfor %}
@@ -37,7 +37,7 @@
 						</tbody>
 						<tfoot>
 							<tr class="d-flex">
-								<td class="col-9"><b><a href="actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova Atividade</a></b></td>
+								<td class="col-9"><b><a href="/actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova Atividade</a></b></td>
 								<td class="col-3 text-right"></td>
 							</tr>
 						</tfoot>

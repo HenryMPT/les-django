@@ -17,13 +17,13 @@
 						<tbody>
 								{% for utilizador in users %}
 								<tr class="d-flex">
-										<td class="col-3"><span><b>Nome: </b><a href="utilizadores/UserDetail/{{utilizador.id}}">{{utilizador.username}} </a></span></td>
+										<td class="col-3"><span><b>Nome: </b><a href="/utilizadores/UserDetail/{{utilizador.id}}">{{utilizador.username}} </a></span></td>
 										<td class="col-3"><b>Perfil: </b>{% for group in utilizador.groups.all %}
 										<p>{{group.name}}</p>	
 										{% endfor %} </td>
 										<td class="col-3"><b>Email: </b>{{utilizador.email}}</span></td>
-										<td class="col-1"><b><a href="utilizadores/UserUpdate/{{utilizador.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="utilizadores/UserDelete/{{utilizador.id}} ">Eliminar</a></span></td>
+										<td class="col-1"><b><a href="/utilizadores/UserUpdate/{{utilizador.id}} ">Editar</a></span></td>
+										<td class="col-1"><b><a href="/utilizadores/UserDelete/{{utilizador.id}} ">Eliminar</a></span></td>
 									
 									</tr>
 									{% endfor %}
