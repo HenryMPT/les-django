@@ -1,0 +1,58 @@
+{% extends "processes/header2.html" %}
+{% block content %}
+{% if perms.Users.test_GProc %}
+
+{% include "processes/includes/sidenav.html" %}
+<div class="container">
+        <h3>Actividade: {{object.activity_name}} </h3>
+        <hr>
+          <div class="row">
+            <div class="col-sm-2"> Descrição:</div>
+            <div class="col-sm-4">{{object.description}}</div>
+        </div>
+      <hr>
+         
+        <p><a href="/actividades/ActivityUpdate/{{object.id}}"> Editar actividade</a></p>
+        <br>
+
+        <h3>Processos associados à actividade:</h3>
+        <hr>
+        {% for proc in procs %}
+        <div class="row">
+        <div class="col-sm-1"> Processo</div>
+        <div class="col-sm-3">{{proc}}</div>
+        <div class="col-sm-1"> Gestor:</div>
+        <div class="col-sm-3">{{proc.user}}</div>
+        <div class="col-sm-1"> Descrição:</div>
+        <div class="col-sm-3">{{proc.description}}</div>
+        </div>
+        {% endfor %}
+        <hr>
+        <br>
+        <h3>Produtos associados à actividade:</h3>
+        <hr>
+        {% for product in act_products %}
+        <div class="row">
+        <div class="col-sm-1"> Produto</div>
+        <div class="col-sm-3">{{product}}</div>
+        <div class="col-sm-1"> Formato:</div>
+        <div class="col-sm-3">{{product.product_format}}</div>
+        </div>
+        {% endfor %}
+        <hr>
+        <br>
+
+        <h3>Papéis associados à actividade:</h3>
+        <hr>
+        {% for rol in roles %}
+        <div class="row">
+        <div class="col-sm-1"> Papél:</div>
+        <div class="col-sm-3">{{rol}}</div>
+        <div class="col-sm-1"> Descrição:</div>
+        <div class="col-sm-3">{{rol.description}}</div>
+        </div>
+        {% endfor %}
+        <hr>
+        <br>
+        {% endif %}
+        {% endblock %}
