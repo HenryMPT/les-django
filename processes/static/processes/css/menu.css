@@ -204,7 +204,7 @@ td a:hover{
 }
 .header-fixed > tbody {
     overflow-y: auto;
-    height: 30vh;
+    height: 50vh;
 }
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
@@ -239,4 +239,9 @@ td a:hover{
     #sidebarCollapse span{
         display: none;
     }
+}
+
+div.container.showlist > .header-fixed > tbody {
+    overflow-y: auto;
+    height: 30vh;
 }
