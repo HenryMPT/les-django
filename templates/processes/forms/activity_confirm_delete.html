@@ -1,7 +1,7 @@
 {% extends "processes/header2.html" %}
 
 {% block content %}
-
+{% if perms.Users.test_GProc %}
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     {%if act_procs|length > 0 %}
@@ -18,5 +18,5 @@
     {%if act_procs|length == 0 %}<p>Are you sure you want to delete <b>"{{ object.activity_name}}</b>"?</p><input type="submit" value="Confirm">{% endif %} <a href="/actividades">Cancelar</a>
 </form>
 </div>
-
+{% endif %}
 {% endblock %}
