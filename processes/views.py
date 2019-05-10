@@ -95,7 +95,7 @@ class ProcessCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ProcessCreate, self).get_form(form_class)
-	#form.fields['user'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
+		#form.fields['user'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
 		form.initial['user'] = self.request.user
 		return form 
 
