@@ -1,6 +1,6 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-
+{% if perms.Users.test_Admin %}
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     
@@ -12,4 +12,5 @@
 </form>
 
 </div>
+{% endif %}
 {% endblock %}
