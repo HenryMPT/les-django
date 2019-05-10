@@ -1,6 +1,11 @@
 {% extends "processes/header2.html" %}
 {% block content %}
+<<<<<<< HEAD
 {% load crispy_forms_tags %}
+=======
+{% if perms.Users.test_GProc %}
+
+>>>>>>> 9124b65b6297fea42368de0a8df164859b735a42
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     
@@ -23,5 +28,5 @@
     <input type="submit" value="Confirmar"> <a href="/produtos">Cancelar</a>
 </form>
 
-</div>
+</div>{% endif %}
 {% endblock %}
