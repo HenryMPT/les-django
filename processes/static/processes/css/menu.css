@@ -246,15 +246,19 @@ div.container.showlist > .header-fixed > tbody {
     height: 30vh;
 }
 
-div#div_id_activity.control-group div.controls{
+div.control-group div.controls{
     width:40vw;
     display: flex;
     flex-wrap:wrap;
     flex-basis: 100%;
+    margin-bottom: 15px;
 }
 
-
-div#div_id_activity.control-group div.controls > label.checkbox{
+.control-group div.controls > label.checkbox{
 width:100%;
 padding: 1px;
 }
+
+.control-group div.controls > label.checkbox > input{
+    margin-right: 5px;
+    }
