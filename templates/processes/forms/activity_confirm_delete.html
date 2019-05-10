@@ -4,9 +4,19 @@
 
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
+    {%if act_procs|length > 0 %}
+    Os seguintes processos estão associados:<br><br>
+    {% for proc in act_procs %}
+        <a href ="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a>
+        <hr>
+        {% endfor %}
+        <h3>Para prosseguir primeiro remova as associações listadas.</h3>
+        {% endif %}
+     
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete <b>"{{ object.activity_name}}</b>"?</p>
-    <input type="submit" value="Confirm"> <a href="/processos">Cancelar</a>
+    
+    {%if act_procs|length == 0 %}<p>Are you sure you want to delete <b>"{{ object.activity_name}}</b>"?</p><input type="submit" value="Confirm">{% endif %} <a href="/actividades">Cancelar</a>
 </form>
 </div>
+
 {% endblock %}

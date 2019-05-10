@@ -58,6 +58,12 @@ class ActivityUpdate(UpdateView):
 class ActivityDelete(DeleteView):
 	model = Activity
 	template_name = "processes/forms/activity_confirm_delete.html"
+	def get_context_data(self, **kwargs):
+		context = super(ActivityDelete, self).get_context_data(**kwargs)
+		this_act = Activity.objects.filter(pk =self.kwargs['pk'])[0]
+		this_act_procs = this_act.process.all()
+		context['act_procs'] = this_act_procs
+		return context
 
 class ActivitySwap(CreateView):
 	model = Activity
@@ -101,6 +107,7 @@ class ProcessDelete(DeleteView):
 	model = Process
 	sucess_url = "/processos"
 	template_name = "processes/forms/process_confirm_delete.html"
+
 
 class ProcessDetail(DetailView):
 	model = Process
