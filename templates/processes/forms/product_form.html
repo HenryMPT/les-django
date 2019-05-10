@@ -1,14 +1,26 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-
+{% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     
 <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+        <div class="row">
+                  {{ form.product_name|as_crispy_field }}
+                </div>
+                <hr>
+                <div class="row">
+                  {{ form.product_format|as_crispy_field }}
+                </div>
+                <hr>
+                <div class="table" style="width: 20%">
+                    <tbody>
+                 <tr>{{ form.activity|as_crispy_field }}</tr>
+                </tbody>
+                </div>
+
     
     <input type="submit" value="Confirmar"> <a href="/produtos">Cancelar</a>
-
 </form>
 
 </div>

@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'processes.apps.ProcessConfig',
     'Users.apps.UsersConfig',
     'tinymce',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

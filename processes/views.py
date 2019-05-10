@@ -33,12 +33,14 @@ def actividades(request):
 				  template_name="processes/actividades.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
+@login_required(login_url='/login2')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
 	this_act.process.remove(this_proc)
 	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
 
+@login_required(login_url='/login2')
 def addActivityToProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
@@ -138,6 +140,13 @@ class ProductCreate(CreateView):
 	model = Product
 	fields = ['product_name', 'product_format', 'activity']
 	template_name = "processes/forms/product_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(ProductCreate, self).get_form(form_class)
+		#form.fields['user'].widget
+		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		return form
 
 class ProductUpdate(UpdateView):
 	model = Product
