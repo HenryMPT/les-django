@@ -27,6 +27,7 @@ urlpatterns = [
     path("processos/ProcessDetail/<int:pk>", views.ProcessDetail.as_view(), name="ProcessDetail"),
     path("actividades", views.actividades, name="actividades"),
     path("actividades/ActivityCreate", views.ActivityCreate.as_view(success_url=('/actividades')), name="ActivityCreate"),
+    path("actividades/ActivityDetail/<int:pk>", views.ActivityDetail.as_view(), name="ActivityDetail"),
     path("actividades/ActivityUpdate/<int:pk>", views.ActivityUpdate.as_view(success_url=('/actividades')), name="ActivityUpdate"),
     path("actividades/ActivityDelete/<int:pk>", views.ActivityDelete.as_view(success_url=('/actividades')), name="ActivityDelete"),
     path("actividades/ActivitySwap/<int:pk>/<int:fk>", views.ActivitySwap.as_view(success_url=('/actividades')), name="ActivitySwap"),
