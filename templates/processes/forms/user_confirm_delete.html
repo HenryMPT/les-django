@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% include "processes/includes/sidenav_admin.html" %}
+{% include "processes/includes/sidenav.html" %}
 <div class="container">
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete user<b>"{{ object.username}}</b>"?</p>

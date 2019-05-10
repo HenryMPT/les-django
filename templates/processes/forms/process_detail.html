@@ -1,7 +1,7 @@
 {% extends "processes/header2.html" %}
 {% block content %}
 
-{% include "processes/includes/sidenav_gpanalist.html" %}
+{% include "processes/includes/sidenav.html" %}
 <div class="container">
         <h3>Processo: {{object.process_name}} </h3>
         <hr>
@@ -39,7 +39,7 @@
         {% endfor %}
         <hr>
         <br>
-        <h3>Actividades fora do Processo </h3>
+        <h3>Actividades disponíveis: </h3>
         <hr>
         {% for act in non_acts %}
         <div class="row">

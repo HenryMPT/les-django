@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% include "processes/includes/sidenav_admin.html" %}
+{% include "processes/includes/sidenav.html" %}
 <div class="container">
 <form method="post">{% csrf_token %}
     <p>De certeza que pretende eliminar a empresa <b>"{{ object.name}}</b>"?</p>

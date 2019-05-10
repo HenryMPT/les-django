@@ -17,7 +17,7 @@
 						<tbody>
 								{% for utilizador in users %}
 								<tr class="d-flex">
-										<td class="col-3"><span><b>Nome: </b><a href="#">{{utilizador.username}} </a></span></td>
+										<td class="col-3"><span><b>Nome: </b><a href="utilizadores/UserDetail/{{utilizador.id}}">{{utilizador.username}} </a></span></td>
 										<td class="col-3"><b>Perfil: </b>{% for group in utilizador.groups.all %}
 										<p>{{group.name}}</p>	
 										{% endfor %} </td>
