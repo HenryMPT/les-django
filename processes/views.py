@@ -52,6 +52,22 @@ class ActivityCreate(CreateView):
 	fields = ['activity_name', 'description', 'process', 'role'] 
 	template_name = "processes/forms/activity_form.html"
 
+class ActivityDetail(DetailView):
+	model = Activity
+	template_name = "processes/forms/activity_detail.html"
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		act_id = self.object.id
+		context['pid'] = self.kwargs['pk']
+		our_products = Product.objects.all().filter(activity__id=act_id)
+		context['act_products'] = our_products
+		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		our_procs = Process.objects.all().filter(activity__id=act_id)
+		this_act = Activity.objects.all().filter(id=act_id)[0]
+		context['procs'] = this_act.process.all()
+		context['roles'] = this_act.role.all()
+		return context
+
 class ActivityUpdate(UpdateView):
 	model = Activity
 	fields = ['activity_name', 'description', 'process', 'role'] 
@@ -86,7 +102,7 @@ class ActivitySwap(CreateView):
 		roles = Role.objects.filter(pk__in = this_act.role.all())
 		form.initial['role'] = roles
 		
-		return form   
+		return form
 
 class ProcessCreate(CreateView):
 	model = Process
