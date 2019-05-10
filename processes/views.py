@@ -163,7 +163,6 @@ class ProductCreate(CreateView):
 		#form.fields['user'].widget
 		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
-
 class ProductUpdate(UpdateView):
 	model = Product
 	fields = ['product_name', 'product_format', 'activity']

@@ -1,11 +1,8 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-<<<<<<< HEAD
 {% load crispy_forms_tags %}
-=======
 {% if perms.Users.test_GProc %}
 
->>>>>>> 9124b65b6297fea42368de0a8df164859b735a42
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     
@@ -18,12 +15,12 @@
                   {{ form.product_format|as_crispy_field }}
                 </div>
                 <hr>
-                <div class="table" style="width: 20%">
+                <div style="width: 20%">
                     <tbody>
                  <tr>{{ form.activity|as_crispy_field }}</tr>
                 </tbody>
                 </div>
-
+<br>
     
     <input type="submit" value="Confirmar"> <a href="/produtos">Cancelar</a>
 </form>
