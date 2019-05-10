@@ -1,7 +1,7 @@
 {% extends "processes/header2.html" %}
 
 {% block content %}
-{% if perms.Users.test_Admin %}
+
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
 <form method="post">{% csrf_token %}
@@ -9,5 +9,4 @@
     <input type="submit" value="Confirm"> <a href="/empresas">Cancelar</a>
 </form>
 </div>
-{% endif %}
 {% endblock %}
