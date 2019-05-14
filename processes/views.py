@@ -183,6 +183,24 @@ class ProductCreate(CreateView):
 		#form.fields['user'].widget
 		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
+
+class ProductDetail(DetailView):
+	model = Product
+	template_name = "processes/forms/product_detail.html"
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		product_id = self.object.id
+		context['pid'] = self.kwargs['pk']
+		this_product = Product.objects.all().filter(id=product_id)[0]
+		our_acts = this_product.activity.all()
+		our_roles = Role.objects.all().filter(product__id=product_id)
+		context['acts'] = our_acts
+		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
+		context['roles'] = our_roles
+		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
+		return context
+
+
 class ProductUpdate(UpdateView):
 	model = Product
 	fields = ['product_name', 'product_format', 'activity']
@@ -258,6 +276,7 @@ class RoleUpdate(UpdateView):
 		#form.fields['user'].widget
 		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
+		
 class RoleDelete(DeleteView):
 	model = Role
 	sucess_url = "/papeis"

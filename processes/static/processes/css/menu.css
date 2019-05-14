@@ -268,5 +268,9 @@ padding: 1px;
 }
 
 .colseparator {
-border-right:1px dashed grey;
+border-right:2px dashed rgb(30, 168, 214);;
+}
+
+div.row > div.col-sm-6 > div.row {
+    border-bottom: 2px dashed lightblue;
 }
