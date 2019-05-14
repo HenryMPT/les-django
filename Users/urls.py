@@ -28,6 +28,7 @@ urlpatterns = [
     path("empresas/OrganizationCreate", views.OrganizationCreate.as_view(success_url=('/empresas')), name="empresas"),
     path("empresas/OrganizationDelete/<int:pk>", views.OrganizationDelete.as_view(success_url=('/empresas')),  name="OrganizationDelete"),
     path("empresas/OrganizationUpdate/<int:pk>", views.OrganizationUpdate.as_view(success_url=('/empresas')),  name="OrganizationUpdate"),
+    path("empresas/OrganizationDetail/<int:pk>",views.OrganizationDetail.as_view(), name="OrganizationDetail"  ),
     path("register", views.register, name="register"),
     path("logout", views.logout_request, name="logout"),
     path("login2", views.login2_request, name="login2"),
