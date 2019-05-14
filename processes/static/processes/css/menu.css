@@ -262,3 +262,11 @@ padding: 1px;
 .control-group div.controls > label.checkbox > input{
     margin-right: 5px;
     }
+
+.asteriskField {
+    display: none;
+}
+
+.colseparator {
+border-right:1px dashed grey;
+}

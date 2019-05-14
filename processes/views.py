@@ -38,14 +38,14 @@ def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
 	this_act.process.remove(this_proc)
-	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
 @login_required(login_url='/login2')
 def addActivityToProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
 	this_act.process.add(this_proc)
-	return HttpResponseRedirect('/processos/ProcessDetail/'+str(kwargs['fk']))
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class ActivityCreate(CreateView):
 	model = Activity
@@ -68,12 +68,15 @@ class ActivityDetail(DetailView):
 		act_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		our_products = Product.objects.all().filter(activity__id=act_id)
-		context['act_products'] = our_products
-		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
 		our_procs = Process.objects.all().filter(activity__id=act_id)
 		this_act = Activity.objects.all().filter(id=act_id)[0]
+		our_roles = this_act.role.all()
+		context['act_products'] = our_products
+		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
 		context['procs'] = this_act.process.all()
-		context['roles'] = this_act.role.all()
+		context['non_procs'] = Process.objects.all().exclude(id__in=our_procs)
+		context['roles'] = our_roles
+		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
 		return context
 
 class ActivityUpdate(UpdateView):
