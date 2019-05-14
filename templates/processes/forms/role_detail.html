@@ -32,7 +32,7 @@
             {% for act in non_acts %}
             <div class="row">
               <div class="col-sm-6"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-              <div class="col-sm-6"><a href="/actividades/RoleAssociate/{{act.id}}/{{object.id}}">Desassociar</a></div>    </div>
+              <div class="col-sm-6"><a href="/actividades/RoleAssociate/{{act.id}}/{{object.id}}">Associar</a></div>    </div>
             {% endfor %}</div></div>
         <hr>
         <br>
@@ -54,7 +54,6 @@
             {% for product in non_products %}
             <div class="row">
             <div class="col-sm-6"><a href ="/produtos/ProductDetail/{{product.id}}">{{product}}</a></div>
-            <div class="col-sm-6">{{product}}</div>
             <div class="col-sm-4">{{product.product_format}}</div>
             <div class="col-sm-2"><a href="/papeis/ProductAssociate/{{product.id}}/{{object.id}}">Associar</a></div>
             </div>
