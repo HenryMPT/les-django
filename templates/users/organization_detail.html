@@ -8,7 +8,7 @@
 <h3>Nome: {{object.name}}</h3>
 <br>
         <h3>Localização:&nbsp;{{object.location}}</h3> 
-        </div>
+       
         <hr>
 
 
@@ -17,7 +17,6 @@
 <h2>Utilizadores da empresa</h2>
 <hr>
 {% for usr in org_users %}
-{% if usr.organization.id == object.id %}
 <div class="row">
    
         <div class="col-sm-1">Nome:</div> 
@@ -26,7 +25,6 @@
         <div class="col-sm-1"> {{usr.email}}</div>
         </div>
         <hr>
-        {% endif %}
         {% endfor %}
        
 
@@ -36,6 +34,6 @@
 
 
       </div>
-</div>
+
 
 {% endblock %}
