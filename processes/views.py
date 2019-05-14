@@ -230,6 +230,22 @@ class RoleCreate(CreateView):
 		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
 
+class RoleDetail(DetailView):
+	model = Role
+	template_name = "processes/forms/role_detail.html"
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		role_id = self.object.id
+		context['pid'] = self.kwargs['pk']
+		this_rol = Role.objects.all().filter(id=role_id)[0]
+		our_products = this_rol.product.all()
+		our_acts = Activity.objects.all().filter(role__id=role_id)
+		context['products'] = our_products
+		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		context['acts'] = our_acts
+		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
+		return context
+
 
 class RoleUpdate(UpdateView):
 	model = Role
@@ -285,6 +301,19 @@ def papeis(request):
 				   )
 	
 
+@login_required(login_url='/login2')
+def removeProductFromRole(request, **kwargs):
+	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
+	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
+	this_rol.product.remove(this_product)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
+
+@login_required(login_url='/login2')
+def addProductToRole(request, **kwargs):
+	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
+	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
+	this_rol.product.add(this_product)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 

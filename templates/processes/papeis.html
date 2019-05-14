@@ -21,7 +21,7 @@
 								{% for role in roles %}
 								<tr class="d-flex">
 								
-										<td class="col-2"><span><b>Papel: </b><a href="#">{{role.role_name}} </a></span></td>
+										<td class="col-2"><span><b>Papel: </b><a href="/papeis/RoleDetail/{{role.id}}">{{role.role_name}} </a></span></td>
 										<td class="col-2"><b>Descrição: </b>{{role.description}}</span></td>
 										<td class="col-2"><b>Actividade: </b>{{role.activity}}</span></td>
 										<td class="col-2"><b>Processo: </b> {{role.activity.process}}</td>
