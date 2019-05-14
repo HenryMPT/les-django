@@ -11,7 +11,6 @@
             <div class="col-sm-4">{{object.description}}</div>
         </div>
       <hr>
-         
         <p><a href="/actividades/ActivityUpdate/{{object.id}}"> Editar actividade</a></p>
         <br>
 <div class = "row">
@@ -74,7 +73,7 @@
             <div class = "col-sm-6  colseparator" >
         {% for rol in roles %}
         <div class="row">
-            <div class="col-sm-5">{{rol}}</div>
+            <div class="col-sm-5"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
             <div class="col-sm-4">{{rol.description}}</div>
             <div class="col-sm-2"><a href="/actividades/RoleDessociate/{{object.id}}/{{rol.id}}">Desassociar</a></div>
         </div>
@@ -82,7 +81,7 @@
         <div class = "col-sm-6" >
             {% for rol in non_roles %}
             <div class="row">
-            <div class="col-sm-6">{{rol}}</div>
+            <div class="col-sm-6"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
             <div class="col-sm-4">{{rol.description}}</div>
             <div class="col-sm-2"><a href="/actividades/RoleAssociate/{{object.id}}/{{rol.id}}">Associar</a></div>
             </div>
