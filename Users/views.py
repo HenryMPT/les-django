@@ -11,6 +11,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
+from django import forms
 # Create your views here.
 
 def register(request):
@@ -53,6 +54,12 @@ class UserCreate(CreateView):
 	form_class = NewUserForm
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserCreate, self).get_form(form_class)
+		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all().exclude(name__in={"Admin","Analista"}), widget=forms.CheckboxSelectMultiple())
+		return form 		
 
 class UserUpdate(UpdateView):
 	model = User
