@@ -245,3 +245,28 @@ div.container.showlist > .header-fixed > tbody {
     overflow-y: auto;
     height: 30vh;
 }
+
+div.control-group div.controls{
+    width:40vw;
+    display: flex;
+    flex-wrap:wrap;
+    flex-basis: 100%;
+    margin-bottom: 15px;
+}
+
+.control-group div.controls > label.checkbox{
+width:100%;
+padding: 1px;
+}
+
+.control-group div.controls > label.checkbox > input{
+    margin-right: 5px;
+    }
+
+.asteriskField {
+    display: none;
+}
+
+.colseparator {
+border-right:1px dashed grey;
+}

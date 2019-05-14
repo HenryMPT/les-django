@@ -1,11 +1,11 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-
+{% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
     
 <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy}}
     
     <input type="submit" value="Confirmar"> <a href="/papeis">Cancelar</a>
 

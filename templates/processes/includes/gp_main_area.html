@@ -59,7 +59,7 @@
 			{% for act in acts %}
 			
 			<tr class="d-flex">
-					<td class="col-3"><b>Actividade: </b> <a href="#">{{act.activity_name}}</a></td>
+					<td class="col-3"><b>Actividade: </b> <a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
 					<td class="col-3"><b>Descrição: </b> {{act.description}}</td>
 					<td class="col-3"><b>Processo: </b><a href="#">{{act.process.process_name}}</a></td>
 					<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>

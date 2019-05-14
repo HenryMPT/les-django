@@ -37,9 +37,13 @@ urlpatterns = [
     path("produtos/ProductCreate", views.ProductCreate.as_view(success_url=('/produtos')), name="ProductCreate"),
     path("produtos/ProductUpdate/<int:pk>", views.ProductUpdate.as_view(success_url=('/produtos')), name="ProductUpdate"),
     path("produtos/ProductDelete/<int:pk>", views.ProductDelete.as_view(success_url=('/produtos')), name="ProductDelete"),
+    path("produtos/ProductDessociate/<int:pk>/<int:fk>", views.removeActivityFromProduct, name="ProductDessociate"),
+    path("produtos/ProductAssociate/<int:pk>/<int:fk>", views.addActivityToProduct, name="ProductAssociate"),
     path("papeis", views.papeis, name="papeis"),
     path("papeis/RoleCreate", views.RoleCreate.as_view(success_url=('/papeis')), name="RoleCreate"),
     path("papeis/RoleUpdate/<int:pk>", views.RoleUpdate.as_view(success_url=('/papeis')), name="RoleUpdate"),
     path("papeis/RoleDelete/<int:pk>", views.RoleDelete.as_view(success_url=('/papeis')), name="RoleDelete"),
+    path("actividades/RoleDessociate/<int:pk>/<int:fk>", views.removeRoleFromActivity, name="RoleDessociate"),
+    path("actividades/RoleAssociate/<int:pk>/<int:fk>", views.addRoleToActivity, name="RoleAssociate"),
 ]
 
