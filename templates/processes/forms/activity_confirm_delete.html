@@ -7,9 +7,16 @@
     {%if act_procs|length > 0 %}
     Os seguintes processos estão associados:<br><br>
     {% for proc in act_procs %}
+    <div class="row">
+        <div class ="col-sm-6">
         <a href ="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a>
+        </div>
+        <div class ="col-sm-6">
+                <a href ="/actividades/ActivityDessociate/{{object.id}}/{{proc.id}}">Dessassociar</a>
+                </div>
+    </div>
         <hr>
-        {% endfor %}
+        {% endfor %}<br>
         <h3>Para prosseguir primeiro remova as associações listadas.</h3>
         {% endif %}
      
