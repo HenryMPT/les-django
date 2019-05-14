@@ -46,7 +46,7 @@
             <div class = "col-sm-6  colseparator" >
         {% for product in act_products %}
         <div class="row">
-        <div class="col-sm-5">{{product}}</div>
+        <div class="col-sm-5"> <a href="/produtos/ProductDetail/{{product.id}}">{{product}}</a></div>
         <div class="col-sm-4">{{product.product_format}}</div>
         <div class="col-sm-2"><a href="/produtos/ProductDessociate/{{product.id}}/{{object.id}}">Desassociar</a></div>
         </div>
@@ -54,7 +54,7 @@
         <div class = "col-sm-6" >
             {% for product in non_products %}
             <div class="row">
-            <div class="col-sm-6">{{product}}</div>
+            <div class="col-sm-6"><a href="/produtos/ProductDetail/{{product.id}}">{{product}}</a></div>
             <div class="col-sm-4">{{product.product_format}}</div>
             <div class="col-sm-2"><a href="/produtos/ProductAssociate/{{product.id}}/{{object.id}}">Associar</a></div>
             </div>
