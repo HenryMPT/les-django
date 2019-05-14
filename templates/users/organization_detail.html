@@ -1,0 +1,39 @@
+{% extends "processes/header2.html" %}
+{% block content %}
+
+{% include "processes/includes/sidenav.html" %}
+
+
+<div class="container">
+<h3>Nome: {{object.name}}</h3>
+<br>
+        <h3>Localização:&nbsp;{{object.location}}</h3> 
+       
+        <hr>
+
+
+<p><a href="/empresas/OrganizationUpdate/{{object.id}}"> Editar empresa </a></p>
+<br>
+<h2>Utilizadores da empresa</h2>
+<hr>
+{% for usr in org_users %}
+<div class="row">
+   
+        <div class="col-sm-1">Nome:</div> 
+        <div class="col-sm-3"><a href="/utilizadores/UserDetail/{{usr.id}}" > {{usr.username}} </a></div>
+        <div class="col-sm-1">Mail:</div>  
+        <div class="col-sm-1"> {{usr.email}}</div>
+        </div>
+        <hr>
+        {% endfor %}
+       
+
+
+
+
+
+
+      </div>
+
+
+{% endblock %}

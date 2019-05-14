@@ -67,6 +67,14 @@ class OrganizationCreate(CreateView):
 	template_name = "processes/forms/organization_form.html"
 
 
+
+class OrganizationDetail(DetailView):
+	model = Organization
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['org_users'] = User.objects.filter(organization__id =self.kwargs['pk'])
+		return context
+
 class OrganizationDelete(DeleteView):
 	model = Organization
 	sucess_url = "&empresas"
