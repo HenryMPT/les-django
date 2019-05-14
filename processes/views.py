@@ -202,6 +202,21 @@ class ProductDelete(DeleteView):
 	template_name = "processes/forms/product_confirm_delete.html"
 
 
+@login_required(login_url='/login2')
+def removeActivityFromProduct(request, **kwargs):
+	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
+	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
+	this_product.activity.remove(this_act)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
+
+@login_required(login_url='/login2')
+def addActivityToProduct(request, **kwargs):
+	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
+	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
+	this_product.activity.add(this_act)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 
 class RoleCreate(CreateView):
 	model = Role
@@ -231,6 +246,21 @@ class RoleDelete(DeleteView):
 	model = Role
 	sucess_url = "/papeis"
 	template_name = "processes/forms/role_confirm_delete.html"
+
+
+@login_required(login_url='/login2')
+def removeRoleFromActivity(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
+	this_act.role.remove(this_rol)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
+
+@login_required(login_url='/login2')
+def addRoleToActivity(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
+	this_act.role.add(this_rol)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required(login_url='/login2')
