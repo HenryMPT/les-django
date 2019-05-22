@@ -8,19 +8,14 @@
 
     {% if org_users|length > 0 %}
     <h3>Antes de apagar a empresa, necessita remover os seguintes utilizadores desta ou do sistema.</h3>
+    <br>
     {% for utilizador in org_users %}
     <div class ="row" >
-        <div class ="col-sm-2">
-Utilizador: &nbsp;
-        </div>
-        <div class ="col-sm-2">
-            <a href ="/utilizadores/UserDetail/{{org.id}}">{{utilizador}}</a>
+        <div class ="col-sm-3">
+            <a href ="/utilizadores/UserDetail/{{org.id}}">Utilizador: &nbsp;{{utilizador}}</a>
         </div>   
-        <div class ="col-sm-2">
-            Email: &nbsp;
-         </div>
-                        <div class ="col-sm-2">
-                            {{utilizador.email}}
+        <div class ="col-sm-4">
+            Email: &nbsp;   {{utilizador.email}}
                         </div>       
 </div>
 {% endfor %}

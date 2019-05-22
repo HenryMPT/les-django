@@ -19,7 +19,7 @@
         {% for act in acts %}
         <div class="row">
         <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-4">{{act.description}}</div>
+        <div class="col-sm-4"><span>{{act.description}}</span></div>
         <div class="col-sm-2"><a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}">Desassociar</a></div>
         </div>
         {% endfor %}</div>
@@ -46,7 +46,7 @@
         {% for rol in roles %}
         <div class="row">
         <div class="col-sm-5"><a href ="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-        <div class="col-sm-4">{{rol.description}}</div>
+        <div class="col-sm-4"><p>{{rol.description}}</p></div>
         <div class="col-sm-2"><a href="/papeis/ProductDessociate/{{object.id}}/{{rol.id}}">Desassociar</a></div>
         </div>
         {% endfor %}</div>
