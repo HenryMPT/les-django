@@ -32,7 +32,7 @@ def processos(request):
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"acts": Activity.objects.filter(original__isnull=True)})
+				   context={"acts": Activity.objects.all().exclude(process__isnull=False)})
 
 @login_required(login_url='/login2')
 def removeActivityFromProcess(request, **kwargs):

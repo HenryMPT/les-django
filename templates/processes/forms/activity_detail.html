@@ -90,7 +90,7 @@
       </div>
       <hr>
         <br>
-
+        {% if object.process == None %}
         <div class = "row">
           <div class = "col-sm-12"> <h3>Processos a associar:</h3></div>
               </div>
@@ -101,7 +101,12 @@
           <div class="col-sm-4">{{proc.description}}</div>
           <div class="col-sm-2"><a href="/actividades/ActivitySwap/{{object.id}}/{{proc.id}}">Associar</a></div>
       </div>
-      {% endfor %}</div>
+      {% endfor %}
+      {% else %}
+      <div class = "row">
+        <div class = "col-sm-12"> <h3>Processo associado:</h3>{{object.process}}</div>
+            </div>
+      {% endif %}
     </div>
 
 
