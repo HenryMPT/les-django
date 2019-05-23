@@ -91,16 +91,15 @@ class ActivityDelete(DeleteView):
 	template_name = "processes/forms/activity_confirm_delete.html"
 	def get_context_data(self, **kwargs):
 		context = super(ActivityDelete, self).get_context_data(**kwargs)
-		this_act = Activity.objects.filter(pk =self.kwargs['pk'])[0]
-		this_act_procs = this_act.process
-		context['act_procs'] = this_act_procs
+		this_acts = Activity.objects.filter(original=self.kwargs['pk'])
+		context['act_procs'] = this_acts
 		return context
 
 class ActivitySwap(CreateView):
 	model = Activity
 	sucess_url = "/actividades"
 	template_name = "processes/forms/activity_update_form.html"
-	fields = ['activity_name', 'description','role', 'pattern' ,'process'] 
+	fields = ['activity_name', 'description','role', 'pattern' ,'process','original'] 
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
@@ -111,14 +110,17 @@ class ActivitySwap(CreateView):
 		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
 		all_roles = Role.objects.all()
 		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
 		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
+		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
+		form.fields['original'].empty_label = None
 		form.fields['process'].empty_label = None
 		roles = Role.objects.filter(pk__in = this_act.role.all())
 		patterns = Pattern.objects.filter(pk__in = this_act.pattern.all())
 		form.initial['role'] = roles
 		form.initial['process'] = this_proc
 		form.initial['pattern'] = patterns
+		form.initial['original'] = this_act.id
 		return form
 
 @login_required(login_url='/login2')
