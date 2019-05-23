@@ -58,7 +58,7 @@ class UserCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
-		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all().exclude(name = "Admin"), widget=forms.CheckboxSelectMultiple())
 		return form 		
 
 class UserUpdate(UpdateView):
@@ -66,6 +66,12 @@ class UserUpdate(UpdateView):
 	fields = ['username', 'email', 'organization', 'groups']
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_update_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserUpdate, self).get_form(form_class)
+		form.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		return form 
 
 
 class OrganizationCreate(CreateView):
