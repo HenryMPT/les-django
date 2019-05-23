@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'processes.apps.ProcessConfig',
     'Users.apps.UsersConfig',
+    'Activities.apps.ActivitiesConfig',
     'tinymce',
     'crispy_forms',
 ]

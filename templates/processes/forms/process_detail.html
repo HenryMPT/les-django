@@ -32,8 +32,7 @@
         <div class="col-sm-1"> Descrição:</div>
         <div class="col-sm-3">{{act.description}}</div>
         {% if perms.Users.test_GProc %}
-        <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Replicar</a></div>
-        <div class="col-sm-1"><a href="/actividades/ActivityDessociate/{{act.id}}/{{pid}}">Desassociar</a></div>
+        <div class="col-sm-2"><a href="/actividades/ActivityDessociate/{{act.id}}">Desassociar</a></div>
         {% endif %}
         </div>
         {% endfor %}
@@ -48,7 +47,7 @@
         <div class="col-sm-1"> Descrição:</div>
         <div class="col-sm-3">{{act.description}}</div>
         {% if perms.Users.test_GProc %}
-        <div class="col-sm-1"><a href="/actividades/ActivityAssociate/{{act.id}}/{{pid}}">Associar</a></div>
+        <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Associar</a></div>
         {% endif %}
         </div>
         {% endfor %}

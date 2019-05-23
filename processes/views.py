@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from Users.forms import NewUserForm
+from Activities.models import Pattern
 from .forms import  SwapActivityForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
@@ -31,33 +32,25 @@ def processos(request):
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
+				   context={"acts": Activity.objects.all().exclude(process__isnull=False)})
 
 @login_required(login_url='/login2')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
-	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
-	this_act.process.remove(this_proc)
+	this_act.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
-
-@login_required(login_url='/login2')
-def addActivityToProcess(request, **kwargs):
-	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
-	this_proc = Process.objects.filter(pk=kwargs['fk'])[0]
-	this_act.process.add(this_proc)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class ActivityCreate(CreateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'process', 'role'] 
+	fields = ['activity_name', 'description', 'pattern', 'role'] 
 	template_name = "processes/forms/activity_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ActivityCreate, self).get_form(form_class)
 		#form.fields['user'].widget
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple())
-		form.fields['process'] = forms.ModelMultipleChoiceField(queryset=Process.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form	
 
 class ActivityDetail(DetailView):
@@ -68,20 +61,21 @@ class ActivityDetail(DetailView):
 		act_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		our_products = Product.objects.all().filter(activity__id=act_id)
-		our_procs = Process.objects.all().filter(activity__id=act_id)
 		this_act = Activity.objects.all().filter(id=act_id)[0]
 		our_roles = this_act.role.all()
+		our_patterns = this_act.pattern.all()
 		context['act_products'] = our_products
 		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
-		context['procs'] = this_act.process.all()
-		context['non_procs'] = Process.objects.all().exclude(id__in=our_procs)
+		context['patterns'] = our_patterns
+		context['non_patterns'] = Pattern.objects.all().exclude(id__in=our_patterns)
 		context['roles'] = our_roles
 		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
+		context['procs'] = Process.objects.all()
 		return context
 
 class ActivityUpdate(UpdateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'process', 'role'] 
+	fields = ['activity_name', 'description', 'pattern', 'role'] 
 	template_name = "processes/forms/activity_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
@@ -89,7 +83,7 @@ class ActivityUpdate(UpdateView):
 		form = super(ActivityUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple())
-		form.fields['process'] = forms.ModelMultipleChoiceField(queryset=Process.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form		
 
 class ActivityDelete(DeleteView):
@@ -97,16 +91,15 @@ class ActivityDelete(DeleteView):
 	template_name = "processes/forms/activity_confirm_delete.html"
 	def get_context_data(self, **kwargs):
 		context = super(ActivityDelete, self).get_context_data(**kwargs)
-		this_act = Activity.objects.filter(pk =self.kwargs['pk'])[0]
-		this_act_procs = this_act.process.all()
-		context['act_procs'] = this_act_procs
+		this_acts = Activity.objects.filter(original=self.kwargs['pk'])
+		context['act_procs'] = this_acts
 		return context
 
 class ActivitySwap(CreateView):
 	model = Activity
 	sucess_url = "/actividades"
 	template_name = "processes/forms/activity_update_form.html"
-	fields = ['activity_name', 'description','role', 'process'] 
+	fields = ['activity_name', 'description','role', 'pattern' ,'process','original'] 
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
@@ -115,14 +108,39 @@ class ActivitySwap(CreateView):
 		this_proc = Process.objects.filter(pk =self.kwargs['fk'])[0]
 		form.fields['activity_name'].widget = forms.TextInput(attrs={'value': this_act.activity_name})
 		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
-		form.fields['process'] = forms.ModelMultipleChoiceField(queryset=Process.objects.all() ,widget=forms.CheckboxSelectMultiple())
-		form.initial['process'] = this_proc
 		all_roles = Role.objects.all()
+		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
+		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
+		form.fields['original'].empty_label = None
+		form.fields['process'].empty_label = None
 		roles = Role.objects.filter(pk__in = this_act.role.all())
+		patterns = Pattern.objects.filter(pk__in = this_act.pattern.all())
 		form.initial['role'] = roles
-		
+		form.initial['process'] = this_proc
+		form.initial['pattern'] = patterns
+		form.initial['original'] = this_act.id
 		return form
+
+@login_required(login_url='/login2')
+def AssociateReferer(request, **kwargs):
+	split = request.META.get('HTTP_REFERER').split("/")
+	return HttpResponseRedirect("/processos/ProcessDetail/"+split[-1])
+
+@login_required(login_url='/login2')
+def removePatternFromActivity(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
+	this_act.pattern.remove(this_pattern)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
+
+@login_required(login_url='/login2')
+def addPatternToActivity(request, **kwargs):
+	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
+	this_act.pattern.add(this_pattern)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class ProcessCreate(CreateView):
 	model = Process
@@ -157,8 +175,7 @@ class ProcessDetail(DetailView):
 		context['pid'] = self.kwargs['pk']
 		our_acts = Activity.objects.all().filter(process__id=proc_id)
 		context['proc_acts'] = our_acts
-		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
-		context['all_acts'] = Activity.objects.all()
+		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts).exclude(process__isnull=False)
 		return context
 
 @login_required(login_url='/login2')
