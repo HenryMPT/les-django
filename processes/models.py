@@ -4,6 +4,7 @@ from django.conf import settings
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser, Group
 from Users.models import User
+from Activities.models import Pattern
 
 # Create your models here.
 
@@ -20,9 +21,11 @@ class Process(models.Model):
 
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
-    process = models.ManyToManyField(Process, blank=True)
+    process = models.ForeignKey(Process, null=True,blank=True, on_delete=models.SET_NULL)
     description = models.TextField(max_length=200)
     role = models.ManyToManyField('Role', blank=True)
+    original = models.ForeignKey('self', blank=True, null=True,on_delete=models.SET_NULL)
+    pattern = models.ManyToManyField('Activities.Pattern')
     class Meta:
         verbose_name = ("Activity")
 

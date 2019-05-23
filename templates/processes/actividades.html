@@ -20,7 +20,6 @@
 						</thead>
 						<tbody>
 								{% for act in acts %}
-								{% if act.process.all|length == 0 %}
 								<tr class="d-flex">
 								
 										<td class="col-3"><b>Atividade: </b><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
@@ -33,7 +32,6 @@
 										<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></td>
 						
 									</tr>
-									{% endif %}
 									{% endfor %}
 							
 						</tbody>

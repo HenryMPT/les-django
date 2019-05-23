@@ -58,7 +58,7 @@ class UserCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
-		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all().exclude(name = "Admin"), widget=forms.CheckboxSelectMultiple())
+		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all().exclude(name__in={"Admin"}), widget=forms.CheckboxSelectMultiple())
 		return form 		
 
 class UserUpdate(UpdateView):
