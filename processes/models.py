@@ -1,10 +1,12 @@
 import django
 from django.db import models
+from django.core import validators
 from django.conf import settings
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser, Group
 from Users.models import User
 from Activities.models import Pattern
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -25,12 +27,17 @@ class Activity(models.Model):
     description = models.TextField(max_length=200)
     role = models.ManyToManyField('Role', blank=True)
     original = models.ForeignKey('self', blank=True, null=True,on_delete=models.SET_NULL)
-    pattern = models.ManyToManyField('Activities.Pattern')
+    pattern = models.ManyToManyField('Activities.Pattern', blank=True)
     class Meta:
         verbose_name = ("Activity")
 
     def __str__(self):
         return self.activity_name
+
+    def clean(self):
+        incident = Activity.objects.filter(activity_name=self.activity_name).exclude(process__isnull=False)
+        if incident and self.original is None: # check if any object exists
+            raise ValidationError('This name is already being used.')
 
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
