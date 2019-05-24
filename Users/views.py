@@ -58,6 +58,7 @@ class UserCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
+		form.fields['organization'].empty_label = None
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		return form 		
 
