@@ -3,7 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from .models import  Process, Activity, Role, Product
 from tinymce.widgets import TinyMCE
 from django.db import models
-from .forms import NewUserForm
 from django.contrib.auth.forms import UserCreationForm
 
 # Register your models here.
