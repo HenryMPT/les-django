@@ -38,3 +38,11 @@ div.row > div.col-sm-6 > div.row {
     max-height:30vh;
     overflow-y:auto;
 }
+
+thead > tr.nobluebar{
+    border-bottom:0px;
+}
+
+tbody {
+    overflow-x : hidden;
+}

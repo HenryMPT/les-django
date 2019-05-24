@@ -151,13 +151,13 @@ class ProcessCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ProcessCreate, self).get_form(form_class)
-		#form.fields['user'].widget = forms.TextInput(attrs={'value': self.request.user, 'readonly' : "readonly"})
+		form.fields['user'].widget = forms.HiddenInput()
 		form.initial['user'] = self.request.user
 		return form 
 
 class ProcessUpdate(UpdateView):
 	model = Process
-	fields = ['process_name', 'user' , 'description']
+	fields = ['process_name', 'description']
 	template_name = "processes/forms/process_update_form.html"
 
 class ProcessDelete(DeleteView):

@@ -20,10 +20,10 @@ class NewUserForm(UserCreationForm):
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
-        profile= Group.objects.get(name=self.cleaned_data.get('group'))
+        profile= self.cleaned_data.get('group')
         group = profile
         organization = self.cleaned_data['organization']
         if commit:
             user.save()
-            user.groups.add(profile)
+            user.groups.set(profile)
         return user

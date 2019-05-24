@@ -1,4 +1,4 @@
 db.sqlite3
 *.pyc
-Users/__pycache__/views.cpython-37.pyc
 db.sqlite3
+mysite/__pycache__/__init__.cpython-37.pyc
