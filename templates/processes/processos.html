@@ -16,25 +16,42 @@
 									</div>
 								</th>
 							</tr>
+							<tr class="d-flex nobluebar">
+									<td class="col-2"><b>Nome:</b> </td>
+									<td class="col-2"><b>Criado por:</b> </td>
+									<td class="col-5"><b>Descrição: </b></td>
+									<td class="col-3"><b>Data criação: </b></td>
+								</tr>
 						</thead>
+						
 						<tbody>
+				
 								{% for proc in procs %}
 								<tr class="d-flex">
 								
-										<td class="col-2"><span><b>Processo: </b><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
-										<td class="col-2"><b>Criado por: </b> {{proc.user.username}} </td>
-										<td class="col-2"><b>Descrição: </b>{{proc.description}}</span></td>
-										<td class="col-2">Actividades:  </td>
-										{% for acti in proc.actividades %}
-										<td class="col-1">proc.actividade  </td>
-										{% endfor %}
-										<td class="col-2 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
-										<td class="col-1"><b><a href="/processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="/processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
+										<td class="col-2 align-middle" ><a href="/processos/ProcessDetail/{{proc.id}}" >{{proc.process_name}}</a> </td>
+										{% if perms.Users.test_Admin %}
+										<td class="col-2 align-middle"><a href="/utilizadores/UserDetail/{{proc.user.id}}" >{{proc.user.username}}</a> </td>
+										{% else %}
+										<td class="col-2">{{proc.user.username}} </td>	
+										{% endif %}
+										<td class="col-5">{{proc.description}}</td>
+										<td class="col-2">{{proc.creation_date}}</td>
+										<td class="col-1">
+												<button type="button" class="btn btn-default btn-sm">
+														<a href="/processos/ProcessUpdate/{{proc.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a>
+														 
+													  </button> 
+								
+													  <button type="button" class="btn btn-default btn-sm">
+															<a href="/processos/ProcessDelete/{{proc.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
+															 
+														  </button> </td>
 									</tr>
 									{% endfor %}
 						
-						</tbody>
+						
+								</tbody>
 						<tfoot>
 							<tr class="d-flex">
 								<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>

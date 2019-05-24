@@ -157,7 +157,7 @@ class ProcessCreate(CreateView):
 
 class ProcessUpdate(UpdateView):
 	model = Process
-	fields = ['process_name', 'user' , 'description']
+	fields = ['process_name', 'description']
 	template_name = "processes/forms/process_update_form.html"
 
 class ProcessDelete(DeleteView):
