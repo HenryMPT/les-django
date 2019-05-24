@@ -2,12 +2,11 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="navbar-info" style="background:#058096;"><!--bg-info-->
 			<div class="sidebar-header" style="background:#058096;"><!--bg-info-->
-				<h4>REGISTO DIÁRIO </h4>
+				<h4><a href="/"> REGISTO DIÁRIO </a></h4>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active">
-					<a href="/"><i class="material-icons">home</i> PÁGINA INICIAL</a>
-				</li>
+				<li >
+				<i class="material-icons">home</i>    PÁGINA INICIAL</li>
 			</ul>
 
 			{% if perms.Users.test_Admin %}
@@ -32,7 +31,7 @@
                         <i class="fas fa-align-left"></i>
 					</button>
 					<div class="navegation">
-						<h3 style="margin-top:10px;">Pagina Inicial</h3>
+						<h3 style="margin-top:10px;"><a href="/" >Pagina Inicial </a></h3>
 					</div>
 					<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -79,18 +78,7 @@
 									</div>
 								</div>
 							</li>
-							<li class="dropdown for-notification">
-								<button class="btn btn-default dropdown-toggle notification" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fa fa-bell"></i>
-								</button>
-								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="notification">
-									<b><p class="text-warning text-center"> Tens 1 Notificação</p></b>
-								    <a class="dropdown-item media" href="#">
-										<i class="fa fa-info"> </i>
-										<p class="ml-2"> Novo padrão adicionado</p>
-                                    </a>
-								</div>
-							</li>
+						
 							<li class="nav-item dropdown">
 								<a class="nav-link text-left text-dark" style="font-size:1em;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}<i class="fa fa-caret-down"></i></a>
 								<div class="dropdown-menu dropdown-menu-right">
