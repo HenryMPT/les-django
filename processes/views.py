@@ -49,8 +49,8 @@ class ActivityCreate(CreateView):
 			form_class = self.get_form_class()
 		form = super(ActivityCreate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple())
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple(),required=False)
 		return form	
 
 class ActivityDetail(DetailView):

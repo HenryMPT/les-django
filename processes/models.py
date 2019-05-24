@@ -29,7 +29,7 @@ class Activity(models.Model):
     original = models.ForeignKey('self', blank=True, null=True,on_delete=models.SET_NULL)
     pattern = models.ManyToManyField('Activities.Pattern', blank=True)
     class Meta:
-        verbose_name = ("Activity")
+        verbose_name = ("Activity") 
 
     def __str__(self):
         return self.activity_name
