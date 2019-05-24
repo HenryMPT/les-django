@@ -42,6 +42,7 @@ class UserDelete(DeleteView):
 
 class UserDetail(DetailView):
 	model = User
+	template_name = "users/user_detail.html"
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['logged_user'] = self.request.user
