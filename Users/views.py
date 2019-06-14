@@ -42,7 +42,6 @@ class UserDelete(DeleteView):
 
 class UserDetail(DetailView):
 	model = User
-	template_name = "users/user_detail.html"
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['logged_user'] = self.request.user
@@ -68,12 +67,6 @@ class UserUpdate(UpdateView):
 	fields = ['username', 'email', 'organization', 'groups']
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_update_form.html"
-	def get_form(self, form_class=None):
-		if form_class is None:
-			form_class = self.get_form_class()
-		form = super(UserUpdate, self).get_form(form_class)
-		form.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
-		return form 
 
 
 class OrganizationCreate(CreateView):
