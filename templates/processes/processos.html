@@ -19,8 +19,7 @@
 							<tr class="d-flex nobluebar">
 									<td class="col-2"><b>Nome:</b> </td>
 									<td class="col-2"><b>Criado por:</b> </td>
-									<td class="col-5"><b>Descrição: </b></td>
-									<td class="col-3"><b>Data criação: </b></td>
+									<td class="col-4"><b>Descrição: </b></td>
 								</tr>
 						</thead>
 						
@@ -36,7 +35,6 @@
 										<td class="col-2">{{proc.user.username}} </td>	
 										{% endif %}
 										<td class="col-5">{{proc.description}}</td>
-										<td class="col-2">{{proc.creation_date}}</td>
 										<td class="col-1">
 												<button type="button" class="btn btn-default btn-sm">
 														<a href="/processos/ProcessUpdate/{{proc.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a>

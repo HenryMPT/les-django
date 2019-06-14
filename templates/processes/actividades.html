@@ -17,20 +17,26 @@
 									</div>
 								</th>
 							</tr>
-						</thead>
+							<tr class="d-flex nobluebar">
+								<td class="col-4"><b>Nome:</b> </td>
+								<td class="col-8"><b>Descrição: </b></td>
+							</tr>
+					</thead>
 						<tbody>
 								{% for act in acts %}
 								<tr class="d-flex">
 								
-										<td class="col-3"><b>Atividade: </b><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
-										<td class="col-3"><b>Descrição: </b>{{act.description}}</td>
-										<td class="col-3"><b>Papéis: </b>{% for rol in act.role.all %}
-											{{rol}}<br>
-											{% endfor %}
-										</td>
-										<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></td>
-										<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></td>
-						
+										<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
+										<td class="col-4">{{act.description}}</td>
+										<td class="col-2">
+												<button type="button" class="btn btn-default btn-sm">							
+										<a href="/actividades/ActivityUpdate/{{act.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a></b>
+									</button>
+									<button type="button" class="btn btn-default btn-sm">	
+										<a href="/actividades/ActivityDelete/{{act.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
+									</button>
+									</td>
+									</div>
 									</tr>
 									{% endfor %}
 							
