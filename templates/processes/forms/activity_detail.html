@@ -1,6 +1,6 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-{% if perms.Users.test_GProc %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist %}
 
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
