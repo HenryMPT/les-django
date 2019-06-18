@@ -21,20 +21,20 @@ def gparea(request):
 				  template_name="processes/gparea.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def processos(request):
 	return render(request=request,
 				  template_name="processes/processos.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
 				   context={"acts": Activity.objects.all().exclude(process__isnull=False)})
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_act.delete()
@@ -124,19 +124,19 @@ class ActivitySwap(CreateView):
 		form.initial['original'] = this_act.id
 		return form
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def AssociateReferer(request, **kwargs):
 	split = request.META.get('HTTP_REFERER').split("/")
 	return HttpResponseRedirect("/processos/ProcessDetail/"+split[-1])
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removePatternFromActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
 	this_act.pattern.remove(this_pattern)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addPatternToActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
@@ -188,7 +188,7 @@ class ProcessDetail(DetailView):
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts).exclude(process__isnull=False)
 		return context
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def produtos(request):
 	return render(request=request,
 					template_name="processes/produtos.html",
@@ -247,14 +247,14 @@ class ProductDelete(DeleteView):
 	template_name = "processes/forms/product_confirm_delete.html"
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeActivityFromProduct(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
 	this_product.activity.remove(this_act)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addActivityToProduct(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
@@ -310,14 +310,14 @@ class RoleDelete(DeleteView):
 	template_name = "processes/forms/role_confirm_delete.html"
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeRoleFromActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
 	this_act.role.remove(this_rol)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addRoleToActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
@@ -325,7 +325,7 @@ def addRoleToActivity(request, **kwargs):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def home(request):
 	return render(request=request,
 				  template_name="processes/homepage.html",
@@ -336,7 +336,7 @@ def home(request):
 				   }
 				   )
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def papeis(request):
 	return render(request=request,
 				  template_name="processes/papeis.html",
@@ -347,14 +347,14 @@ def papeis(request):
 				   )
 	
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeProductFromRole(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
 	this_rol.product.remove(this_product)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addProductToRole(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]

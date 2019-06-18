@@ -15,24 +15,6 @@ from django.views.generic.detail import DetailView
 from django import forms
 # Create your views here.
 
-def register(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid(): 
-			user = form.save()
-			profile= Group.objects.get(name=form.cleaned_data.get('group'))
-			user.groups.add(profile)
-			username = form.cleaned_data.get('username')
-	#		login(request, user)
-	#		messages.info(request, f"You are now logged in as {username}")
-			return redirect("processes:homepage")
-		else:
-			for msg in form.error_messages:
-				messages.error(request, f"{msg}: {form.error_messages[msg]}")
-	form = NewUserForm()
-	return render(request,
-				  "processes/register.html",
-				  {"form":form})
 
 class UserDelete(DeleteView):
 	model = User
@@ -106,7 +88,7 @@ class OrganizationUpdate(UpdateView):
 	template_name = "processes/forms/organization_form.html"
 
 
-def login2_request(request):
+def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
 		if form.is_valid():
@@ -125,7 +107,7 @@ def login2_request(request):
 
 	form = AuthenticationForm()
 	return render(request,
-				  "processes/login2.html",
+				  "processes/login.html",
 				  {"form":form})
 
 def logout_request(request):
@@ -134,7 +116,7 @@ def logout_request(request):
 	return redirect("processes:homepage")
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def utilizadores(request):
 	return render(request=request,
 					template_name="processes/utilizadores.html",
@@ -142,7 +124,7 @@ def utilizadores(request):
 					"groups" : Group.objects.all(),
 					 "orgs" : Organization.objects.all(), })
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def empresas(request):
 	return render(request=request,
 					template_name="processes/empresas.html",
