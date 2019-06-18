@@ -46,3 +46,7 @@ thead > tr.nobluebar{
 tbody {
     overflow-x : hidden;
 }
+
+.legendrow > div {
+font-weight: bold;
+}

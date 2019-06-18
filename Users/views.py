@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm
 from django.contrib.auth.models import Group
+from Activities.models import Pattern, Sentence
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
@@ -46,6 +47,8 @@ class UserDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		context['logged_user'] = self.request.user
 		context['procs'] = Process.objects.all()
+		context['patts'] = Pattern.objects.filter(userid=self.object.id)
+		context['sentecs'] = Sentence.objects.filter(userid=self.object.id)
 		return context
 
 

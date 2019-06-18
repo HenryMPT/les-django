@@ -26,6 +26,38 @@
 </div>
 <p><a href="/utilizadores/UserUpdate/{{object.id}}"> Editar user </a></p>
 <br>
+<h3>Padrões do utilizador</h3>
+<hr>
+{% for pat in patts %}
+<div class="row">
+<div class="col-sm-1"> Padrão:</div>
+<div class="col-sm-3">{{pat}} </div>
+<div class="col-sm-1"> Descrição:</div>
+<div class="col-sm-4">{{pat.description}}</div>
+<div class="col-sm-1"> Data de criação:</div>
+<div class="col-sm-4">{{pat.data_creation}}</div>
+</div>
+
+{% endfor %}
+<hr>
+<h3>Frases do utilizador</h3>
+<div class="row legendrow">
+    <div class="col-sm-3"> Frase:</div>
+    <div class="col-sm-3"> Sujeito:</div>
+    <div class="col-sm-3"> Receptor:</div>
+    <div class="col-sm-3"> Data de criação:</div>
+  </div>
+<hr>
+{% for sent in sentecs %}
+<div class="row">
+<div class="col-sm-3">{{sent}} </div>
+<div class="col-sm-3">{{sent.subject}}</div>
+<div class="col-sm-3">{{sent.subject}}</div>
+<div class="col-sm-3">{{sent.data_creation}}</div>
+</div>
+
+{% endfor %}
+<hr>
 <h3>Processos do utilizador</h3>
 <hr>
 {% for proc in procs %}
@@ -35,7 +67,7 @@
 <div class="col-sm-3"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a></div>
 <div class="col-sm-1"> Descrição:</div>
 <div class="col-sm-4">{{proc.description}}</div>
-{% if perms.Users.test_GProc %}
+{% if perms.Users.test_GProc  %}
 <div class="col-sm-1"><a href="/processos/ProcessUpdate/{{proc.id}}">Editar</a></div>
 {% endif %}
 </div>

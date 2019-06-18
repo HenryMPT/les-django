@@ -9,7 +9,7 @@ from django.contrib import messages
 from Users.forms import NewUserForm
 from Activities.models import Pattern
 from .forms import  SwapActivityForm
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
@@ -110,7 +110,7 @@ class ActivitySwap(CreateView):
 		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
 		all_roles = Role.objects.all()
 		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
 		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
 		form.fields['original'].empty_label = None
@@ -157,8 +157,17 @@ class ProcessCreate(CreateView):
 
 class ProcessUpdate(UpdateView):
 	model = Process
-	fields = ['process_name', 'description']
+	fields = ['process_name', 'description' , 'user']
 	template_name = "processes/forms/process_update_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(ProcessUpdate, self).get_form(form_class)
+		perm = Permission.objects.get(codename='test_GProc')  
+		gp_users = User.objects.filter(groups__permissions=perm)
+		form.fields['user'] = forms.ModelChoiceField(queryset=gp_users)
+		form.fields['user'].empty_label = None
+		return form
 
 class ProcessDelete(DeleteView):
 	model = Process
