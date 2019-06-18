@@ -73,8 +73,23 @@
 								<div class="btn-group">
 									<button type="button" class="btn btn-warning dropdown-toggle text-left" style="width:100px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+ Novo </button>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="/actividades/ActivityCreate">Atividade</a>
+											{% if perms.Users.test_Func %}
+										<a class="dropdown-item" href="#">Frase</a>
+										{% endif %}
+										{% if perms.Users.test_Analist %}
+										<a class="dropdown-item" href="#">Agrupamento</a>
+										<a class="dropdown-item" href="#">Padrão</a>
+										{% endif %}
+										{% if perms.Users.test_Admin %}
+										<a class="dropdown-item" href="/utilizadores/UserCreate">Utilizador</a>
+										<a class="dropdown-item" href="/empresas/OrganizationCreate">Empresa</a>
+										{% endif %}
+											{% if perms.Users.test_GProc %}
 										<a class="dropdown-item" href="/processos/ProcessCreate">Processo</a>
+										<a class="dropdown-item" href="/actividades/ActivityCreate">Atividade</a>
+										<a class="dropdown-item" href="/papeis/RoleCreate">Papel</a>
+										<a class="dropdown-item" href="/produtos/ProductCreate">Produto</a>
+										{% endif %}
 									</div>
 								</div>
 							</li>
