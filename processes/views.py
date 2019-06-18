@@ -40,6 +40,7 @@ def removeActivityFromProcess(request, **kwargs):
 	this_act.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
+
 class ActivityCreate(CreateView):
 	model = Activity
 	fields = ['activity_name', 'description', 'pattern', 'role'] 

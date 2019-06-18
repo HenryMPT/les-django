@@ -8,14 +8,12 @@ from django.forms import ModelForm
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    c = (("Funcionario", "FUNCIONARIO"), ("Analista", "ANALISTA")
-	 , ("Gestor de Processos", "GESTOR DE PROCESSOS") ,
-	 ("Admin", "ADMINISTRADOR"))
     group = forms.ModelChoiceField(queryset=Group.objects.all())
     organization = forms.ModelChoiceField(queryset=Organization.objects.all())
     class Meta:
         model = User
         fields = ("username", "email", "group", "organization", "password1", "password2",)
+        
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)

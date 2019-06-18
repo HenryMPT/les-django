@@ -62,7 +62,12 @@ class UserCreate(CreateView):
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
 		form.fields['organization'].empty_label = None
+		form.fields['email'].error_messages = "Fodasse"
+		form.fields['organization'].label = "Empresa"
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['group'].label = "Perfil"
+		form.fields['password2'].help_text = "Por favor confirme a password"
+		form.fields['password2'].label = "Confirmar Password"
 		return form 		
 
 class UserUpdate(UpdateView):
