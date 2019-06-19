@@ -16,14 +16,18 @@
 									</div>
 								</th>
 							</tr>
+							<tr class="d-flex nobluebar">
+								<td class="col-3"><b>Papel:</b> </td>
+								<td class="col-3"><b>Actividades:</b> </td>
+							
+							</tr>
 						</thead>
 						<tbody>
 								{% for role in roles %}
 								<tr class="d-flex">
 								
-										<td class="col-2"><span><b>Papel: </b><a href="/papeis/RoleDetail/{{role.id}}">{{role.role_name}} </a></span></td>
-										<td class="col-2"><b>Descrição: </b>{{role.description}}</span></td>
-										<td class="col-2"><b>Actividade: </b>
+										<td class="col-3"><span><a href="/papeis/RoleDetail/{{role.id}}">{{role.role_name}} </a></span></td>
+										<td class="col-3">
 											{% for act in acts %}
 											{% for rol in act.role.all %}
 												{% if rol.id == role.id %}
@@ -33,11 +37,6 @@
 											{% endfor %}	
 											{% endfor %}</td>
 										</span></td>
-										<td class="col-2"><b>Processo: </b> {{role.activity.process}}</td>
-										<td class="col-1"><b>Produtos: </b>
-										{% for prod in role.product.all %}
-										 <br>{{prod}}
-										{% endfor %}</td>
 										<td class="col-1"><b><a href="/papeis/RoleUpdate/{{role.id}} ">Editar</a></span></td>
 										<td class="col-1"><b><a href="/papeis/RoleDelete/{{role.id}} ">Eliminar</a></span></td>
 						

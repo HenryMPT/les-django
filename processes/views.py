@@ -217,11 +217,8 @@ class ProductDetail(DetailView):
 		context['pid'] = self.kwargs['pk']
 		this_product = Product.objects.all().filter(id=product_id)[0]
 		our_acts = this_product.activity.all()
-		our_roles = Role.objects.all().filter(product__id=product_id)
 		context['acts'] = our_acts
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
-		context['roles'] = our_roles
-		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
 		return context
 
 
@@ -262,14 +259,14 @@ def addActivityToProduct(request, **kwargs):
 
 class RoleCreate(CreateView):
 	model = Role
-	fields = ['role_name' , 'description', 'product']
+	fields = ['role_name' , 'description']
 	template_name = "processes/forms/role_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleCreate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
 
 class RoleDetail(DetailView):
@@ -280,10 +277,10 @@ class RoleDetail(DetailView):
 		role_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		this_rol = Role.objects.all().filter(id=role_id)[0]
-		our_products = this_rol.product.all()
+		#our_products = this_rol.product.all()
 		our_acts = Activity.objects.all().filter(role__id=role_id)
-		context['products'] = our_products
-		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		#context['products'] = our_products
+		#context['non_products'] = Product.objects.all().exclude(id__in=our_products)
 		context['acts'] = our_acts
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
 		return context
@@ -291,14 +288,14 @@ class RoleDetail(DetailView):
 
 class RoleUpdate(UpdateView):
 	model = Role
-	fields = ['role_name' , 'description', 'product']
+	fields = ['role_name' , 'description']
 	template_name = "processes/forms/role_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
 		
 class RoleDelete(DeleteView):
@@ -343,21 +340,6 @@ def papeis(request):
 				   }
 				   )
 	
-
-@login_required(login_url='/login')
-def removeProductFromRole(request, **kwargs):
-	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
-	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
-	this_rol.product.remove(this_product)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
-
-@login_required(login_url='/login')
-def addProductToRole(request, **kwargs):
-	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
-	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
-	this_rol.product.add(this_product)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 
 
 

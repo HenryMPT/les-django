@@ -48,8 +48,6 @@ urlpatterns = [
     path("papeis/RoleDetail/<int:pk>", login_required(views.RoleDetail.as_view(),login_url="/login"), name="RoleDetail"),
     path("papeis/RoleUpdate/<int:pk>", login_required(views.RoleUpdate.as_view(success_url=('/papeis')),login_url="/login"), name="RoleUpdate"),
     path("papeis/RoleDelete/<int:pk>", login_required(views.RoleDelete.as_view(success_url=('/papeis')),login_url="/login"), name="RoleDelete"),
-    path("papeis/ProductDessociate/<int:pk>/<int:fk>", views.removeProductFromRole, name="PaperProductDessociate"),
-    path("papeis/ProductAssociate/<int:pk>/<int:fk>", views.addProductToRole, name="PaperProductAssociate"),
     path("actividades/RoleDessociate/<int:pk>/<int:fk>", views.removeRoleFromActivity, name="RoleDessociate"),
     path("actividades/RoleAssociate/<int:pk>/<int:fk>", views.addRoleToActivity, name="RoleAssociate"),
 ]
