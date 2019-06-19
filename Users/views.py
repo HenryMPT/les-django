@@ -38,16 +38,17 @@ class UserDetail(DetailView):
 		return context
 
 
-class UserChangePassword(UpdateView):
+class UserChangePassword(PasswordChangeView):
 	model = User
 	template_name = "processes/forms/user_update_pass.html"
 	sucess_url = "/utilizadores"
-	fields = ['password']
-	def get_form(self,form_class=None, **kwargs):
+	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
-		form = PasswordChangeForm(user=User.objects.filter(id=self.kwargs['pk']), data=self.request.POST or None)
-		#form.fields['old_password'].widget = forms.TextInput()
+		form = super(UserChangePassword, self).get_form(form_class)
+		form.fields['old_password'].label = "Insira a password actual"
+		form.fields['new_password1'].label = "Insira a password nova"
+		form.fields['new_password2'].label = "Confirme a password nova"
 		return form
 
 

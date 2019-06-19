@@ -90,8 +90,10 @@
 
 {% endif %}
 
-
-
+{% if object.id == logged_user.id %}
+<hr>
+<a href="/utilizadores/UserChangePassword/{{object.id}}"> Alterar Password </a>
+{% endif %}
 
 
 </div>
