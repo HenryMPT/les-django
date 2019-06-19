@@ -50,6 +50,10 @@ class UserChangePassword(PasswordChangeView):
 		form.fields['new_password1'].label = "Insira a password nova"
 		form.fields['new_password2'].label = "Confirme a password nova"
 		return form
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['this_user'] = self.kwargs["pk"]
+		return context
 
 
 class UserCreate(CreateView):

@@ -3,6 +3,7 @@
 {% block content %}
 
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %} 
 <div class="container">
         <form method="post">{% csrf_token %}
     {%if act_procs|length > 0 %}
@@ -25,5 +26,7 @@
     {%if act_procs|length == 0 %}<p>Are you sure you want to delete <b>"{{ object.activity_name}}</b>"?</p><input type="submit" value="Confirm">{% endif %} <a href="/actividades">Cancelar</a>
 </form>
 </div>
-
+{% else %}
+<h2>Não tem permissão para realizar esta ação.</h2>
+{% endif %}
 {% endblock %}

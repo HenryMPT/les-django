@@ -2,8 +2,9 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %}   
 <div class="container">
-    
+
 <form method="post">{% csrf_token %}
         {{ form|crispy }}
     
@@ -12,4 +13,7 @@
 </form>
 
 </div>
+{% else %}
+<h2>Não pode realizar esta ação.</h2>
+{% endif %}
 {% endblock %}

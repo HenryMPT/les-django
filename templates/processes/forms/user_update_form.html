@@ -2,6 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_Admin %} 
 <div class="container">
     
 <form method="post">{% csrf_token %}
@@ -14,4 +15,7 @@
 </form>
 
 </div>
+{% else %}
+<h2>Não tem permissão para realizar esta ação.</h2>
+{% endif %}
 {% endblock %}

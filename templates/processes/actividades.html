@@ -1,8 +1,9 @@
 {% extends "processes/header2.html" %}
 <p>boo</p>
 				{% block content %}
-				{% if perms.Users.test_GProc or perms.Users.test_Analist %}
+				
 				{% include "processes/includes/sidenav.html" %}
+				{% if perms.Users.test_GProc or perms.Users.test_Analist %}
 				<div class="container">
 					<table class="table table-hover header-fixed">
 						<thead>
@@ -52,8 +53,9 @@
             </div>
 		</div>
 	</div>
-				{% endif %}
-			
+		
 
-				
+				{% else %}
+				<h2>Não tem permissão para visualizar esta página.</h2>
+				{% endif %}	
 	{% endblock %}

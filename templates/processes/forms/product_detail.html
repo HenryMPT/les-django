@@ -1,8 +1,9 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-{% if perms.Users.test_GProc or perms.Users.test_Analist  %}
+
 
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %}
 <div class="container">
         <h3>Produto:&nbsp; {{object}} </h3><br>
         <h3>Formato:&nbsp;{{object.product_format}}</h3><br>       
@@ -42,5 +43,7 @@
       </div>
       <hr>
       <br>
-        {% endif %}
+      {% else %}
+      <h2>Não tem permissão para visualizar esta página.</h2>
+      {% endif %}
         {% endblock %}

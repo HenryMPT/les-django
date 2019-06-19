@@ -3,10 +3,14 @@
 {% block content %}
 
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %}  
 <div class="container">
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete <b>"{{ object.process_name}}</b>"?</p>
     <input type="submit" value="Confirm"> <a href="/processos">Cancelar</a>
 </form>
 </div>
+{% else %}
+<h2>Não tem permissão para realizar esta ação.</h2>
+{% endif %}
 {% endblock %}

@@ -2,8 +2,9 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
+{{object.id}}
+{% if request.user.id ==  this_user %}
 <div class="container">
-    {{boo}}
 <form method="post">{% csrf_token %}
         {{ form|crispy }}
     
@@ -12,4 +13,7 @@
 </form>
 
 </div>
+{% else %}
+<h2>Não tem permissão para realizar esta ação.</h2>
+{% endif %}
 {% endblock %}
