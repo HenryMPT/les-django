@@ -3,10 +3,21 @@
 {% block content %}
 
 {% include "processes/includes/sidenav.html" %}
+
+
 <div class="container">
+
+    {% if perms.Users.test_Admin and object.id != logged_user.id %}
+
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete user<b>"{{ object.username}}</b>"?</p>
     <input type="submit" value="Confirm"> <a href="/utilizadores">Cancelar</a>
 </form>
 </div>
+
+
+{% else %}
+<p> Não tem permissão para fazer esta acção.</p>
+
+{% endif %}
 {% endblock %}

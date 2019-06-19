@@ -21,7 +21,10 @@ class UserDelete(DeleteView):
 	model = User
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_confirm_delete.html"
-
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['logged_user'] = self.request.user
+		return context
 
 
 class UserDetail(DetailView):
