@@ -25,14 +25,14 @@
 								{% for prod in prods %}
 								<tr class="d-flex">
 								
-										<td class="col-3"><span><a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}} </a></span></td>
-										<td class="col-3">{{prod.product_format}}</span></td>
-										<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
+										<td class="col-3"><a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}} </a></td>
+										<td class="col-3">{{prod.product_format}}</td>
+										<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></td>
+										<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></td>
 						
-									</tr>
+									
 									{% endfor %}
-						
+								</tr>
 						</tbody>
 						<tfoot>
 							<tr class="d-flex">
