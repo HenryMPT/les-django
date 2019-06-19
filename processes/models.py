@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 class Process(models.Model):
     process_name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    creation_date = models.DateTimeField("date created", default=django.utils.timezone.now())
+    creation_date = models.DateTimeField("date created", default=django.utils.timezone.now)
     description = models.TextField(max_length=200)
 
 

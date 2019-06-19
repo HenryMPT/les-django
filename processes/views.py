@@ -16,10 +16,7 @@ from django.views.generic.detail import DetailView
 from django import forms
 
 
-def gparea(request):
-	return render(request=request,
-				  template_name="processes/gparea.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
+
 
 @login_required(login_url='/login')
 def processos(request):

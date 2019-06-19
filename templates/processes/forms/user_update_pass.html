@@ -3,12 +3,10 @@
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
 <div class="container">
-    
+    {{boo}}
 <form method="post">{% csrf_token %}
         {{ form|crispy }}
-    <br>
-    <a href="/utilizadores/UserChangePassword/{{object.id}}"> Alterar Password </a>
-    <hr>
+    
     <input type="submit" value="Confirmar"> <a href="/utilizadores">Cancelar</a>
 
 </form>

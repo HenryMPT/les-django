@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from processes.models import Process, Activity, Role, Product
 from .models import User, Organization
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm
@@ -12,6 +12,7 @@ from Activities.models import Pattern, Sentence
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import PasswordChangeView
 from django import forms
 # Create your views here.
 
@@ -34,6 +35,19 @@ class UserDetail(DetailView):
 		return context
 
 
+class UserChangePassword(UpdateView):
+	model = User
+	template_name = "processes/forms/user_update_pass.html"
+	sucess_url = "/utilizadores"
+	fields = ['password']
+	def get_form(self,form_class=None, **kwargs):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = PasswordChangeForm(user=User.objects.filter(id=self.kwargs['pk']), data=self.request.POST or None)
+		#form.fields['old_password'].widget = forms.TextInput()
+		return form
+
+
 class UserCreate(CreateView):
 	model = User
 	form_class = NewUserForm
@@ -44,7 +58,7 @@ class UserCreate(CreateView):
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
 		form.fields['organization'].empty_label = None
-		form.fields['email'].error_messages = "Fodasse"
+		form.fields['email'].error_messages = "..."
 		form.fields['organization'].label = "Empresa"
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['group'].label = "Perfil"
@@ -57,6 +71,16 @@ class UserUpdate(UpdateView):
 	fields = ['username', 'email', 'organization', 'groups']
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_update_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserUpdate, self).get_form(form_class)
+		form.fields['organization'].empty_label = None
+		form.fields['email'].error_messages = "..."
+		form.fields['organization'].label = "Empresa"
+		form.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['groups'].label = "Perfil"
+		return form
 
 
 class OrganizationCreate(CreateView):
