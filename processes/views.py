@@ -49,6 +49,10 @@ class ActivityCreate(CreateView):
 		#form.fields['user'].widget
 		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple(),required=False)
+		form.fields['activity_name'].label = "Nome da actividade"
+		form.fields['description'].label = "Descrição"
+		form.fields['pattern'].label = "Padrões"
+		form.fields['role'].label = "Papéis"
 		return form	
 
 class ActivityDetail(DetailView):
@@ -82,6 +86,10 @@ class ActivityUpdate(UpdateView):
 		#form.fields['user'].widget
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['activity_name'].label = "Nome da actividade"
+		form.fields['description'].label = "Descrição"
+		form.fields['pattern'].label = "Padrões"
+		form.fields['role'].label = "Papéis"
 		return form		
 
 class ActivityDelete(DeleteView):
@@ -144,14 +152,14 @@ class ProcessCreate(CreateView):
 	model = Process
 	fields = ['process_name', 'user' , 'description']
 	template_name = "processes/forms/process_form.html"
-	
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ProcessCreate, self).get_form(form_class)
 		form.fields['user'].widget = forms.HiddenInput()
 		form.initial['user'] = self.request.user
-		form.fields['process_name'].error_messages= {'required': 'Please enter your name'}
+		form.fields['process_name'].label = "Nome do Processo"
+		form.fields['description'].label = "Descrição"
 		return form 
 
 class ProcessUpdate(UpdateView):
@@ -166,6 +174,8 @@ class ProcessUpdate(UpdateView):
 		gp_users = User.objects.filter(groups__permissions=perm)
 		form.fields['user'] = forms.ModelChoiceField(queryset=gp_users)
 		form.fields['user'].empty_label = None
+		form.fields['process_name'].label = "Nome do Processo"
+		form.fields['description'].label = "Descrição"
 		return form
 
 class ProcessDelete(DeleteView):
@@ -207,6 +217,9 @@ class ProductCreate(CreateView):
 		form = super(ProductCreate, self).get_form(form_class)
 		#form.fields['user'].widget
 		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['product_name'].label = "Nome do produto"
+		form.fields['product_format'].label = "Formato"
+		form.fields['activity'].label = "Actividades"
 		return form
 
 class ProductDetail(DetailView):
@@ -233,6 +246,9 @@ class ProductUpdate(UpdateView):
 		form = super(ProductUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
 		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['product_name'].label = "Nome do produto"
+		form.fields['product_format'].label = "Formato"
+		form.fields['activity'].label = "Actividades"
 		return form
 
 
@@ -268,6 +284,8 @@ class RoleCreate(CreateView):
 		form = super(RoleCreate, self).get_form(form_class)
 		#form.fields['user'].widget
 		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['role_name'].label = "Nome do papel"
+		form.fields['description'].label = "Descrição"
 		return form
 
 class RoleDetail(DetailView):
@@ -297,6 +315,8 @@ class RoleUpdate(UpdateView):
 		form = super(RoleUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
 		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['role_name'].label = "Nome do papel"
+		form.fields['description'].label = "Descrição"
 		return form
 		
 class RoleDelete(DeleteView):
