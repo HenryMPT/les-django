@@ -151,6 +151,7 @@ class ProcessCreate(CreateView):
 		form = super(ProcessCreate, self).get_form(form_class)
 		form.fields['user'].widget = forms.HiddenInput()
 		form.initial['user'] = self.request.user
+		form.fields['process_name'].error_messages= {'required': 'Please enter your name'}
 		return form 
 
 class ProcessUpdate(UpdateView):

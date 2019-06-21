@@ -95,7 +95,13 @@ class OrganizationCreate(CreateView):
 	model = Organization
 	fields = ['name', 'location']
 	template_name = "processes/forms/organization_form.html"
-
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(OrganizationCreate, self).get_form(form_class)
+		form.fields['name'].label = "Nome da Empresa"
+		form.fields['location'].label = "Localização"
+		return form
 
 
 class OrganizationDetail(DetailView):
