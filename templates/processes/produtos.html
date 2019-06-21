@@ -1,7 +1,8 @@
 {% extends "processes/header2.html" %}
 				{% block content %}
-				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
+				
 				{% include "processes/includes/sidenav.html" %}
+				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				<div class="container">
 					<table class="table table-hover header-fixed">
 						<thead>
@@ -16,19 +17,23 @@
 									</div>
 								</th>
 							</tr>
+							<tr class="d-flex nobluebar">
+									<td class="col-3"><b>Produto:</b> </td>
+									<td class="col-3"><b>Formato: </b></td>
+								</tr>
 						</thead>
 						<tbody>
 								{% for prod in prods %}
 								<tr class="d-flex">
 								
-										<td class="col-3"><span><b>Produto: </b><a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}} </a></span></td>
-										<td class="col-3"><b>Formato: </b>{{prod.product_format}}</span></td>
-										<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
+										<td class="col-3"><a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}} </a></td>
+										<td class="col-3">{{prod.product_format}}</td>
+										<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></td>
+										<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></td>
 						
-									</tr>
+									
 									{% endfor %}
-						
+								</tr>
 						</tbody>
 						<tfoot>
 							<tr class="d-flex">
@@ -40,6 +45,7 @@
 				
             </div>
 		</div>
-		{% endif %}
-
+		{% else %}
+		<h2>Não tem permissão para visualizar esta página.</h2>
+		{% endif %}	
 		{% endblock %}

@@ -13,12 +13,17 @@
 									</div>
 								</th>
 							</tr>
+							<tr class="d-flex nobluebar">
+								<td class="col-3"><b>Nome:</b> </td>
+								<td class="col-3"><b>Localização:</b> </td>
+				
+							</tr>
 						</thead>
 						<tbody>
 								{% for org in orgs %}
 								<tr class="d-flex">
-										<td class="col-3"><span><b>Nome: </b><a href="/empresas/OrganizationDetail/{{org.id}}">{{org.name}} </a></span></td>
-										<td class="col-3"><span><b>Localização: </b><a href="#">{{org.location}} </a></span></td>	
+										<td class="col-3"><span><a href="/empresas/OrganizationDetail/{{org.id}}">{{org.name}} </a></span></td>
+										<td class="col-3"><span>{{org.location}}</span></td>	
 										<td class="col-1"><b><a href="/empresas/OrganizationUpdate/{{org.id}} ">Editar</a></span></td>
 										<td class="col-1"><b><a href="/empresas/OrganizationDelete/{{org.id}} ">Eliminar</a></span></td>
 									

@@ -3,41 +3,28 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 from processes.models import Process, Activity, Role, Product
 from .models import User, Organization
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import NewUserForm
 from django.contrib.auth.models import Group
+from Activities.models import Pattern, Sentence
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import PasswordChangeView
 from django import forms
 # Create your views here.
 
-def register(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid(): 
-			user = form.save()
-			profile= Group.objects.get(name=form.cleaned_data.get('group'))
-			user.groups.add(profile)
-			username = form.cleaned_data.get('username')
-	#		login(request, user)
-	#		messages.info(request, f"You are now logged in as {username}")
-			return redirect("processes:homepage")
-		else:
-			for msg in form.error_messages:
-				messages.error(request, f"{msg}: {form.error_messages[msg]}")
-	form = NewUserForm()
-	return render(request,
-				  "processes/register.html",
-				  {"form":form})
 
 class UserDelete(DeleteView):
 	model = User
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_confirm_delete.html"
-
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['logged_user'] = self.request.user
+		return context
 
 
 class UserDetail(DetailView):
@@ -46,6 +33,26 @@ class UserDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		context['logged_user'] = self.request.user
 		context['procs'] = Process.objects.all()
+		context['patts'] = Pattern.objects.filter(userid=self.object.id)
+		context['sentecs'] = Sentence.objects.filter(userid=self.object.id)
+		return context
+
+
+class UserChangePassword(PasswordChangeView):
+	model = User
+	template_name = "processes/forms/user_update_pass.html"
+	sucess_url = "/utilizadores"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserChangePassword, self).get_form(form_class)
+		form.fields['old_password'].label = "Insira a password actual"
+		form.fields['new_password1'].label = "Insira a password nova"
+		form.fields['new_password2'].label = "Confirme a password nova"
+		return form
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['this_user'] = self.kwargs["pk"]
 		return context
 
 
@@ -59,7 +66,12 @@ class UserCreate(CreateView):
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
 		form.fields['organization'].empty_label = None
+		form.fields['email'].error_messages = "..."
+		form.fields['organization'].label = "Empresa"
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['group'].label = "Perfil"
+		form.fields['password2'].help_text = "Por favor confirme a password"
+		form.fields['password2'].label = "Confirmar Password"
 		return form 		
 
 class UserUpdate(UpdateView):
@@ -67,6 +79,16 @@ class UserUpdate(UpdateView):
 	fields = ['username', 'email', 'organization', 'groups']
 	sucess_url = "/utilizadores"
 	template_name = "processes/forms/user_update_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserUpdate, self).get_form(form_class)
+		form.fields['organization'].empty_label = None
+		form.fields['email'].error_messages = "..."
+		form.fields['organization'].label = "Empresa"
+		form.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['groups'].label = "Perfil"
+		return form
 
 
 class OrganizationCreate(CreateView):
@@ -98,7 +120,7 @@ class OrganizationUpdate(UpdateView):
 	template_name = "processes/forms/organization_form.html"
 
 
-def login2_request(request):
+def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
 		if form.is_valid():
@@ -117,7 +139,7 @@ def login2_request(request):
 
 	form = AuthenticationForm()
 	return render(request,
-				  "processes/login2.html",
+				  "processes/login.html",
 				  {"form":form})
 
 def logout_request(request):
@@ -126,7 +148,7 @@ def logout_request(request):
 	return redirect("processes:homepage")
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def utilizadores(request):
 	return render(request=request,
 					template_name="processes/utilizadores.html",
@@ -134,7 +156,7 @@ def utilizadores(request):
 					"groups" : Group.objects.all(),
 					 "orgs" : Organization.objects.all(), })
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def empresas(request):
 	return render(request=request,
 					template_name="processes/empresas.html",

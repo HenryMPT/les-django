@@ -1,13 +1,14 @@
 {% extends "processes/header2.html" %}
 {% block content %}
-{% if perms.Users.test_GProc %}
+
 
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %}
 <div class="container">
         <h3>Produto:&nbsp; {{object}} </h3><br>
         <h3>Formato:&nbsp;{{object.product_format}}</h3><br>       
       <hr>
-        <p><a href="/produtos/ProductUpdate/{{object.id}}"> Editar actividade</a></p>
+        <p><a href="/produtos/ProductUpdate/{{object.id}}"> Editar produto</a></p>
         <br>
 <div class = "row">
   <div class = "col-sm-6"> <h3>Actividades associadas ao produto:</h3></div>
@@ -37,30 +38,12 @@
         <br>
 
 
-        <div class = "row">
-            <div class = "col-sm-6"> <h3>Papéis associados ao produto:</h3></div>
-            <div class = "col-sm-6"> <h3>Papéis não associados:</h3></div>
-                </div>
-        <div class ="row">
-            <div class = "col-sm-6 colseparator" >
-        {% for rol in roles %}
-        <div class="row">
-        <div class="col-sm-5"><a href ="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-        <div class="col-sm-4"><p>{{rol.description}}</p></div>
-        <div class="col-sm-2"><a href="/papeis/ProductDessociate/{{object.id}}/{{rol.id}}">Desassociar</a></div>
-        </div>
-        {% endfor %}</div>
-        <div class = "col-sm-6" >
-            {% for rol in non_roles %}
-            <div class="row">
-            <div class="col-sm-5"><a href ="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-            <div class="col-sm-4">{{rol.description}}</div>
-            <div class="col-sm-2"><a href="/papeis/ProductAssociate/{{object.id}}/{{rol.id}}">Associar</a></div>
-            </div>
-            {% endfor %}</div>
+       
           
       </div>
       <hr>
       <br>
-        {% endif %}
+      {% else %}
+      <h2>Não tem permissão para visualizar esta página.</h2>
+      {% endif %}
         {% endblock %}

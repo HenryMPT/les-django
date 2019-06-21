@@ -2,6 +2,7 @@
 {% block content %}
 
 {% include "processes/includes/sidenav.html" %}
+{% if perms.Users.test_GProc or perms.Users.test_Analist  %}
 <div class="container">
         <h3>Processo: {{object.process_name}} </h3>
         <hr>
@@ -54,4 +55,7 @@
         <hr>
 
         </div>
+        {% else %}
+        <h2>Não tem permissão para visualizar esta página.</h2>
+        {% endif %}
         {% endblock %}

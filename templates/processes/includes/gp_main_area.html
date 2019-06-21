@@ -12,15 +12,17 @@
 					</div>
 				</th>
 			</tr>
+			<tr class="d-flex nobluebar">
+					<td class="col-3"><b>Processo:</b> </td>
+					<td class="col-3"><b>Criado por: </b></td>
+				</tr>
 		</thead>
 		<tbody>
 				{% for proc in procs %} 
 				<tr class="d-flex">
 				
-						<td class="col-2"><span><b>Processo: </b><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
-						<td class="col-3"><b>Criado por: </b> {{proc.user.username}} </td>
-						<td class="col-3"><b>Descrição: </b>{{proc.description}}</span></td>
-						<td class="col-3 text-right"><span><b>Data Criação: </b>{{proc.creation_date}}</span></td>
+						<td class="col-3"><span><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
+						<td class="col-3">{{proc.user.username}} </td>
 						<td class="col-1"><b><a href="/processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
 						<td class="col-1"><b><a href="/processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
 			
@@ -53,15 +55,18 @@
 					</div>
 				</th>
 			</tr>
+			<tr class="d-flex nobluebar">
+					<td class="col-3"><b>Actividade:</b> </td>
+					<td class="col-3"><b>Processo: </b></td>
+				</tr>
 		</thead>
 		<tbody>
 		
 			{% for act in acts %}
 			
 			<tr class="d-flex">
-					<td class="col-3"><b>Actividade: </b> <a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
-					<td class="col-3"><b>Descrição: </b> {{act.description}}</td>
-					<td class="col-3"><b>Processo: </b><a href="#">{{act.process.process_name}}</a></td>
+					<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
+					<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
 					<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
 					<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
 				</tr>
@@ -91,17 +96,26 @@
 					</div>
 				</th>
 			</tr>
+			<tr class="d-flex nobluebar">
+				<td class="col-3"><b>Papel:</b> </td>
+				<td class="col-3"><b>Actividade: </b></td>
+			</tr>
 		</thead>
 		<tbody>
 			{% for role in roles %}
-			{% if role.activity.process.user == user %}
+	
 			<tr class="d-flex">
-					<td class="col-3"><b>Papel: </b> <a href="#">{{role.role_name}}</a></td>
-					<td class="col-3"><b>Descrição: </b> {{role.description}}</td>
-					<td class="col-3"><b>Actividade: </b> {{role.activity}}</td>
-					<td class="col-3"><b>Processo: </b> {{role.activity.process}}</td>
+					<td class="col-3"><a href="/papeis/RoleDetail/{{role.role_id}}">{{role.role_name}}</a></td>
+					<td class="col-3"> {% for act in acts %}
+						{% for rol in act.role.all %}
+							{% if rol.id == role.id %}
+								<br>
+								{{act.activity_name}}
+								{% endif %}
+						{% endfor %}	
+						{% endfor %}</td>
 				</tr>
-				{% endif %}
+		
 				{% endfor %}
 		</tbody>
 		<tfoot>
@@ -125,19 +139,22 @@
 					</div>
 				</th>
 			</tr>
+			<tr class="d-flex nobluebar">
+				<td class="col-3"><b>Produto:</b> </td>
+				<td class="col-3"><b>Formato: </b></td>
+			</tr>
 		</thead>
 		<tbody>
 			
 			{% for prod in prods %}
-			{% if prod.user == user %}
+		
 			<tr class="d-flex">
-					<td class="col-3"><b>Actividade: </b> <a href="#">{{prod.activity_name}}</a></td>
-					<td class="col-3"><b>Descrição: </b> {{prod.description}}</td>
-					<td class="col-3"><b>Processo: </b><a href="#">{{prod.process.process_name}}</a></td>
+					<td class="col-3"> <a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}}</a></td>
+					<td class="col-3"> {{prod.product_format}}</td>
 					<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
 					<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
 				</tr>
-				{% endif %}
+			
 				{% endfor %}
 		</tbody>
 		<tfoot>

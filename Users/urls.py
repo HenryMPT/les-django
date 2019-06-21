@@ -15,21 +15,22 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 
 app_name = "Users"
 
 urlpatterns = [
     path("utilizadores", views.utilizadores, name="utilizadores"),
-    path("utilizadores/UserCreate", views.UserCreate.as_view(success_url=('/utilizadores')),  name="UserCreate"),
-    path("utilizadores/UserDelete/<int:pk>", views.UserDelete.as_view(success_url=('/utilizadores')),  name="UserDelete"),
-    path("utilizadores/UserUpdate/<int:pk>", views.UserUpdate.as_view(success_url=('/utilizadores')),  name="UserUpdate"),
-    path("utilizadores/UserDetail/<int:pk>",views.UserDetail.as_view(), name="UserDetail"  ),
+    path("utilizadores/UserCreate", login_required(views.UserCreate.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserCreate"),
+    path("utilizadores/UserDelete/<int:pk>", login_required(views.UserDelete.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserDelete"),
+    path("utilizadores/UserUpdate/<int:pk>", login_required(views.UserUpdate.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserUpdate"),
+    path("utilizadores/UserChangePassword/<int:pk>", login_required(views.UserChangePassword.as_view(success_url=('/')),login_url="/login"),  name="UserUpdatePassword"),
+    path("utilizadores/UserDetail/<int:pk>", login_required(views.UserDetail.as_view(),login_url="/login"), name="UserDetail"  ),
     path("empresas", views.empresas, name="empresas"),
-    path("empresas/OrganizationCreate", views.OrganizationCreate.as_view(success_url=('/empresas')), name="empresas"),
-    path("empresas/OrganizationDelete/<int:pk>", views.OrganizationDelete.as_view(success_url=('/empresas')),  name="OrganizationDelete"),
-    path("empresas/OrganizationUpdate/<int:pk>", views.OrganizationUpdate.as_view(success_url=('/empresas')),  name="OrganizationUpdate"),
-    path("empresas/OrganizationDetail/<int:pk>",views.OrganizationDetail.as_view(), name="OrganizationDetail"  ),
-    path("register", views.register, name="register"),
+    path("empresas/OrganizationCreate", login_required(views.OrganizationCreate.as_view(success_url=('/empresas')), login_url="/login"), name="empresas"),
+    path("empresas/OrganizationDelete/<int:pk>", login_required(views.OrganizationDelete.as_view(success_url=('/empresas')),login_url="/login"),  name="OrganizationDelete"),
+    path("empresas/OrganizationUpdate/<int:pk>", login_required(views.OrganizationUpdate.as_view(success_url=('/empresas')),login_url="/login"),  name="OrganizationUpdate"),
+    path("empresas/OrganizationDetail/<int:pk>", login_required(views.OrganizationDetail.as_view(),login_url="/login"), name="OrganizationDetail"  ),
     path("logout", views.logout_request, name="logout"),
-    path("login2", views.login2_request, name="login2"),
+    path("login", views.login_request, name="login"),
 ]

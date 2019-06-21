@@ -9,36 +9,34 @@ from django.contrib import messages
 from Users.forms import NewUserForm
 from Activities.models import Pattern
 from .forms import  SwapActivityForm
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
 from django import forms
 
 
-def gparea(request):
-	return render(request=request,
-				  template_name="processes/gparea.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
-@login_required(login_url='/login2')
+
+@login_required(login_url='/login')
 def processos(request):
 	return render(request=request,
 				  template_name="processes/processos.html",
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
 				   context={"acts": Activity.objects.all().exclude(process__isnull=False)})
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_act.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
+
 
 class ActivityCreate(CreateView):
 	model = Activity
@@ -110,7 +108,7 @@ class ActivitySwap(CreateView):
 		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
 		all_roles = Role.objects.all()
 		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple())
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
 		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
 		form.fields['original'].empty_label = None
@@ -123,19 +121,19 @@ class ActivitySwap(CreateView):
 		form.initial['original'] = this_act.id
 		return form
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def AssociateReferer(request, **kwargs):
 	split = request.META.get('HTTP_REFERER').split("/")
 	return HttpResponseRedirect("/processos/ProcessDetail/"+split[-1])
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removePatternFromActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
 	this_act.pattern.remove(this_pattern)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addPatternToActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_pattern = Pattern.objects.filter(pk=kwargs['fk'])[0]
@@ -157,8 +155,17 @@ class ProcessCreate(CreateView):
 
 class ProcessUpdate(UpdateView):
 	model = Process
-	fields = ['process_name', 'description']
+	fields = ['process_name', 'description' , 'user']
 	template_name = "processes/forms/process_update_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(ProcessUpdate, self).get_form(form_class)
+		perm = Permission.objects.get(codename='test_GProc')  
+		gp_users = User.objects.filter(groups__permissions=perm)
+		form.fields['user'] = forms.ModelChoiceField(queryset=gp_users)
+		form.fields['user'].empty_label = None
+		return form
 
 class ProcessDelete(DeleteView):
 	model = Process
@@ -178,7 +185,7 @@ class ProcessDetail(DetailView):
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts).exclude(process__isnull=False)
 		return context
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def produtos(request):
 	return render(request=request,
 					template_name="processes/produtos.html",
@@ -210,11 +217,8 @@ class ProductDetail(DetailView):
 		context['pid'] = self.kwargs['pk']
 		this_product = Product.objects.all().filter(id=product_id)[0]
 		our_acts = this_product.activity.all()
-		our_roles = Role.objects.all().filter(product__id=product_id)
 		context['acts'] = our_acts
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
-		context['roles'] = our_roles
-		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
 		return context
 
 
@@ -237,14 +241,14 @@ class ProductDelete(DeleteView):
 	template_name = "processes/forms/product_confirm_delete.html"
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeActivityFromProduct(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
 	this_product.activity.remove(this_act)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addActivityToProduct(request, **kwargs):
 	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
 	this_act = Activity.objects.filter(pk=kwargs['fk'])[0]
@@ -255,14 +259,14 @@ def addActivityToProduct(request, **kwargs):
 
 class RoleCreate(CreateView):
 	model = Role
-	fields = ['role_name' , 'description', 'product']
+	fields = ['role_name' , 'description']
 	template_name = "processes/forms/role_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleCreate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
 
 class RoleDetail(DetailView):
@@ -273,10 +277,10 @@ class RoleDetail(DetailView):
 		role_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		this_rol = Role.objects.all().filter(id=role_id)[0]
-		our_products = this_rol.product.all()
+		#our_products = this_rol.product.all()
 		our_acts = Activity.objects.all().filter(role__id=role_id)
-		context['products'] = our_products
-		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		#context['products'] = our_products
+		#context['non_products'] = Product.objects.all().exclude(id__in=our_products)
 		context['acts'] = our_acts
 		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
 		return context
@@ -284,14 +288,14 @@ class RoleDetail(DetailView):
 
 class RoleUpdate(UpdateView):
 	model = Role
-	fields = ['role_name' , 'description', 'product']
+	fields = ['role_name' , 'description']
 	template_name = "processes/forms/role_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		return form
 		
 class RoleDelete(DeleteView):
@@ -300,14 +304,14 @@ class RoleDelete(DeleteView):
 	template_name = "processes/forms/role_confirm_delete.html"
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def removeRoleFromActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
 	this_act.role.remove(this_rol)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def addRoleToActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
 	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
@@ -315,7 +319,7 @@ def addRoleToActivity(request, **kwargs):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def home(request):
 	return render(request=request,
 				  template_name="processes/homepage.html",
@@ -326,7 +330,7 @@ def home(request):
 				   }
 				   )
 
-@login_required(login_url='/login2')
+@login_required(login_url='/login')
 def papeis(request):
 	return render(request=request,
 				  template_name="processes/papeis.html",
@@ -336,21 +340,6 @@ def papeis(request):
 				   }
 				   )
 	
-
-@login_required(login_url='/login2')
-def removeProductFromRole(request, **kwargs):
-	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
-	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
-	this_rol.product.remove(this_product)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
-
-@login_required(login_url='/login2')
-def addProductToRole(request, **kwargs):
-	this_product = Product.objects.filter(pk=kwargs['pk'])[0]
-	this_rol = Role.objects.filter(pk=kwargs['fk'])[0]
-	this_rol.product.add(this_product)
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 
 
 

@@ -10,8 +10,7 @@ class Organization(models.Model):
     location = models.CharField(max_length=200)
     def __str__(self):
         return self.name
-    class Meta:
-        permissions = (("can_do", "Permission to do stuff"),)
+
 
 
 class User(AbstractUser):

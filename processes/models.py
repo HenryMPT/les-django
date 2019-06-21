@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 class Process(models.Model):
     process_name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    creation_date = models.DateTimeField("date created", default=django.utils.timezone.now())
+    creation_date = models.DateTimeField("date created", default=django.utils.timezone.now)
     description = models.TextField(max_length=200)
 
 
@@ -42,7 +42,6 @@ class Activity(models.Model):
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
     description = models.TextField(max_length=200)
-    product = models.ManyToManyField('Product', blank=True)
     def __str__(self):
         return self.role_name
 
