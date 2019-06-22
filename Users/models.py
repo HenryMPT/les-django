@@ -6,8 +6,8 @@ from django.contrib.auth.models import AbstractUser, Group
 
 # Create your models here.
 class Organization(models.Model):
-    name = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True, blank=False)
+    location = models.CharField(max_length=200, blank=False)
     def __str__(self):
         return self.name
 
