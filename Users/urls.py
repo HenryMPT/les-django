@@ -24,6 +24,7 @@ urlpatterns = [
     path("utilizadores/UserCreate", login_required(views.UserCreate.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserCreate"),
     path("utilizadores/UserDelete/<int:pk>", login_required(views.UserDelete.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserDelete"),
     path("utilizadores/UserUpdate/<int:pk>", login_required(views.UserUpdate.as_view(success_url=('/utilizadores')),login_url="/login"),  name="UserUpdate"),
+    path("utilizadores/UserUpdateEmail/<int:pk>", login_required(views.UserUpdateEmail.as_view(success_url=('/')),login_url="/login"),  name="UserUpdateEmail"),
     path("utilizadores/UserChangePassword/<int:pk>", login_required(views.UserChangePassword.as_view(success_url=('/')),login_url="/login"),  name="UserUpdatePassword"),
     path("utilizadores/UserDetail/<int:pk>", login_required(views.UserDetail.as_view(),login_url="/login"), name="UserDetail"  ),
     path("empresas", views.empresas, name="empresas"),

@@ -92,6 +92,22 @@ class UserUpdate(UpdateView):
 		form.fields['groups'].label = "Perfil"
 		return form
 
+class UserUpdateEmail(UpdateView):
+	model = User
+	fields = ['email']
+	sucess_url = "/utilizadores"
+	template_name = "processes/forms/user_update_email_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserUpdateEmail, self).get_form(form_class)
+		form.fields['email'].label = "Introduza o novo e-mail"
+		return form
+	def get_context_data(self, **kwargs):	
+		context = super().get_context_data(**kwargs)
+		context['logged_user'] = self.request.user
+		return context
+
 
 class OrganizationCreate(CreateView):
 	model = Organization

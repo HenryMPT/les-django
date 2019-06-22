@@ -1,0 +1,21 @@
+{% extends "processes/header2.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% include "processes/includes/sidenav.html" %}
+{% if object.id == logged_user.id or perms.test_Admin %}
+<div class="container">
+    
+<form method="post">{% csrf_token %}
+        {{ form|crispy }}
+    <br>
+    
+    <hr>
+    <input type="submit" value="Confirmar"> <a href="/utilizadores">Cancelar</a>
+
+</form>
+
+</div>
+{% else %}
+<h2>Não tem permissão para realizar esta ação.</h2>
+{% endif %}
+{% endblock %}
