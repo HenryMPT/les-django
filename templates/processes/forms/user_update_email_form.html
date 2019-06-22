@@ -2,13 +2,15 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
-{% if perms.Users.test_GProc  %}
+{% if object.id == logged_user.id or perms.test_Admin %}
 <div class="container">
     
 <form method="post">{% csrf_token %}
         {{ form|crispy }}
+    <br>
     
-    <input type="submit" value="Confirmar"> <a href="/papeis">Cancelar</a>
+    <hr>
+    <input type="submit" value="Confirmar"> <a href="{{referer}}">Cancelar</a>
 
 </form>
 

@@ -13,7 +13,7 @@
     {% for utilizador in org_users %}
     <div class ="row" >
         <div class ="col-sm-3">
-            <a href ="/utilizadores/UserDetail/{{org.id}}">Utilizador: &nbsp;{{utilizador}}</a>
+            <a href ="/utilizadores/UserDetail/{{utilizador.id}}">Utilizador: &nbsp;{{utilizador}}</a>
         </div>   
         <div class ="col-sm-4">
             Email: &nbsp;   {{utilizador.email}}

@@ -54,12 +54,21 @@
 									</div>
 								</th>
 							</tr>
+							<tr class="d-flex nobluebar">
+									<td class="col-9"><b><a href="/empresas/OrganizationCreate" class="novo"><i class="material-icons">add</i>Registar empresa</a></b></td>
+									<td class="col-3 text-right"></td>
+								</tr>
+								<tr class="d-flex nobluebar">
+										<td class="col-3"><b>Nome:</b> </td>
+										<td class="col-3"><b>Localização:</b> </td>
+						
+									</tr>
 						</thead>
 						<tbody>
 								{% for org in orgs %}
 								<tr class="d-flex">
-										<td class="col-3"><span><b>Nome: </b><a href="#">{{org.name}} </a></span></td>
-										<td class="col-3"><b>Localização: </b> {{org.location}} </td>
+										<td class="col-3"><span><a href="#">{{org.name}} </a></span></td>
+										<td class="col-3">{{org.location}} </td>
 										<td class="col-1"><b>Editar</span></td>
 											<td class="col-1"><b>Eliminar</span></td>
 							
@@ -69,10 +78,6 @@
 						
 							
 						</tbody>
-						<tfoot>	<tr class="d-flex">
-							<td class="col-9"><b><a href="/empresas/OrganizationCreate" class="novo"><i class="material-icons">add</i>Registar empresa</a></b></td>
-							<td class="col-3 text-right"></td>
-						</tr></tfoot>
 					</table>
 				</div>
             </div>

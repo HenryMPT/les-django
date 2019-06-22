@@ -21,16 +21,19 @@
     <div class="row">
         <div class="col-sm-2">Perfis: </div>
 {% for group in object.groups.all %}
-<div class="col-sm-3">{{group.name}}</div>
+<div class="col-sm-1">{{group.name}}</div>
 {% endfor %}
 
 </div>
 <br>
 {% if perms.Users.test_Admin %}
-<p><a href="/utilizadores/UserUpdate/{{object.id}}"> Editar user </a></p>
+<a href="/utilizadores/UserUpdate/{{object.id}}"> Editar user </a>
+<br>
 {% endif %}
 {% if object.id == logged_user.id %}
 <a href="/utilizadores/UserChangePassword/{{object.id}}"> Alterar Password </a>
+<br>
+<a href="/utilizadores/UserUpdateEmail/{{object.id}}"> Alterar Email </a>
 <br>
 {% endif %}
 

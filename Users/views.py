@@ -53,7 +53,9 @@ class UserChangePassword(PasswordChangeView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['this_user'] = self.kwargs["pk"]
+		context['referer'] = self.request.META.get('HTTP_REFERER')
 		return context
+
 
 
 class UserCreate(CreateView):
@@ -67,10 +69,12 @@ class UserCreate(CreateView):
 		form = super(UserCreate, self).get_form(form_class)
 		form.fields['organization'].empty_label = None
 		form.fields['email'].error_messages = "..."
+		form.fields['username'].label = "Nome de utilizador"
 		form.fields['organization'].label = "Empresa"
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['group'].label = "Perfil"
 		form.fields['password2'].help_text = "Por favor confirme a password"
+		form.fields['group'].help_text = "Selecione o perfil do utilizador"
 		form.fields['password2'].label = "Confirmar Password"
 		return form 		
 
@@ -90,12 +94,38 @@ class UserUpdate(UpdateView):
 		form.fields['groups'].label = "Perfil"
 		return form
 
+class UserUpdateEmail(UpdateView):
+	model = User
+	fields = ['email']
+	sucess_url = "/utilizadores"
+	template_name = "processes/forms/user_update_email_form.html"
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(UserUpdateEmail, self).get_form(form_class)
+		form.fields['email'].label = "Introduza o novo e-mail"
+		form.fields['email'].required = True
+		form.fields['email'].widget = forms.EmailInput()
+	
+		return form
+	def get_context_data(self, **kwargs):	
+		context = super().get_context_data(**kwargs)
+		context['referer'] = self.request.META.get('HTTP_REFERER')
+		context['logged_user'] = self.request.user
+		return context
+
 
 class OrganizationCreate(CreateView):
 	model = Organization
 	fields = ['name', 'location']
 	template_name = "processes/forms/organization_form.html"
-
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(OrganizationCreate, self).get_form(form_class)
+		form.fields['name'].label = "Nome da Empresa"
+		form.fields['location'].label = "Localização"
+		return form
 
 
 class OrganizationDetail(DetailView):
@@ -104,6 +134,7 @@ class OrganizationDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		context['org_users'] = User.objects.filter(organization__id =self.kwargs['pk'])
 		return context
+	
 
 class OrganizationDelete(DeleteView):
 	model = Organization
@@ -118,7 +149,13 @@ class OrganizationUpdate(UpdateView):
 	model = Organization
 	fields = ['name', 'location']
 	template_name = "processes/forms/organization_form.html"
-
+	def get_form(self, form_class=None):
+		if form_class is None:
+			form_class = self.get_form_class()
+		form = super(OrganizationUpdate, self).get_form(form_class)
+		form.fields['name'].label = "Nome da Empresa"
+		form.fields['location'].label = "Localização"
+		return form
 
 def login_request(request):
 	if request.method == "POST":
