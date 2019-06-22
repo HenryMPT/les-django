@@ -53,7 +53,9 @@ class UserChangePassword(PasswordChangeView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['this_user'] = self.kwargs["pk"]
+		context['referer'] = self.request.META.get('HTTP_REFERER')
 		return context
+
 
 
 class UserCreate(CreateView):
@@ -102,9 +104,13 @@ class UserUpdateEmail(UpdateView):
 			form_class = self.get_form_class()
 		form = super(UserUpdateEmail, self).get_form(form_class)
 		form.fields['email'].label = "Introduza o novo e-mail"
+		form.fields['email'].required = True
+		form.fields['email'].widget = forms.EmailInput()
+	
 		return form
 	def get_context_data(self, **kwargs):	
 		context = super().get_context_data(**kwargs)
+		context['referer'] = self.request.META.get('HTTP_REFERER')
 		context['logged_user'] = self.request.user
 		return context
 

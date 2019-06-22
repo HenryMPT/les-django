@@ -19,9 +19,7 @@ class User(AbstractUser):
                                 max_length=255,
                                 unique=True)
     useremail = models.CharField(db_column='UserEmail',
-                                 max_length=255,
-                                 blank=True,
-                                 null=True)
+                                 max_length=255)
     password = models.CharField(db_column='Password',
                                 max_length=255,
                                 blank=True, null=True)
