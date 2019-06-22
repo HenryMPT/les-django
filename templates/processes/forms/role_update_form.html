@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% include "processes/includes/sidenav.html" %}
-{% if perms.Users.test_GProc or perms.Users.test_Analist  %}
+{% if perms.Users.test_GProc %}
 <div class="container">
     
 <form method="post">{% csrf_token %}
