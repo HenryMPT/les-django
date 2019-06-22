@@ -72,6 +72,7 @@ class UserCreate(CreateView):
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['group'].label = "Perfil"
 		form.fields['password2'].help_text = "Por favor confirme a password"
+		form.fields['group'].help_text = "Selecione o perfil do utilizador"
 		form.fields['password2'].label = "Confirmar Password"
 		return form 		
 
