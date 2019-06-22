@@ -17,9 +17,7 @@ class User(AbstractUser):
     id = models.AutoField(db_column='ID',primary_key=True)
     username = models.CharField(db_column='UserName',
                                 max_length=255,
-                                unique=True,
-                                blank=True,
-                                null=True)
+                                unique=True)
     useremail = models.CharField(db_column='UserEmail',
                                  max_length=255,
                                  blank=True,

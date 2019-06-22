@@ -45,8 +45,24 @@ thead > tr.nobluebar{
 
 tbody {
     overflow-x : hidden;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .legendrow > div {
 font-weight: bold;
+}
+
+thead > tr{
+    border-top: 0px;
+}
+.table thead th{
+    border-top:0px;
+}
+
+.nav-item .dropdown > a.nav-link{
+    font-size:1em;
+}
+
+.nav-item > div.btn-group > button{
+    width:100px;
 }

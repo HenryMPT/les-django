@@ -67,6 +67,7 @@ class UserCreate(CreateView):
 		form = super(UserCreate, self).get_form(form_class)
 		form.fields['organization'].empty_label = None
 		form.fields['email'].error_messages = "..."
+		form.fields['username'].label = "Nome de utilizador"
 		form.fields['organization'].label = "Empresa"
 		form.fields['group'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['group'].label = "Perfil"

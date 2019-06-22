@@ -13,9 +13,14 @@
 				</th>
 			</tr>
 			<tr class="d-flex nobluebar">
+				<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+			<tr class="d-flex nobluebar">
 					<td class="col-3"><b>Processo:</b> </td>
 					<td class="col-3"><b>Criado por: </b></td>
 				</tr>
+
 		</thead>
 		<tbody>
 				{% for proc in procs %} 
@@ -30,16 +35,8 @@
 					{% endfor %}
 		
 		</tbody>
-		<tfoot>
-				<tr class="d-flex">
-						<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
-						<td class="col-3 text-right"></td>
-					</tr>
-
-		</tfoot>
 	</table>
-	<div class="brk">
-	</div>
+	<br>
 	<table class="table table-hover header-fixed">
 		<thead>
 			<tr class="d-flex">
@@ -56,9 +53,15 @@
 				</th>
 			</tr>
 			<tr class="d-flex nobluebar">
+				<td class="col-9"><b><a href="/actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova atividade</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+			<tr class="d-flex nobluebar">
 					<td class="col-3"><b>Actividade:</b> </td>
 					<td class="col-3"><b>Processo: </b></td>
 				</tr>
+
+	
 		</thead>
 		<tbody>
 		
@@ -73,15 +76,9 @@
 			
 				{% endfor %}
 		</tbody>
-		<tfoot>
-			<tr class="d-flex">
-				<td class="col-9"><b><a href="/actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova atividade</a></b></td>
-				<td class="col-3 text-right"></td>
-			</tr>
 
-
-		</tfoot>
 	</table>
+	<br>
 	<table class="table table-hover header-fixed">
 		<thead>
 			<tr class="d-flex">
@@ -97,9 +94,14 @@
 				</th>
 			</tr>
 			<tr class="d-flex nobluebar">
+				<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+			<tr class="d-flex nobluebar">
 				<td class="col-3"><b>Papel:</b> </td>
 				<td class="col-3"><b>Actividade: </b></td>
 			</tr>
+
 		</thead>
 		<tbody>
 			{% for role in roles %}
@@ -118,13 +120,8 @@
 		
 				{% endfor %}
 		</tbody>
-		<tfoot>
-			<tr class="d-flex">
-				<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
-				<td class="col-3 text-right"></td>
-			</tr>
-		</tfoot>
 	</table>
+	<br>
 	<table class="table table-hover header-fixed">
 		<thead>
 			<tr class="d-flex">
@@ -140,9 +137,14 @@
 				</th>
 			</tr>
 			<tr class="d-flex nobluebar">
+				<td class="col-9"><b><a href="/produtos/ProductCreate" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
+				<td class="col-3 text-right"></td>
+			</tr>
+			<tr class="d-flex nobluebar">
 				<td class="col-3"><b>Produto:</b> </td>
 				<td class="col-3"><b>Formato: </b></td>
 			</tr>
+	
 		</thead>
 		<tbody>
 			
@@ -157,13 +159,6 @@
 			
 				{% endfor %}
 		</tbody>
-		<tfoot>
-			<tr class="d-flex">
-				<td class="col-9"><b><a href="/produtos/ProductCreate" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
-				<td class="col-3 text-right"></td>
-			</tr>
-
-		</tfoot>
 	</table>
 </div>
 </div>
