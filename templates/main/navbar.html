@@ -58,11 +58,7 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link text-left text-dark" style="font-size:1em;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<i class="fas fa-angle-down"></i> </i></a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" href="#">Mensagens</a>
-							<a class="dropdown-item" href="#">Contactos</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Gerir conta</a>
-							<a class="dropdown-item" href="#">Definições</a>
+							<a class="dropdown-item" href="/utilizadores/UserDetail/{{request.user.id}}">Gerir conta</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{% url 'Users:logout' %}">Terminar sessão</a>
 						</div>
