@@ -150,21 +150,25 @@
 			{% endif %}
 		</thead>
 		<tbody>
-			{% for role in roles %}
-	
-			<tr class="d-flex">
-					<td class="col-3"><a href="/papeis/RoleDetail/{{role.role_id}}">{{role.role_name}}</a></td>
-					<td class="col-3"> {% for act in acts %}
-						{% for rol in act.role.all %}
-							{% if rol.id == role.id %}
-								<br>
-								{{act.activity_name}}
-								{% endif %}
-						{% endfor %}	
-						{% endfor %}</td>
-				</tr>
+				{% for role in roles %}
+				<tr class="d-flex">
+				
+						<td class="col-3"><span><a href="/papeis/RoleDetail/{{role.id}}">{{role.role_name}} </a></span></td>
+						<td class="col-3">
+							{% for act in acts %}
+							{% for rol in act.role.all %}
+								{% if rol.id == role.id %}
+									<br>
+									{{act.activity_name}}
+									{% endif %}
+							{% endfor %}	
+							{% endfor %}</td>
+						</span></td>
+						<td class="col-1"><b><a href="/papeis/RoleUpdate/{{role.id}} ">Editar</a></span></td>
+						<td class="col-1"><b><a href="/papeis/RoleDelete/{{role.id}} ">Eliminar</a></span></td>
 		
-				{% endfor %}
+					</tr>
+					{% endfor %}
 		</tbody>
 	</table>
 	<br>
