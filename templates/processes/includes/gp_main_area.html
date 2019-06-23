@@ -16,11 +16,12 @@
 				<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
+			{% if procs|length > 0 %}
 			<tr class="d-flex nobluebar">
 					<td class="col-3"><b>Processo:</b> </td>
 					<td class="col-3"><b>Criado por: </b></td>
 				</tr>
-
+				{% endif %}
 		</thead>
 		<tbody>
 				{% for proc in procs %} 
@@ -56,11 +57,12 @@
 				<td class="col-9"><b><a href="/actividades/ActivityCreate" class="novo"><i class="material-icons">add</i> Nova atividade</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
+			{% if acts|length > 0 %}
 			<tr class="d-flex nobluebar">
 					<td class="col-3"><b>Actividade:</b> </td>
 					<td class="col-3"><b>Processo: </b></td>
 				</tr>
-
+				{% endif %}
 	
 		</thead>
 		<tbody>
@@ -97,11 +99,12 @@
 				<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
+			{% if roles|length > 0 %}
 			<tr class="d-flex nobluebar">
 				<td class="col-3"><b>Papel:</b> </td>
 				<td class="col-3"><b>Actividade: </b></td>
 			</tr>
-
+			{% endif %}
 		</thead>
 		<tbody>
 			{% for role in roles %}
@@ -140,11 +143,12 @@
 				<td class="col-9"><b><a href="/produtos/ProductCreate" class="novo"><i class="material-icons">add</i> Registar produto</a></b></td>
 				<td class="col-3 text-right"></td>
 			</tr>
+			{% if prods|length > 0 %}
 			<tr class="d-flex nobluebar">
 				<td class="col-3"><b>Produto:</b> </td>
 				<td class="col-3"><b>Formato: </b></td>
 			</tr>
-	
+			{% endif %}
 		</thead>
 		<tbody>
 			

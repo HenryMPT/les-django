@@ -1,32 +1,14 @@
-{% extends "processes/header2.html" %}
+{% extends "main/header.html" %}
 
 {% block content %}
 
-{% include "processes/includes/sidenav.html" %}
+{% include "main/navbar.html" %}
 {% if perms.Users.test_GProc or perms.Users.test_Analist  %} 
 <div class="container">
         <form method="post">{% csrf_token %}
-    {%if act_procs|length > 0 %}
-    Os seguintes processos estão associados:<br><br>
-    {% for proc in act_procs %}
-    <div class="row">
-        <div class ="col-sm-6">
-        <a href ="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a>
-        </div>
-        <div class ="col-sm-6">
-                <a href ="/actividades/ActivityDessociate/{{proc.id}}">Dessassociar</a>
-                </div>
-    </div>
-        <hr>
-        {% endfor %}<br>
-        <h3>Para prosseguir primeiro remova as associações listadas.</h3>
-        {% endif %}
      
 
-    {%if act_procs|length == 0 %}<p>Tem a certeza que pretende eliminar a Actividade <b>"{{ object.activity_name}}</b>"?</p><input type="submit" value="Confirm">{% endif %} <a href="/actividades">Cancelar</a>
+  <p>Tem a certeza que pretende eliminar a Actividade <b>"{{ object.activity_name}}</b>"?</p><input type="submit" value="Confirm">{% endif %} <a href="/actividades">Cancelar</a>
 </form>
 </div>
-{% else %}
-<h2>Não tem permissão para realizar esta ação.</h2>
-{% endif %}
 {% endblock %}

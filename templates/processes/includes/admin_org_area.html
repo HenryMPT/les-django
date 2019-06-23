@@ -17,12 +17,13 @@
 									<td class="col-9"><b><a href="/empresas/OrganizationCreate" class="novo"><i class="material-icons">add</i>Registar Empresa</a></b></td>
 									<td class="col-3 text-right"></td>
 								</tr>	
+								{% if orgs|length > 0 %}
 							<tr class="d-flex nobluebar">
 								<td class="col-3"><b>Nome:</b> </td>
 								<td class="col-3"><b>Localização:</b> </td>
 				
 							</tr>
-							
+							{% endif %}
 						</thead>
 						<tbody>
 								{% for org in orgs %}

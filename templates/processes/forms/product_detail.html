@@ -1,8 +1,8 @@
-{% extends "processes/header2.html" %}
+{% extends "main/header.html" %}
 {% block content %}
 
 
-{% include "processes/includes/sidenav.html" %}
+{% include "main/navbar.html" %}
 {% if perms.Users.test_GProc or perms.Users.test_Analist  %}
 <div class="container">
         <h3>Produto:&nbsp; {{object}} </h3><br>
