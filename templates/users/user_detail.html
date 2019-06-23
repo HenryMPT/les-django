@@ -3,7 +3,7 @@
 
 {% include "processes/includes/sidenav.html" %}
 
-{% if perms.test_Admin or object.id == logged_user.id %}
+{% if perms.Users.test_Admin or object.id == logged_user.id %}
 
 <div class="container">
 <h3>Nome: {{object.username}}</h3>

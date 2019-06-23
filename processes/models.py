@@ -36,9 +36,11 @@ class Activity(models.Model):
 
     def clean(self):
         incident = Activity.objects.filter(activity_name=self.activity_name).exclude(process__isnull=False)
-        if incident and self.original is None: # check if any object exists
-            raise ValidationError('This name is already being used.')
-
+        if incident and self.original is None:
+                if not Activity.objects.filter(id=self.pk).exists() : # check if any object exists
+                    raise ValidationError('Já existe uma Actividade Base com este nome.')
+                elif not incident[0].pk == self.pk: 
+                    raise ValidationError('Já existe uma Actividade Base com este nome.')
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
     description = models.TextField(max_length=200)
