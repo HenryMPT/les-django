@@ -271,3 +271,48 @@ form div{
     }
 }
 
+
+div.container.showlist > .header-fixed > tbody {
+    overflow-y: auto;
+    height: 30vh;
+}
+
+div.control-group div.controls{
+    width:40vw;
+    display: flex;
+    flex-wrap:wrap;
+    flex-basis: 100%;
+    margin-bottom: 15px;
+}
+
+.control-group div.controls > label.checkbox{
+width:100%;
+padding: 1px;
+}
+
+.control-group div.controls > label.checkbox > input{
+    margin-right: 5px;
+    }
+
+
+.colseparator {
+border-right:2px dashed rgba(148, 148, 148, 0.651);;
+}
+
+
+#div_id_pattern> .controls,#div_id_role> .controls,#div_id_product> .controls,#div_id_activity > .controls{
+    max-height:30vh;
+    overflow-y:auto;
+}
+
+thead > tr.nobluebar{
+    border-bottom:0px;
+}
+
+.legendrow > div {
+font-weight: bold;
+}
+
+table > tbody.proctable{
+    max-height:30vh;
+}

@@ -8,9 +8,15 @@
         <h3>Actividade: {{object.activity_name}} </h3>
         <hr>
           <div class="row">
-            <div class="col-sm-2"> Descrição:</div>
-            <div class="col-sm-4">{{object.description}}</div>
+            <div class="col-sm-2"> Descrição: </div>
+            <div class="col-sm-10">{{object.description}}</div>
         </div>
+        {% if object.process != None %}
+        <hr>
+        <div class = "row">
+          <div class = "col-sm-12"> Processo associado: <a href="/processos/ProcessDetail/{{object.process.id}}">{{object.process}}</a></div>
+              </div>
+              {% endif %}
       <hr>
         <p><a href="/actividades/ActivityUpdate/{{object.id}}"> Editar actividade</a></p>
         <br>
@@ -18,13 +24,19 @@
   <div class = "col-sm-6"> <h3>Padrões associados à actividade:</h3></div>
   <div class = "col-sm-6"> <h3>Padrões não associados:</h3></div>
       </div>
+      <div class="row">
+            <div class = "col-sm-6">  <div class="row"> <div class="col-sm-5"> Padrão: </a></div>
+            <div class="col-sm-4">Analista: </div></div></div>
+            <div class = "col-sm-6">  <div class="row"> <div class="col-sm-5"> Padrão: </a></div>
+            <div class="col-sm-4">Analista: </div></div></div>
+           </div>
         <hr>
         <div class ="row">
         <div class = "col-sm-6  colseparator" >
         {% for pat in patterns %}
         <div class="row">
-        <div class="col-sm-5"><a href="#">Name: &nbsp;{{pat}}</a></div>
-        <div class="col-sm-4">User:&nbsp;{{pat.userid}}</div>
+        <div class="col-sm-5"><a href="#">{{pat}}</a></div>
+        <div class="col-sm-4">{{pat.userid}}</div>
         <div class="col-sm-2"><a href="/actividades/PatternDessociate/{{object.id}}/{{pat.id}}">Desassociar</a></div>
         </div>
         {% endfor %}</div>
@@ -42,6 +54,12 @@
             <div class = "col-sm-6"> <h3>Produtos associados à actividade:</h3></div>
             <div class = "col-sm-6"> <h3>Produtos não associados:</h3></div>
                 </div>
+                <div class="row">
+                        <div class = "col-sm-6">  <div class="row"> <div class="col-sm-5"> Produto: </a></div>
+                        <div class="col-sm-4">Formato: </div></div></div>
+                        <div class = "col-sm-6">  <div class="row"> <div class="col-sm-5"> Produto: </a></div>
+                        <div class="col-sm-4">Formato: </div></div></div>
+                       </div>
         <hr>
         <div class ="row">
             <div class = "col-sm-6  colseparator" >
@@ -74,16 +92,14 @@
             <div class = "col-sm-6  colseparator" >
         {% for rol in roles %}
         <div class="row">
-            <div class="col-sm-5"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-            <div class="col-sm-4">{{rol.description}}</div>
+            <div class="col-sm-9"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
             <div class="col-sm-2"><a href="/actividades/RoleDessociate/{{object.id}}/{{rol.id}}">Desassociar</a></div>
         </div>
         {% endfor %}</div>
         <div class = "col-sm-6" >
             {% for rol in non_roles %}
             <div class="row">
-            <div class="col-sm-6"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-            <div class="col-sm-4">{{rol.description}}</div>
+            <div class="col-sm-9"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
             <div class="col-sm-2"><a href="/actividades/RoleAssociate/{{object.id}}/{{rol.id}}">Associar</a></div>
             </div>
             {% endfor %}</div>
@@ -95,18 +111,20 @@
         <div class = "row">
           <div class = "col-sm-12"> <h3>Processos a associar:</h3></div>
               </div>
+              <div class="row">
+                    <div class="col-sm-5">Processo:</div>
+                    <div class="col-sm-5">Gestor:</div>
+                </div>
       <hr>
+
       {% for proc in procs %}
       <div class="row">
           <div class="col-sm-5"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a></div>
-          <div class="col-sm-4">{{proc.description}}</div>
+          <div class="col-sm-5">{{proc.user}}</div>
           <div class="col-sm-2"><a href="/actividades/ActivitySwap/{{object.id}}/{{proc.id}}">Associar</a></div>
       </div>
       {% endfor %}
-      {% else %}
-      <div class = "row">
-        <div class = "col-sm-12"> <h3>Processo associado:</h3>{{object.process}}</div>
-            </div>
+
       {% endif %}
     </div>
 

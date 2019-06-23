@@ -29,7 +29,7 @@
 							</tr>
 							{% endif %}
 						</thead>
-						<tbody>
+						<tbody class="proctable"> 
 								{% for role in roles %}
 								<tr class="d-flex">
 								
@@ -38,8 +38,8 @@
 											{% for act in acts %}
 											{% for rol in act.role.all %}
 												{% if rol.id == role.id %}
-													<br>
-													{{act.activity_name}}
+
+													{{act.activity_name}}		<br>
 													{% endif %}
 											{% endfor %}	
 											{% endfor %}</td>
