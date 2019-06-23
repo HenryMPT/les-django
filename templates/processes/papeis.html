@@ -1,7 +1,5 @@
-{% extends "main/header.html" %}
-				{% block navbar %}
-				
-				{% include "main/navbar.html" %}
+{% extends "main/navbar.html" %}
+{% block content %}
 				{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
 				<div class="container">
 					<table class="table table-hover header-fixed">

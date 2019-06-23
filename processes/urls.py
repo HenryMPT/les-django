@@ -20,7 +20,6 @@ from django.contrib.auth.decorators import login_required
 app_name = "processes"
 
 urlpatterns = [
-    path("", views.home, name="homepage"),
     path("processos", views.processos, name="processos"),
     path("processos/ProcessCreate", login_required(views.ProcessCreate.as_view(success_url=('/processos')),login_url="/login"), name="ProcessCreate"),
     path("processos/ProcessUpdate/<int:pk>", login_required(views.ProcessUpdate.as_view(success_url=('/processos')),login_url="/login"), name="ProcessUpdate"),

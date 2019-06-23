@@ -166,8 +166,8 @@ def login_request(request):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.info(request, f"You are now logged in as {username}")
-				return redirect("processes:homepage")
+				#messages.info(request, f"You are now logged in as {username}")
+				return redirect("home")
 			else:
 				messages.error(request, "Invalid username or password")
 
@@ -182,7 +182,7 @@ def login_request(request):
 def logout_request(request):
 	logout(request)
 	messages.info(request, "Logged out successfully!")
-	return redirect("processes:homepage")
+	return redirect("home")
 
 
 @login_required(login_url='/login')

@@ -1,7 +1,7 @@
-{% extends "main/header.html" %}
-{% block navbar %}
+{% extends "main/navbar.html" %}
+{% block content %}
 {% load crispy_forms_tags %}
-{% include "main/navbar.html" %}
+
 {% if perms.Users.test_Admin %}  
 <div class="container">
     

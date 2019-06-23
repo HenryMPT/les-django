@@ -1,109 +1,77 @@
-
-	<div class="wrapper">
-		<nav id="sidebar" class="navbar-info" style="background:#058096;"><!--bg-info-->
-			<div class="sidebar-header" style="background:#058096;"><!--bg-info-->
-				<h4><a href="/"> REGISTO DIÁRIO </a></h4>
+{% extends "main/header.html" %}
+{% block navbar %}
+<body>  
+<div class="wrapper">
+    <nav id="sidebar" class="navbar-info" style="background:#058096;">
+        <div class="sidebar-header" style="background:#058096;">
+            <h4 class="text-white">REGISTO DIÁRIO </h4>
+        </div>
+        <ul class="list-unstyled components text-white">
+            <li {% if request.path == "/" %} class="active" {% endif %}>
+                <a href='{% url "home" %}' style="margin-top:10px;"><i class="material-icons">home</i> PÁGINA INICIAL</a>
+            </li>
+        </ul>
+        <ul class="list-unstyled components text-white">
+                {% include "main/sidebar/frase.html" %}
+                {% include "main/sidebar/agrupamento.html" %}
+                {% include "main/sidebar/padrao.html" %}
+                {% include "main/sidebar/processo.html" %}
+        </ul>
+	</nav>
+	<div id="content">
+		<nav class="navbar navbar-expand-lg navbar-light">
+			<button type="button" id="sidebarCollapse" class="btn text-white" style="background:#058096;"><!--btm-info-->
+				<i class="fas fa-align-left"></i>
+			</button>
+			<div class="navegation">
+				<h1 class="titulo-principal"> Página Inicial</h1>
 			</div>
-			<ul class="list-unstyled components">
-				<li >
-				<i class="material-icons" style="padding-left:1vh">home</i> PÁGINA INICIAL</li>
-			
-
-			{% if perms.Users.test_Admin %}
-			{% include "processes/includes/sidenavcont_admin.html" %}
-			{% endif %}
-			{% if perms.Users.test_Func %}
-			{% include "processes/includes/sidenavcont_func.html" %}
-			{% endif %}
-
-			{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
-			{% include "processes/includes/sidenavcont_gpanalist.html" %}
-			{% endif %}
-
-
-<div class="CTAs">
-                   
-				</div>
-			</nav>
-			<div id="content">
-				<nav class="navbar navbar-expand-lg navbar-light">
-					<button type="button" id="sidebarCollapse" class="btn text-white" style="background:#058096;"><!--btm-info-->
-                        <i class="fas fa-align-left"></i>
-					</button>
-					<div class="navegation">
-						<h3 style="margin-top:10px;"><a href="/" >Pagina Inicial </a></h3>
-					</div>
-					<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-						<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-							<li class="sidebar-search nav-item active">
-								<form class="form-inline input-group  custom-search-form">
-									<input type="text"  class="form-control" placeholder="Procurar...">
-									<button class="btn btn-default text-white" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fa fa-caret-down"></i>
-									</button>
-									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">					
-										{% if perms.Users.test_Admin %}
-										<a class="dropdown-item" href="/utilizadores">Utilizadores</a>
-										<a class="dropdown-item" href="/empresas">Empresas</a>
-										{% endif %}
-										{% if perms.Users.test_Func %}
-										<a class="dropdown-item" href="#">Frase</a>
-										{% endif %}
-										{% if perms.Users.test_GProc or  perms.Users.test_Analist %}
-										<a class="dropdown-item" href="#">Agrupamentos</a>
-										<a class="dropdown-item" href="#">Padrões</a>
-										<a class="dropdown-item" href="/processos">Processos</a>
-										<a class="dropdown-item" href="/papeis">Papéis</a>									
-										<a class="dropdown-item" href="/actividades">Actividades</a>
-										<a class="dropdown-item" href="/produtos">Produtos</a>
-										{% endif %}
-		
-									</div>
-									<span class="input-group-btn">
-										<button class="btn btn-default text-white">
-											<i class="fa fa-search"></i>
-										</button>
-									</span>
-								</form>
-							</li>
-							<li class="nav-item">
-								<div class="btn-group">
-									<button type="button" class="btn btn-warning dropdown-toggle text-left" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+ Novo </button>
-									<div class="dropdown-menu">
-											{% if perms.Users.test_Func %}
-										<a class="dropdown-item" href="#">Frase</a>
-										{% endif %}
-										{% if perms.Users.test_Analist %}
-										<a class="dropdown-item" href="#">Agrupamento</a>
-										<a class="dropdown-item" href="#">Padrão</a>
-										{% endif %}
-										{% if perms.Users.test_Admin %}
-										<a class="dropdown-item" href="/utilizadores/UserCreate">Utilizador</a>
-										<a class="dropdown-item" href="/empresas/OrganizationCreate">Empresa</a>
-										{% endif %}
-											{% if perms.Users.test_GProc %}
-										<a class="dropdown-item" href="/processos/ProcessCreate">Processo</a>
-										<a class="dropdown-item" href="/actividades/ActivityCreate">Actividade</a>
-										<a class="dropdown-item" href="/papeis/RoleCreate">Papel</a>
-										<a class="dropdown-item" href="/produtos/ProductCreate">Produto</a>
-										{% endif %}
-									</div>
-								</div>
-							</li>
-						
-							<li class="nav-item dropdown">
-								<a class="nav-link text-left text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{request.user.username}}<i class="fa fa-caret-down"></i></a>
-								<div class="dropdown-menu dropdown-menu-right">
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="/utilizadores/UserDetail/{{request.user.id}}">Gerir conta</a>
-									<a class="dropdown-item" href="#">Definições</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="/logout">Terminar sessão</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</nav>
+			<button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <button type="button" href="#" class="btn float-right text-white" data-toggle="modal" onclick='newModal("{% url "search" %}", "Pesquisa Avançada", "#Searchmodal", "modal-lg")'>Pesquisa Avançada <i class="fa fa-search"></i></button>
+                    </li>
+					<li class="nav-item">
+						<div class="btn-group">
+							<button type="button" class="btn btn-warning text-left dropdown-toggle" style="width:100px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+ Novo </button>
+							<div class="dropdown-menu dropdown-menu-right">
+								{% include "main/topbar/utilizador.html" %}
+								{% include "main/topbar/frase.html" %}
+								{% include "main/topbar/verbo.html" %}
+                                {% include "main/topbar/recurso.html" %}
+                                {% include "main/topbar/artefacto.html" %}
+								{% include "main/topbar/agrupamento.html" %}
+								{% include "main/topbar/padrao.html" %}
+								{% include "main/topbar/processo.html" %}
+								{% include "main/topbar/atividade.html" %}
+                                {% include "main/topbar/papel.html" %}
+                                {% include "main/topbar/produto.html" %}
+							</div>
+						</div>
+					</li>
+                                        
+					<li class="nav-item dropdown">
+						<a class="nav-link text-left text-dark" style="font-size:1em;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<i class="fas fa-angle-down"></i> </i></a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="#">Mensagens</a>
+							<a class="dropdown-item" href="#">Contactos</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Gerir conta</a>
+							<a class="dropdown-item" href="#">Definições</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{% url 'Users:logout' %}">Terminar sessão</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+			{% block content %}
+			{% endblock %}
+	</div>
+    {% include "main/modal.html" %}
+</body>
+{% include "main/scripts.html" %}
+{% endblock %}

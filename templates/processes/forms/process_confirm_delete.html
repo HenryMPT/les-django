@@ -1,8 +1,5 @@
-{% extends "main/header.html" %}
-
-{% block navbar %}
-
-{% include "main/navbar.html" %}
+{% extends "main/navbar.html" %}
+{% block content %}
 {% if perms.Users.test_GProc  %}  
 <div class="container">
 <form method="post">{% csrf_token %}
