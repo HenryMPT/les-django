@@ -2,7 +2,7 @@
 {% block content %}
 
 {% include "processes/includes/sidenav.html" %}
-{% if perms.test_Admin %}
+{% if perms.Users.test_Admin %}
 
 <div class="container">
 <h3>Nome: {{object.name}}</h3>

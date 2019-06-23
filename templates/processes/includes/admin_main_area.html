@@ -27,8 +27,8 @@
 										<p>{{group.name}}</p>	
 										{% endfor %} </td>
 										<td class="col-3">{{utilizador.email}}</span></td>
-										<td class="col-1"><b><a href="utilizadores/UserUpdate/{{utilizador.id}}">Editar</a></span></td>
-										<td class="col-1"><b><a href="/UserDelete/{{utilizador.id}}">Eliminar</a></span></td>
+										<td class="col-1"><b><a href="/utilizadores/UserUpdate/{{utilizador.id}}">Editar</a></td>
+										<td class="col-1"><b><a href="/utilizadores/UserDelete/{{utilizador.id}}">Eliminar</a></td>
 									
 									</tr>
 									{% endfor %}
@@ -69,8 +69,8 @@
 								<tr class="d-flex">
 										<td class="col-3"><span><a href="#">{{org.name}} </a></span></td>
 										<td class="col-3">{{org.location}} </td>
-										<td class="col-1"><b>Editar</span></td>
-											<td class="col-1"><b>Eliminar</span></td>
+										<td class="col-1"><b><a href="/empresas/OrganizationUpdate/{{org.id}}">Editar</a></b> </td>
+											<td class="col-1"><b><a href="/empresas/OrganizationDelete/{{org.id}}">Eliminar</a></b></td>
 							
 									
 									</tr>
