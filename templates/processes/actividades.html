@@ -1,6 +1,6 @@
 {% extends "main/header.html" %}
 <p>boo</p>
-				{% block content %}
+				{% block navbar %}
 				
 				{% include "main/navbar.html" %}
 				{% if perms.Users.test_GProc or perms.Users.test_Analist %}
@@ -51,6 +51,49 @@
 						</tbody>
 					</table>
 				
+					<br>
+
+					<table class="table table-hover header-fixed">
+							<thead>
+								<tr class="d-flex">
+									<th class="col-9">ACTIVIDADES-PROCESSO</th>
+									<th class="col-3 text-right">
+										<a class="dropdown-toggle" id="sidebarCollapse" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span>Mais recente</span><i class="material-icons">arrow_drop_down</i></a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">Mais antigo</a>
+											<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_downward</i></a>
+											<a class="dropdown-item" href="#">Nome <i class="material-icons">arrow_upward</i></a>
+										</div>
+									</th>
+								</tr>
+									{% if proc_acts|length > 0 %}
+								<tr class="d-flex nobluebar">
+									<td class="col-2"><b>Actividade:</b> </td>
+									<td class="col-4"><b>Processo: </b></td>
+									
+								</tr>
+								{% endif %}
+						</thead>
+							<tbody class="processtable">
+									{% for act in proc_acts %}
+									<tr class="d-flex">
+									
+											<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
+											<td class="col-4"><a href="/processos/ProcessDetail/{{act.process.id}}">{{act.process}}</a></td>
+											<td class="col-2">
+													<button type="button" class="btn btn-default btn-sm">							
+											<a href="/actividades/ActivityUpdate/{{act.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a></b>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">	
+											<a href="/actividades/ActivityDelete/{{act.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
+										</button>
+										</td>
+										</div>
+										</tr>
+										{% endfor %}
+								
+							</tbody>
+						</table>
             </div>
 		</div>
 	</div>

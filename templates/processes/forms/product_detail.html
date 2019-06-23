@@ -1,5 +1,5 @@
 {% extends "main/header.html" %}
-{% block content %}
+{% block navbar %}
 
 
 {% include "main/navbar.html" %}
@@ -11,8 +11,8 @@
         <p><a href="/produtos/ProductUpdate/{{object.id}}"> Editar produto</a></p>
         <br>
 <div class = "row">
-  <div class = "col-sm-6"> <h3>Actividades associadas ao produto:</h3></div>
-  <div class = "col-sm-6"> <h3>Actividade não associadas:</h3></div>
+  <div class = "col-sm-6"> <h3>Actividades base associadas ao produto:</h3></div>
+  <div class = "col-sm-6"> <h3>Actividades não associadas:</h3></div>
       </div>
         <hr>
         <div class ="row">
@@ -36,8 +36,32 @@
       </div>
         <hr>
         <br>
-
-
+{% if proc_acts|length > 0 or non_proc_acts|length > 0 %}
+        <div class = "row">
+            <div class = "col-sm-6"> <h3>Actividades dos teus Processos associadas ao produto:</h3></div>
+            <div class = "col-sm-6"> <h3>Actividades não associadas:</h3></div>
+                </div>
+                  <hr>
+                  <div class ="row">
+                      <div class = "col-sm-6 colseparator" >
+                  {% for act in proc_acts %}
+                  <div class="row">
+                  <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+                  <div class="col-sm-4"><span>{{act.description}}</span></div>
+                  <div class="col-sm-2"><a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}">Desassociar</a></div>
+                  </div>
+                  {% endfor %}</div>
+                  <div class = "col-sm-6" >
+                      {% for act in non_proc_acts %}
+                      <div class="row">
+                      <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+                      <div class="col-sm-4">{{act.description}}</div>
+                      <div class="col-sm-2"><a href="/produtos/ProductAssociate/{{object.id}}/{{act.id}}">Associar</a></div>
+                      </div>
+                      {% endfor %}</div>
+                    
+                </div>
+{% endif %}
        
           
       </div>

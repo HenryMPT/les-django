@@ -1,5 +1,5 @@
 {% extends "main/header.html" %}
-{% block content %}
+{% block navbar %}
 
 
 {% include "main/navbar.html" %}
@@ -17,7 +17,7 @@
         <br>
 <div class = "row">
   
-  <div class = "col-sm-6"> <h3>Actividades associadas ao papel:</h3></div>
+  <div class = "col-sm-6"> <h3>Actividades base associadas ao papel:</h3></div>
   <div class = "col-sm-6"> <h3>Actividades não associadas:</h3></div>
       </div>
         <hr>
@@ -38,6 +38,29 @@
         <hr>
         <br>
 
+
+        {% if proc_acts|length > 0 or non_proc_acts|length > 0 %}
+        <div class = "row">
+  
+            <div class = "col-sm-6"> <h3>Actividades de Processos associadas ao papel:</h3></div>
+            <div class = "col-sm-6"> <h3>Actividades não associadas:</h3></div>
+                </div>
+                  <hr>
+                  <div class ="row">
+                  <div class = "col-sm-6  colseparator" >
+                  {% for act in proc_acts %}
+                  <div class="row">
+                  <div class="col-sm-6"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+                  <div class="col-sm-5"><a href="/actividades/RoleDessociate/{{act.id}}/{{object.id}}">Dessasociar</a></div>
+                  </div>
+                  {% endfor %}</div>
+                  <div class = "col-sm-6">
+                      {% for act in non_proc_acts %}
+                      <div class="row">
+                        <div class="col-sm-6"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+                        <div class="col-sm-6"><a href="/actividades/RoleAssociate/{{act.id}}/{{object.id}}">Associar</a></div>    </div>
+                      {% endfor %}</div></div>
+{% endif %}
         {% else %}
         <h2>Não tem permissão para visualizar esta página.</h2>
         {% endif %}

@@ -29,7 +29,7 @@ def processos(request):
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"acts": Activity.objects.all().exclude(original__isnull=False)})
+				   context={"acts": Activity.objects.all().exclude(original__isnull=False), "proc_acts": Activity.objects.filter(process__user=request.user)})
 
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
@@ -105,7 +105,7 @@ class ActivitySwap(CreateView):
 	model = Activity
 	sucess_url = "/actividades"
 	template_name = "processes/forms/activity_update_form.html"
-	fields = ['activity_name', 'description','role', 'pattern' ,'process','original'] 
+	fields = ['activity_name', 'description', 'role', 'pattern', 'process', 'original']
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
@@ -117,7 +117,7 @@ class ActivitySwap(CreateView):
 		all_roles = Role.objects.all()
 		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
 		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple())
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
 		form.fields['original'].empty_label = None
 		form.fields['process'].empty_label = None
@@ -182,7 +182,12 @@ class ProcessDelete(DeleteView):
 	model = Process
 	sucess_url = "/processos"
 	template_name = "processes/forms/process_confirm_delete.html"
-
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		proc_id = self.object.id
+		our_acts = Activity.objects.all().filter(process__id=proc_id)
+		context['acts'] = our_acts
+		return context
 
 class ProcessDetail(DetailView):
 	model = Process
@@ -230,9 +235,14 @@ class ProductDetail(DetailView):
 		product_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		this_product = Product.objects.all().filter(id=product_id)[0]
-		our_acts = this_product.activity.all()
+		original_acts = Activity.objects.all().exclude(original__isnull=False)
+		proc_acts = Activity.objects.all().exclude(original__isnull=True)
+		our_acts = this_product.activity.all().exclude(original__isnull=False)
+		our_proc_acts = this_product.activity.all().exclude(original__isnull=True)
 		context['acts'] = our_acts
-		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
+		context['non_acts'] = original_acts.exclude(id__in=our_acts)
+		context['proc_acts'] = our_proc_acts
+		context['non_proc_acts'] = proc_acts.exclude(id__in=our_proc_acts)
 		return context
 
 
@@ -296,12 +306,14 @@ class RoleDetail(DetailView):
 		role_id = self.object.id
 		context['pid'] = self.kwargs['pk']
 		this_rol = Role.objects.all().filter(id=role_id)[0]
-		#our_products = this_rol.product.all()
-		our_acts = Activity.objects.all().filter(role__id=role_id)
-		#context['products'] = our_products
-		#context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		original_acts = Activity.objects.all().exclude(original__isnull=False)
+		proc_acts = Activity.objects.all().exclude(original__isnull=True)
+		our_acts = original_acts.filter(role__id=role_id)
+		our_proc_acts = proc_acts.filter(role__id=role_id)
 		context['acts'] = our_acts
-		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts)
+		context['non_acts'] = original_acts.exclude(id__in=our_acts)
+		context['proc_acts'] = our_proc_acts
+		context['non_proc_acts'] = proc_acts.exclude(id__in=our_proc_acts)
 		return context
 
 
@@ -347,7 +359,7 @@ def home(request):
 				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
 				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
 							 "orgs" : Organization.objects.all(), "prods" : Product.objects.all(),							
-
+							"proc_acts": Activity.objects.filter(process__user=request.user) 
 				   }
 				   )
 
