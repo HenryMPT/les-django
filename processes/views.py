@@ -29,7 +29,7 @@ def processos(request):
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"acts": Activity.objects.all().exclude(process__isnull=False)})
+				   context={"acts": Activity.objects.all().exclude(original__isnull=False)})
 
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
@@ -84,8 +84,8 @@ class ActivityUpdate(UpdateView):
 			form_class = self.get_form_class()
 		form = super(ActivityUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple())
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['activity_name'].label = "Nome da actividade"
 		form.fields['description'].label = "Descrição"
 		form.fields['pattern'].label = "Padrões"
