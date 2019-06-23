@@ -21,7 +21,7 @@
 								</tr>
 								{% endif %}
 						</thead>
-						<tbody>
+						<tbody class="proctable">
 								{% for utilizador in users %}
 								<tr class="d-flex">
 										<td class="col-3"><span><a href="utilizadores/UserDetail/{{utilizador.id}}">{{utilizador.username}} </a></span></td>
@@ -66,7 +66,7 @@
 						
 									</tr>
 						</thead>
-						<tbody>
+						<tbody class="proctable">
 								{% for org in orgs %}
 								<tr class="d-flex">
 										<td class="col-3"><span><a href="#">{{org.name}} </a></span></td>
