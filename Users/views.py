@@ -141,7 +141,13 @@ class OrganizationCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(OrganizationCreate, self).get_form(form_class)
+		my_default_errors = {
+    	'required': 'Este campo é obrigatório',
+    	'invalid': 'Por favor insira um valor válido',
+		'unique': 'Já exista uma empresa com este nome'
+							}
 		form.fields['name'].label = "Nome da Empresa"
+		form.fields['name'].error_messages = my_default_errors
 		form.fields['location'].label = "Localização"
 		return form
 
@@ -178,6 +184,12 @@ class OrganizationUpdate(UpdateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(OrganizationUpdate, self).get_form(form_class)
+		my_default_errors = {
+    	'required': 'Este campo é obrigatório',
+    	'invalid': 'Por favor insira um valor válido',
+		'unique': 'Já exista uma empresa com este nome'
+							}
+		form.fields['name'].error_messages = my_default_errors					
 		form.fields['name'].label = "Nome da Empresa"
 		form.fields['location'].label = "Localização"
 		return form
