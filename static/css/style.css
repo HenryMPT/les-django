@@ -316,3 +316,7 @@ font-weight: bold;
 table > tbody.proctable{
     max-height:30vh;
 }
+
+div#div_id_original.form-group{
+    display: none;
+}
