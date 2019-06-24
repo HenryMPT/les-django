@@ -35,7 +35,7 @@ def actividades(request):
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
-	messages.warning(request,f"Actividade \""+ this_act.activity_name+ f"\" apagada do sistema")
+	messages.warning(request,f"Associação eliminada")
 	this_act.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
