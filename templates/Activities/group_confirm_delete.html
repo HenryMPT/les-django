@@ -3,3 +3,11 @@
     Tem a certeza que deseja eliminar o Agrupamento?<br><br>
     <p>{{ object.groupname }}</p>
 </div>
+<p class="text-danger">Este agrupamento está associado aos seguintes padrões </p>
+    {% for g in groups %}
+    
+    {% if object in g.groups.all %}
+    
+    <p>{{g}}</p>
+        {% endif %}
+        {% endfor %}

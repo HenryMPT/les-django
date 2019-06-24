@@ -80,6 +80,11 @@ class DeleteVerb(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request,f"a")
         return super(DeleteVerb, self).delete(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DeleteVerb,self).get_context_data(**kwargs)
+        context.update({'groups': Sentence.objects.all()})
+        return context
+        
 #==========   VERB   ==========#
 
 
@@ -142,6 +147,10 @@ class DeleteSentence(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request, f"a")
         return super(DeleteSentence, self).delete(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DeleteSentence,self).get_context_data(**kwargs)
+        context.update({'groups': Group.objects.all()})
+        return context
 
 #==========   SENTENCE   ==========#    
 
@@ -191,6 +200,11 @@ class DeleteGroup(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request,f"a")
         return super(DeleteGroup, self).delete(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DeleteGroup,self).get_context_data(**kwargs)
+        context.update({'groups': Pattern.objects.all()})
+        return context
+    
 #==========   GROUP   ==========#
 
 
@@ -242,6 +256,7 @@ class DeletePattern(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request,f"a")
         return super(DeletePattern, self).delete(request, *args, **kwargs)
+    
 #==========   PATTERN   ==========#    
     
 
@@ -279,6 +294,10 @@ class DeleteResource(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request,f"a")
         return super(DeleteResource, self).delete(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DeleteResource,self).get_context_data(**kwargs)
+        context.update({'groups': Sentence.objects.all()})
+        return context
 #==========   RESOURCE   ==========#    
     
 
@@ -316,6 +335,10 @@ class DeleteArtefact(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.warning(self.request,f"a")
         return super(DeleteArtefact, self).delete(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DeleteArtefact,self).get_context_data(**kwargs)
+        context.update({'groups': Sentence.objects.all()})
+        return context
 #==========   ARTEFACT   ==========#
 
 #=========== Search ===============#
