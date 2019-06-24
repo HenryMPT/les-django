@@ -26,7 +26,7 @@
 </div>
 <br>
 {% if perms.Users.test_Admin %}
-<a href="/utilizadores/UserUpdate/{{object.id}}"> Editar user </a>
+<a href="/utilizadores/UserUpdate/{{object.id}}"><button type="button" class="btn text-white" >Editar user </button></a>
 <br>
 {% endif %}
 {% if object.id == logged_user.id %}
