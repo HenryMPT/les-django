@@ -4,6 +4,7 @@
 {% if perms.Users.test_Admin or object.id == logged_user.id %}
 
 <div class="container">
+    {% include "processes/includes/messages.html" %}
 <h3>Nome: {{object.username}}</h3>
 <hr>
     <div class="row">

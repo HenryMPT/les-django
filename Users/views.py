@@ -26,6 +26,11 @@ class UserDelete(DeleteView):
 		context['logged_user'] = self.request.user
 		return context
 
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Utilizador " +  " \""+ User.objects.filter(id=self.kwargs['pk'])[0].username+ f"\" apagado do sistema")
+		return super(UserDelete, self).delete(request, *args, **kwargs)
+
+
 
 class UserDetail(DetailView):
 	model = User
@@ -56,7 +61,9 @@ class UserChangePassword(PasswordChangeView):
 		context['referer'] = self.request.META.get('HTTP_REFERER')
 		return context
 
-
+	def form_valid(self, form):
+		messages.info(self.request, f"Password alterada com sucesso")
+		return super(UserChangePassword, self).form_valid(form)
 
 class UserCreate(CreateView):
 	model = User
@@ -78,6 +85,10 @@ class UserCreate(CreateView):
 		form.fields['password2'].label = "Confirmar Password"
 		return form 		
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Utilizador " +  " \""+ form.cleaned_data['username'] + f"\" inserido no sistema")
+		return super(UserCreate, self).form_valid(form)
+
 class UserUpdate(UpdateView):
 	model = User
 	fields = ['username', 'email', 'organization', 'groups']
@@ -93,6 +104,10 @@ class UserUpdate(UpdateView):
 		form.fields['groups'] = forms.ModelMultipleChoiceField(queryset=Group.objects.all(), widget=forms.CheckboxSelectMultiple())
 		form.fields['groups'].label = "Perfil"
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Utilizador " +  " \""+ form.cleaned_data['username'] + f"\" alterado com sucesso")
+		return super(UserUpdate, self).form_valid(form)
 
 class UserUpdateEmail(UpdateView):
 	model = User
@@ -114,6 +129,9 @@ class UserUpdateEmail(UpdateView):
 		context['logged_user'] = self.request.user
 		return context
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Email alterado com sucesso")
+		return super(UserUpdateEmail, self).form_valid(form)
 
 class OrganizationCreate(CreateView):
 	model = Organization
@@ -127,6 +145,9 @@ class OrganizationCreate(CreateView):
 		form.fields['location'].label = "Localização"
 		return form
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Organização " +  " \""+ form.cleaned_data['name'] + f"\" inserida no sistema")
+		return super(OrganizationCreate, self).form_valid(form)
 
 class OrganizationDetail(DetailView):
 	model = Organization
@@ -145,6 +166,10 @@ class OrganizationDelete(DeleteView):
 		context['org_users'] = User.objects.filter(organization__id =self.kwargs['pk'])
 		return context	
 
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Organização " +  " \""+ Organization.objects.filter(id=self.kwargs['pk'])[0].name+ f"\" apagada do sistema")
+		return super(OrganizationDelete, self).delete(request, *args, **kwargs)
+
 class OrganizationUpdate(UpdateView):
 	model = Organization
 	fields = ['name', 'location']
@@ -156,6 +181,10 @@ class OrganizationUpdate(UpdateView):
 		form.fields['name'].label = "Nome da Empresa"
 		form.fields['location'].label = "Localização"
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Organização " +  " \""+ form.cleaned_data['name'] + f"\" alterada com sucesso")
+		return super(OrganizationUpdate, self).form_valid(form)
 
 def login_request(request):
 	if request.method == "POST":

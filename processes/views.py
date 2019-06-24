@@ -56,6 +56,10 @@ class ActivityCreate(CreateView):
 		form.fields['role'].label = "Papéis"
 		return form	
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Actividade " +  " \""+ form.cleaned_data['activity_name'] + f"\" inserida no sistema")
+		return super(ActivityCreate, self).form_valid(form)
+
 class ActivityDetail(DetailView):
 	model = Activity
 	template_name = "processes/forms/activity_detail.html"
@@ -93,6 +97,10 @@ class ActivityUpdate(UpdateView):
 		form.fields['role'].label = "Papéis"
 		return form		
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Actividade " +  " \""+ form.cleaned_data['activity_name'] + f"\" alterada com sucesso")
+		return super(ActivityUpdate, self).form_valid(form)
+
 class ActivityDelete(DeleteView):
 	model = Activity
 	template_name = "processes/forms/activity_confirm_delete.html"
@@ -103,7 +111,7 @@ class ActivityDelete(DeleteView):
 		return context
 
 	def delete(self, request, *args, **kwargs):
-		messages.warning(self.request,f"Actividade " +  " "+ Activity.objects.filter(id=self.kwargs['pk'])[0].activity_name+ f" apagada do sistema")
+		messages.warning(self.request,f"Actividade " +  " \""+ Activity.objects.filter(id=self.kwargs['pk'])[0].activity_name+ f"\" apagada do sistema")
 		return super(ActivityDelete, self).delete(request, *args, **kwargs)
 
 class ActivitySwap(CreateView):
@@ -133,6 +141,11 @@ class ActivitySwap(CreateView):
 		form.initial['pattern'] = patterns
 		form.initial['original'] = this_act.id
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Actividade " +  " \""+ form.cleaned_data['activity_name'] + f"\" associada ao processo \" " + form.cleaned_data['process'].process_name +" \"")
+		return super(ActivitySwap, self).form_valid(form)
+
 
 @login_required(login_url='/login')
 def AssociateReferer(request, **kwargs):
@@ -167,6 +180,10 @@ class ProcessCreate(CreateView):
 		form.fields['description'].label = "Descrição"
 		return form 
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Processo " +  " \""+ form.cleaned_data['process_name'] + f"\" inserido no sistema")
+		return super(ProcessCreate, self).form_valid(form)
+
 class ProcessUpdate(UpdateView):
 	model = Process
 	fields = ['process_name', 'description' , 'user']
@@ -182,6 +199,10 @@ class ProcessUpdate(UpdateView):
 		form.fields['process_name'].label = "Nome do Processo"
 		form.fields['description'].label = "Descrição"
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Processo " +  " \""+ form.cleaned_data['process_name'] + f"\" alterado com sucesso")
+		return super(ProcessUpdate, self).form_valid(form)
 
 class ProcessDelete(DeleteView):
 	model = Process
@@ -235,6 +256,10 @@ class ProductCreate(CreateView):
 		form.fields['activity'].label = "Actividades"
 		return form
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Produto " +  " \""+ form.cleaned_data['product_name'] + f"\" inserido no sistema")
+		return super(ProductCreate, self).form_valid(form)
+
 class ProductDetail(DetailView):
 	model = Product
 	template_name = "processes/forms/product_detail.html"
@@ -268,6 +293,10 @@ class ProductUpdate(UpdateView):
 		form.fields['product_format'].label = "Formato"
 		form.fields['activity'].label = "Actividades"
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Produto " +  " \""+ form.cleaned_data['product_name'] + f"\" alterado com sucesso")
+		return super(ProductUpdate, self).form_valid(form)
 
 
 class ProductDelete(DeleteView):
@@ -308,6 +337,10 @@ class RoleCreate(CreateView):
 		form.fields['description'].label = "Descrição"
 		return form
 
+	def form_valid(self, form):
+		messages.info(self.request, f"Papel " +  " \""+ form.cleaned_data['role_name'] + f"\" inserido no sistema")
+		return super(RoleCreate, self).form_valid(form)
+
 class RoleDetail(DetailView):
 	model = Role
 	template_name = "processes/forms/role_detail.html"
@@ -340,6 +373,10 @@ class RoleUpdate(UpdateView):
 		form.fields['role_name'].label = "Nome do papel"
 		form.fields['description'].label = "Descrição"
 		return form
+
+	def form_valid(self, form):
+		messages.info(self.request, f"Papel " +  " \""+ form.cleaned_data['role_name'] + f"\" alterado com sucesso")
+		return super(RoleUpdate, self).form_valid(form)
 		
 class RoleDelete(DeleteView):
 	model = Role
