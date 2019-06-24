@@ -34,6 +34,7 @@ def actividades(request):
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
+	messages.warning(request,f"Actividade "+ this_act.activity_name+f"apagada do sistema")
 	this_act.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))#previous URL
 
@@ -100,6 +101,10 @@ class ActivityDelete(DeleteView):
 		this_acts = Activity.objects.filter(original=self.kwargs['pk'])
 		context['act_procs'] = this_acts
 		return context
+
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Actividade " +  " "+ Activity.objects.filter(id=self.kwargs['pk'])[0].activity_name+ f" apagada do sistema")
+		return super(ActivityDelete, self).delete(request, *args, **kwargs)
 
 class ActivitySwap(CreateView):
 	model = Activity
@@ -188,6 +193,9 @@ class ProcessDelete(DeleteView):
 		our_acts = Activity.objects.all().filter(process__id=proc_id)
 		context['acts'] = our_acts
 		return context
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Processo " +  " \""+ Process.objects.filter(id=self.kwargs['pk'])[0].process_name+ f"\" apagado do sistema")
+		return super(ProcessDelete, self).delete(request, *args, **kwargs)
 
 class ProcessDetail(DetailView):
 	model = Process
@@ -266,7 +274,9 @@ class ProductDelete(DeleteView):
 	model = Product
 	sucess_url = "/produtos"
 	template_name = "processes/forms/product_confirm_delete.html"
-
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Produto " +  " \""+ Product.objects.filter(id=self.kwargs['pk'])[0].product_name+ f"\" apagado do sistema")
+		return super(ProductDelete, self).delete(request, *args, **kwargs)
 
 @login_required(login_url='/login')
 def removeActivityFromProduct(request, **kwargs):
@@ -335,7 +345,9 @@ class RoleDelete(DeleteView):
 	model = Role
 	sucess_url = "/papeis"
 	template_name = "processes/forms/role_confirm_delete.html"
-
+	def delete(self, request, *args, **kwargs):
+		messages.warning(self.request,f"Papel " +  " \""+ Role.objects.filter(id=self.kwargs['pk'])[0].role_name+ f"\" apagado do sistema")
+		return super(RoleDelete, self).delete(request, *args, **kwargs)
 
 @login_required(login_url='/login')
 def removeRoleFromActivity(request, **kwargs):
