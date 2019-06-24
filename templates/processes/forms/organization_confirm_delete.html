@@ -21,9 +21,11 @@
 {% endif %}
     {% if org_users|length == 0 %}
     <p>De certeza que pretende eliminar a empresa <b>"{{ object.name}}</b>"?</p>
-    <input type="submit" value="Confirm"> 
+    <a href="/empresas" class="text-danger">Cancelar</a>
+    <button type="submit" class="btn text-white">Eliminar</button>
+    {% else %}
+    <a href="/empresas" class="text-danger">Cancelar</a>
     {% endif %}
-    <a href="/empresas">Cancelar</a>
 </form>
 </div>
 {% else %}

@@ -8,7 +8,8 @@
 <form method="post">{% csrf_token %}
         {{ form|crispy }}
     
-    <input type="submit" value="Confirmar"> <a href="/processos">Cancelar</a>
+        <a href="/processos" class="text-danger">Cancelar</a>
+        <button type="submit" class="btn text-white">Guardar</button>
 
 </form>
 

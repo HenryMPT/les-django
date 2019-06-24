@@ -8,7 +8,8 @@
 
 <form method="post">{% csrf_token %}
     <p>Tem a certeza que pretende eliminar o utilizador <b>"{{ object.username}}</b>"?</p>
-    <input type="submit" value="Confirm"> <a href="/utilizadores">Cancelar</a>
+    <a href="/utilizadores" class="text-danger">Cancelar</a>
+<button type="submit" class="btn text-white">Eliminar</button>
 </form>
 </div>
 

@@ -4,7 +4,8 @@
 <div class="container">
 <form method="post">{% csrf_token %}
     <p>Tem a certeza que pretende eliminar o Papel  <b>"{{ object.role_name}}</b>"?</p>
-    <input type="submit" value="Confirm"> <a href="/papeis">Cancelar</a>
+    <a href="/papeis" class="text-danger">Cancelar</a>
+    <button type="submit" class="btn text-white">Eliminar</button>
 </form>
 </div>
 {% else %}

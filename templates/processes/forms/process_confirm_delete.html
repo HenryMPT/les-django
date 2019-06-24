@@ -20,9 +20,11 @@
 
     {% elif act|length == 0 %}
     <p>Tem a certeza que pretende eliminar o Processo <b>"{{ object.process_name}}</b>"?</p>
-    <input type="submit" value="Confirm">
-    {% endif %} 
+    <a href="/processos" class="text-danger">Cancelar</a>
+    <button type="submit" class="btn text-white">Eliminar</button>
+    {% else %}
     <a href="/processos">Cancelar</a>
+    {% endif %} 
 </form>
 </div>
 {% else %}
