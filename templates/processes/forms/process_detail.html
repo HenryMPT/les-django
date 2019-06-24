@@ -21,9 +21,9 @@
             <div class="col-sm-4">{{object.description}}</div>
         </div>
       <hr>
-         
+      {% if perms.Users.test_GProc %}
         <p><a href="/processos/ProcessUpdate/{{object.id}}"> <button type="button" class="btn text-white">Editar processo</button></a></p>
-        <br>
+       {% endif %} <br>
         <h3>Actividades associadas ao Processo </h3>
         <hr>
         {% for act in proc_acts %}
