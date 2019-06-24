@@ -17,6 +17,8 @@
       <hr>
         <p><a href="/actividades/ActivityUpdate/{{object.id}}"> Editar actividade</a></p>
         <br>
+
+        {% if patterns|length > 0 or non_patterns|length > 0 %}
 <div class = "row">
   <div class = "col-sm-6"> <h3>Padrões associados à actividade:</h3></div>
   <div class = "col-sm-6"> <h3>Padrões não associados:</h3></div>
@@ -47,6 +49,10 @@
             {% endfor %}</div></div>
         <hr>
         <br>
+
+        {% endif %}
+
+    {% if act_products|length > 0 or non_products|length > 0 %}
         <div class = "row">
             <div class = "col-sm-6"> <h3>Produtos associados à actividade:</h3></div>
             <div class = "col-sm-6"> <h3>Produtos não associados:</h3></div>
@@ -58,6 +64,7 @@
                         <div class="col-sm-4">Formato: </div></div></div>
                        </div>
         <hr>
+
         <div class ="row">
             <div class = "col-sm-6  colseparator" >
         {% for product in act_products %}
@@ -77,9 +84,11 @@
             {% endfor %}</div>
           
       </div>
+
         <hr>
         <br>
-
+        {% endif %}
+        {% if roles|length > 0 or non_roles|length > 0 %}
         <div class = "row">
             <div class = "col-sm-6"> <h3>Papéis associados à actividade:</h3></div>
             <div class = "col-sm-6"> <h3>Papéis não associados:</h3></div>
@@ -104,7 +113,8 @@
       </div>
       <hr>
         <br>
-        {% if object.process == None %}
+        {% endif %}
+        {% if object.process == None and procs|length > 0 %}
         <div class = "row">
           <div class = "col-sm-12"> <h3>Processos a associar:</h3></div>
               </div>
