@@ -29,9 +29,9 @@
         {% for act in proc_acts %}
         <div class="row">
         <div class="col-sm-4"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
         {% if perms.Users.test_GProc %}
-        <a href="/actividades/ActivityDessociate/{{act.id}}"><i class="material-icons text-danger">clear</i></a>
+        <a href="/actividades/ActivityDessociate/{{act.id}}"><i class="material-icons text-danger">clear</i>&nbsp;</a>
         {% endif %}
         </div></div>
         {% endfor %}
@@ -42,9 +42,9 @@
         {% for act in non_acts %}
         <div class="row">
         <div class="col-sm-4"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
         {% if perms.Users.test_GProc %}
-        <a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}"><i class="material-icons text-success">add</i></a>
+        <a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}"><i class="material-icons text-success">add</i>&nbsp;</a>
         {% endif %}
         </div></div>
         {% endfor %}

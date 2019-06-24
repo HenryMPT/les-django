@@ -15,7 +15,7 @@
               </div>
               {% endif %}
       <hr>
-        <p><a href="/actividades/ActivityUpdate/{{object.id}}"> Editar actividade</a></p>
+        <p><a href="/actividades/ActivityUpdate/{{object.id}}"> <button type="button" class="btn text-white">Editar actividade</button></a></p>
         <br>
 
         {% if patterns|length > 0 or non_patterns|length > 0 %}
@@ -29,16 +29,16 @@
         {% for pat in patterns %}
         <div class="row">
         <div class="col-sm-5"><a href="#">{{pat}}</a></div>
-        <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewPattern" pat.id %}", "Ver Padrão", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
-        <a href="/actividades/PatternDessociate/{{object.id}}/{{pat.id}}"><i class="material-icons text-danger">clear</i></a></div>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewPattern" pat.id %}", "Ver Padrão", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;&nbsp;</a>
+        <a href="/actividades/PatternDessociate/{{object.id}}/{{pat.id  }}"><i class="material-icons text-danger">clear</i>&nbsp;</a></div>
         </div>
         {% endfor %}</div>
         <div class = "col-sm-6">
             {% for pat in non_patterns %}
             <div class="row">
             <div class="col-sm-5"><a href="#">{{pat}}</a></div>
-            <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewPattern" pat.id %}", "Ver Padrão", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
-            <a href="/actividades/PatternAssociate/{{object.id}}/{{pat.id}}"><i class="material-icons text-success">add</i></a></div>
+            <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewPattern" pat.id %}", "Ver Padrão", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;&nbsp;</a>
+            <a href="/actividades/PatternAssociate/{{object.id}}/{{pat.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
             </div>
             {% endfor %}</div></div>
         <hr>
@@ -58,16 +58,16 @@
         {% for product in act_products %}
         <div class="row">
         <div class="col-sm-5"> <a href="/produtos/ProductDetail/{{product.id}}">{{product}}</a></div>
-        <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProduct" product.id %}", "Ver Produto", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
-        <a href="/produtos/ProductDessociate/{{product.id}}/{{object.id}}"><i class="material-icons text-danger">clear</i></a></div>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProduct" product.id %}", "Ver Produto", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;&nbsp;</a>
+        <a href="/produtos/ProductDessociate/{{product.id}}/{{object.id}}"><i class="material-icons text-danger">clear</i>&nbsp;</a></div>
         </div>
         {% endfor %}</div>
         <div class = "col-sm-6" >
             {% for product in non_products %}
             <div class="row">
             <div class="col-sm-5"><a href="/produtos/ProductDetail/{{product.id}}">{{product}}</a></div>
-            <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProduct" product.id %}", "Ver Produto", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
-            <a href="/produtos/ProductAssociate/{{product.id}}/{{object.id}}"><i class="material-icons text-success">add</i></a></div>
+            <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProduct" product.id %}", "Ver Produto", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;&nbsp;</a>
+            <a href="/produtos/ProductAssociate/{{product.id}}/{{object.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
             </div>
             {% endfor %}</div>
           
@@ -87,16 +87,16 @@
         {% for rol in roles %}
         <div class="row">
             <div class="col-sm-5"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-            <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewRole" rol.id %}", "Ver Papel", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
-            <a href="/actividades/RoleDessociate/{{object.id}}/{{rol.id}}"><i class="material-icons text-danger">clear</i></a></div>
+            <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewRole" rol.id %}", "Ver Papel", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+            <a href="/actividades/RoleDessociate/{{object.id}}/{{rol.id}}"><i class="material-icons text-danger">clear</i>&nbsp;</a></div>
         </div>
         {% endfor %}</div>
         <div class = "col-sm-6" >
             {% for rol in non_roles %}
             <div class="row">
             <div class="col-sm-5"><a href="/papeis/RoleDetail/{{rol.id}}">{{rol}}</a></div>
-            <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewRole" rol.id %}", "Ver Papel", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
-            <a href="/actividades/RoleAssociate/{{object.id}}/{{rol.id}}"><i class="material-icons">search</i></a></div>
+            <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewRole" rol.id %}", "Ver Papel", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+            <a href="/actividades/RoleAssociate/{{object.id}}/{{rol.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
             </div>
             {% endfor %}</div>
       
@@ -112,9 +112,9 @@
 
       {% for proc in procs %}
       <div class="row">
-          <div class="col-sm-5"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a></div>
-          <div class="col-sm-6 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProcess" proc.id %}", "Ver Processo", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
-          <a href="/actividades/ActivitySwap/{{object.id}}/{{proc.id}}"><i class="material-icons text-success">add</i></a></div>
+          <div class="col-sm-3"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc}}</a></div>
+          <div class="col-sm-3 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewProcess" proc.id %}", "Ver Processo", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+          <a href="/actividades/ActivitySwap/{{object.id}}/{{proc.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
       </div>
       {% endfor %}
 
