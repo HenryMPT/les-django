@@ -23,7 +23,7 @@ from django import forms
 def processos(request):
 	return render(request=request,
 				  template_name="processes/processos.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all()})
+				   context={"procs": Process.objects.filter(user__organization=request.user.organization), "acts": Activity.objects.all()})
 
 
 @login_required(login_url='/login')

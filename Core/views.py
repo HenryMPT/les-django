@@ -26,7 +26,7 @@ def Home(request):
     "orgs": Organization.objects.all(),
     "prods": Product.objects.all(),
     "roles": Role.objects.all(),
-    "procs": Process.objects.all(),
+    "procs": Process.objects.filter(user__organization=request.user.organization),
     	},)
 
 class SearchView(TemplateView):
