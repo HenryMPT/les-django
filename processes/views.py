@@ -30,7 +30,7 @@ def processos(request):
 def actividades(request):
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"acts": Activity.objects.all().exclude(original__isnull=False), "proc_acts": Activity.objects.filter(process__user=request.user)})
+				   context={"acts": Activity.objects.all().exclude(original__isnull=False), "proc_acts": Activity.objects.filter(process__user__organization=request.user.organization)})
 
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
@@ -78,7 +78,7 @@ class ActivityDetail(DetailView):
 		context['non_patterns'] = Pattern.objects.all().exclude(id__in=our_patterns)
 		context['roles'] = our_roles
 		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
-		context['procs'] = Process.objects.all()
+		context['procs'] = Process.objects.filter(user__organization=self.request.user.organization)
 		return context
 
 class ActivityUpdate(UpdateView):
