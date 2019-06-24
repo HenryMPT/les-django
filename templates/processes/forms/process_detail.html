@@ -30,8 +30,7 @@
         <div class="row">
         <div class="col-sm-1"> Actividade:</div>
         <div class="col-sm-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-1"> Descrição:</div>
-        <div class="col-sm-3">{{act.description}}</div>
+        <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
         {% if perms.Users.test_GProc %}
         <div class="col-sm-2"><a href="/actividades/ActivityDessociate/{{act.id}}">Desassociar</a></div>
         {% endif %}
@@ -45,8 +44,7 @@
         <div class="row">
         <div class="col-sm-1"> Actividade:</div>
         <div class="col-sm-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-1"> Descrição:</div>
-        <div class="col-sm-3">{{act.description}}</div>
+        <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
         {% if perms.Users.test_GProc %}
         <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Associar</a></div>
         {% endif %}
