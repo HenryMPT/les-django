@@ -141,6 +141,11 @@ class ActivitySwap(CreateView):
 		form.initial['process'] = this_proc
 		form.initial['pattern'] = patterns
 		form.initial['original'] = this_act.id
+		form.fields['activity_name'].label = "Nome da actividade"
+		form.fields['description'].label = "Descrição"
+		form.fields['pattern'].label = "Padrões"
+		form.fields['role'].label = "Papéis"
+		form.fields['process'].label = "Processo"
 		return form
 
 	def form_valid(self, form):
