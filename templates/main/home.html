@@ -2,6 +2,7 @@
  {% extends "main/navbar.html" %} 
  {% block content %}
 	<div class="container">
+            {% include "processes/includes/messages.html" %}
         <!--{% if perms.Users.add_user %}
             {% include "tables/user.html" with object_list=users %}
         {% endif %}-->

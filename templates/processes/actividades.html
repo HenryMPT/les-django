@@ -44,12 +44,10 @@
 										<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
 										<td class="col-4">{{act.description}}</td>
 										<td class="col-6 text-right">
-									
 										<a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a></b>
 							
 							
 										<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a>
-							
 									</td>
 									</div>
 									</tr>
@@ -88,9 +86,11 @@
 											<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
 											<td class="col-4"><a href="/processos/ProcessDetail/{{act.process.id}}">{{act.process}}</a></td>
 											<td class="col-6 text-right">
+													{% if perms.Users.test_GProc %}
 													<a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a></b>
 								
 											<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a>
+										{% endif %}
 										</td>
 										</div>
 										</tr>

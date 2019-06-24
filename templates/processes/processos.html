@@ -24,10 +24,12 @@
 									</div>
 								</th>
 							</tr>
+							{% if perms.Users.test_GProc %}
 									<tr class="d-flex nobluebar">
 										<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
 										<td class="col-3 text-right"></td>
 									</tr>
+									{% endif %}
 									{% if procs|length > 0 %}
 							<tr class="d-flex nobluebar">
 									<td class="col-3"><b>Nome:</b> </td>
@@ -50,14 +52,14 @@
 										{% endif %}
 									
 										<td class="col-6 text-right">
-												
+												{% if perms.Users.test_GProc %}
 														<a href="/processos/ProcessUpdate/{{proc.id}} "><i class="material-icons">create</i></a>
 														 
 													  
 								
 
 															<a href="/processos/ProcessDelete/{{proc.id}} "><i class="material-icons text-danger">clear</i></a>
-															 
+															 {% endif %}
 														  </td>
 									</tr>
 									{% endfor %}

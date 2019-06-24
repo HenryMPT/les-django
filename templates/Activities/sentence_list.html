@@ -1,7 +1,8 @@
 {% extends "main/navbar.html" %} 
 {% block content %}
     <div class="container-fluid" style=" margin-top:-25px;">
-        <div class="row">
+		{% include "processes/includes/messages.html" %}
+      <div class="row">
             <div class="navegation">
                 <a href='{% url "home" %}'><i class="material-icons">home</i></a>
                 <i class="material-icons" style="position:relative; top:5px;">keyboard_arrow_right</i>
@@ -18,6 +19,12 @@
         </div>
     </div>
     <div class="container">
-        {% include "tables/sentence.html" %}
+      {% if perms.Users.test_Analist %}
+      {% include "tables/sentence.html" with object_list=sentences %}
+      {% endif %}
+      {% if perms.Users.test_Func %}
+      {% include "tables/sentence.html" with object_list=user_sentences %}
+      {% endif %}
+
     </div>
 {% endblock %}

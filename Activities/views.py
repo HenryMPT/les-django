@@ -60,7 +60,7 @@ class ListVerb(ListView):
         if 'search' in self.request.GET:
             return Search_verb(self.request)
         return super(ListVerb, self).get_queryset()
-
+    
 class DetailVerb(DetailView):
     model = Verb
 
@@ -89,7 +89,17 @@ class DeleteVerb(DeleteView):
 #==========   SENTENCE   ==========#
 class ListSentence(ListView):
     model = Sentence
-    
+
+    def get_context_data(self, **kwargs):
+
+        context = super(ListSentence, self).get_context_data(**kwargs)
+        context.update({
+            'user_sentences': Sentence.objects.all().filter(
+                userid=self.request.user),
+            'sentences':  Sentence.objects.all().filter()
+        })
+        return context
+
     def get_queryset(self):
         if 'search' in self.request.GET:
             return Search_sentence(self.request)
@@ -128,14 +138,13 @@ class UpdateSentence(AjaxableResponseMixin, UpdateView):
 class DeleteSentence(DeleteView):
     model = Sentence
     success_url = reverse_lazy('sentence_list')
+
     def delete(self, request, *args, **kwargs):
-        messages.warning(self.request,f"a")
+        messages.warning(self.request, f"a")
         return super(DeleteSentence, self).delete(request, *args, **kwargs)
+
 #==========   SENTENCE   ==========#    
-    
 
-
-    
 
 #==========   GROUP   ==========#
 class ListGroup(ListView):

@@ -1,5 +1,4 @@
 <div class="container showlist">
-    {% include "processes/includes/messages.html" %}
 	<table class="table table-hover header-fixed">
 		<thead>
 			<tr class="d-flex">
@@ -13,10 +12,11 @@
 					</div>
 				</th>
 			</tr>
+			{% if perms.Users.test_GProc %}
 			<tr class="d-flex nobluebar">
 				<td class="col-9"><b><a href="/processos/ProcessCreate" class="novo"><i class="material-icons">add</i> Novo processo</a></b></td>
 				<td class="col-3 text-right"></td>
-			</tr>
+			</tr>{% endif %}
 			{% if procs|length > 0 %}
 			<tr class="d-flex nobluebar">
 					<td class="col-3"><b>Processo:</b> </td>
@@ -111,10 +111,10 @@
 				
 				<tr class="d-flex">
 						<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
-						<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
+						{% if perms.Users.test_GProc %}	<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
 						<td class="col-6 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
 						<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a></td>
-					</tr>
+				{% endif%}	</tr>
 				
 					{% endfor %}
 			</tbody>
@@ -138,10 +138,11 @@
 					</div>
 				</th>
 			</tr>
+			{% if perms.Users.test_GProc %}
 			<tr class="d-flex nobluebar">
 				<td class="col-9"><b><a href="/papeis/RoleCreate" class="novo"><i class="material-icons">add</i> Novo Papel</a></b></td>
 				<td class="col-3 text-right"></td>
-			</tr>
+			</tr>{% endif %}
 			{% if roles|length > 0 %}
 			<tr class="d-flex nobluebar">
 				<td class="col-3"><b>Papel:</b> </td>
@@ -164,9 +165,10 @@
 							{% endfor %}	
 							{% endfor %}</td>
 						</span></td>
+						{% if perms.Users.test_GProc %}
 						<td class="col-6 text-right"><a href="/papeis/RoleUpdate/{{role.id}} "><i class="material-icons">create</i></a>
 						<a href="/papeis/RoleDelete/{{role.id}} "><i class="material-icons text-danger">clear</i></a></td>
-		
+		{% endif %}
 					</tr>
 					{% endfor %}
 		</tbody>
