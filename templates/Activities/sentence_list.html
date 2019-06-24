@@ -6,7 +6,7 @@
                 <a href='{% url "home" %}'><i class="material-icons">home</i></a>
                 <i class="material-icons" style="position:relative; top:5px;">keyboard_arrow_right</i>
                 <b><span class="text-dark" id="path">Frases</span></b>
-            </div>
+            </div> 
             {% for message in messages %}
                 <div class="d-flex ml-auto mr-4">
                     {% if message.tags == "success" %}<p class="alert alert-success" role="alert">Frase criada com sucesso!<p>

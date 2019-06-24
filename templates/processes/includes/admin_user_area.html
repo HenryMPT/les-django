@@ -1,6 +1,15 @@
 
 				<div class="container">
+						<div class="container-fluid" style=" margin-top:-25px;">
+								<div class="row">
+									<div class="navegation">
+										<a href='{% url "home" %}'><i class="material-icons">home</i></a>
+										<i class="material-icons" style="position:relative; top:5px;">keyboard_arrow_right</i>
+										<b><span class="text-dark" id="path">Utilizadores</span></b>
+									</div>
+				<br><br>
 						{% for message in messages %}
+						
 						<div class="d-flex col-8">
 							{% if message.tags == "error" %}<p class="alert alert-danger" role="alert">{{message}}<p>
 							{% elif message.tags == "warning" %}<p class="alert alert-danger" role="alert">{{message}}<p>

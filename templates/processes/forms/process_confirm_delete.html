@@ -17,10 +17,12 @@
             <hr>
             {% endfor %}<br>
     <h3>Para prosseguir primeiro remova as associações listadas.</h3>
-    {% endif %}
-    {% if act|length == 0 %}
+
+    {% elif act|length == 0 %}
     <p>Tem a certeza que pretende eliminar o Processo <b>"{{ object.process_name}}</b>"?</p>
-    <input type="submit" value="Confirm">{% endif %} <a href="/processos">Cancelar</a>
+    <input type="submit" value="Confirm">
+    {% endif %} 
+    <a href="/processos">Cancelar</a>
 </form>
 </div>
 {% else %}
