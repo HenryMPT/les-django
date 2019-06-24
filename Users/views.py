@@ -74,6 +74,12 @@ class UserCreate(CreateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(UserCreate, self).get_form(form_class)
+		my_default_errors = {
+    	'required': 'Este campo é obrigatório',
+    	'invalid': 'Por favor insira um valor válido',
+		'unique': 'Já existe um utilizador com este nome'
+							}
+		form.fields['username'].error_messages = my_default_errors
 		form.fields['organization'].empty_label = None
 		form.fields['email'].error_messages = "..."
 		form.fields['username'].label = "Nome de utilizador"
@@ -98,6 +104,12 @@ class UserUpdate(UpdateView):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(UserUpdate, self).get_form(form_class)
+		my_default_errors = {
+    	'required': 'Este campo é obrigatório',
+    	'invalid': 'Por favor insira um valor válido',
+		'unique': 'Já existe um utilizador com este nome'
+							}
+		form.fields['username'].error_messages = my_default_errors
 		form.fields['organization'].empty_label = None
 		form.fields['email'].error_messages = "..."
 		form.fields['organization'].label = "Empresa"
