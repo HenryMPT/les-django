@@ -272,7 +272,7 @@ class ProductDetail(DetailView):
 		original_acts = Activity.objects.all().exclude(original__isnull=False)
 		proc_acts = Activity.objects.all().exclude(original__isnull=True)
 		our_acts = this_product.activity.all().exclude(original__isnull=False)
-		our_proc_acts = this_product.activity.all().exclude(original__isnull=True)
+		our_proc_acts = this_product.activity.all().filter(original__isnull=True)
 		context['acts'] = our_acts
 		context['non_acts'] = original_acts.exclude(id__in=our_acts)
 		context['proc_acts'] = our_proc_acts

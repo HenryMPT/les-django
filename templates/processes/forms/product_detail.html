@@ -17,16 +17,16 @@
         {% for act in acts %}
         <div class="row">
         <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
-        <div class="col-sm-2"><a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}">Desassociar</a></div>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+        <a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}"><i class="material-icons text-danger">clear</i>&nbsp;</a></div>
         </div>
         {% endfor %}</div>
         <div class = "col-sm-6" >
             {% for act in non_acts %}
             <div class="row">
             <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-            <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
-            <div class="col-sm-2"><a href="/produtos/ProductAssociate/{{object.id}}/{{act.id}}">Associar</a></div>
+            <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+            <a href="/produtos/ProductAssociate/{{object.id}}/{{act.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
             </div>
             {% endfor %}</div>
           
@@ -35,7 +35,7 @@
         <br>
 {% if proc_acts|length > 0 or non_proc_acts|length > 0 %}
         <div class = "row">
-            <div class = "col-sm-6"> <h3>Actividades dos teus Processos associadas ao produto:</h3></div>
+            <div class = "col-sm-6"> <h3>Actividade-Processo associadas ao produto:</h3></div>
             <div class = "col-sm-6"> <h3>Actividades não associadas:</h3></div>
                 </div>
                   <hr>
@@ -44,16 +44,16 @@
                   {% for act in proc_acts %}
                   <div class="row">
                   <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-                  <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
-                  <div class="col-sm-2"><a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}">Desassociar</a></div>
+                  <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+                  <a href="/produtos/ProductDessociate/{{object.id}}/{{act.id}}"><i class="material-icons text-danger">clear</i>&nbsp;</a></div>
                   </div>
                   {% endfor %}</div>
                   <div class = "col-sm-6" >
                       {% for act in non_proc_acts %}
                       <div class="row">
                       <div class="col-sm-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-                      <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
-                      <div class="col-sm-2"><a href="/produtos/ProductAssociate/{{object.id}}/{{act.id}}">Associar</a></div>
+                      <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i>&nbsp;</a>
+                      <a href="/produtos/ProductAssociate/{{object.id}}/{{act.id}}"><i class="material-icons text-success">add</i>&nbsp;</a></div>
                       </div>
                       {% endfor %}</div>
                     
