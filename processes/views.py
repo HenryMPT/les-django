@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from Users.forms import NewUserForm
 from Activities.models import Pattern
+from Activities.views import AjaxableResponseMixin
 from .forms import  SwapActivityForm
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.decorators import login_required
@@ -421,7 +422,29 @@ def papeis(request):
 							  "prods" : Product.objects.all(),							
 				   }
 				   )
+
+
+
+
+class ViewProcess(AjaxableResponseMixin,DetailView):
+	model = Process
+	template_name = "processes/modal/process.html"
+
+
+
+class ViewPattern(AjaxableResponseMixin,DetailView):
+	model = Pattern
+	template_name = "processes/modal/pattern.html"
+
 	
+class ViewRole(AjaxableResponseMixin,DetailView):
+	model = Role
+	template_name = "processes/modal/role.html"
 
+class ViewActivity(AjaxableResponseMixin,DetailView):
+	model = Activity
+	template_name = "processes/modal/activity.html"	
 
-
+class ViewProduct(AjaxableResponseMixin,DetailView):
+	model = Product
+	template_name = "processes/modal/product.html"

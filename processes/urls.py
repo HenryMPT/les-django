@@ -49,5 +49,10 @@ urlpatterns = [
     path("papeis/RoleDelete/<int:pk>", login_required(views.RoleDelete.as_view(success_url=('/papeis')),login_url="/login"), name="RoleDelete"),
     path("actividades/RoleDessociate/<int:pk>/<int:fk>", views.removeRoleFromActivity, name="RoleDessociate"),
     path("actividades/RoleAssociate/<int:pk>/<int:fk>", views.addRoleToActivity, name="RoleAssociate"),
+    path('actividades/SeeProcess/<int:pk>/', views.ViewProcess.as_view(), name='ViewProcess'),
+    path('actividades/SeePattern/<int:pk>/', views.ViewPattern.as_view(), name='ViewPattern'),
+    path('actividades/SeeProduct/<int:pk>/', views.ViewProduct.as_view(), name='ViewProduct'),
+    path('actividades/SeeRole/<int:pk>/', views.ViewRole.as_view(), name='ViewRole'),
+    path('actividades/SeeActivity/<int:pk>/', views.ViewActivity.as_view(), name='ViewActivity'),
 ]
 
