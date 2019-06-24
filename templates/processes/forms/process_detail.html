@@ -22,33 +22,31 @@
         </div>
       <hr>
          
-        <p><a href="/processos/ProcessUpdate/{{object.id}}"> Editar processo</a></p>
+        <p><a href="/processos/ProcessUpdate/{{object.id}}"> <button type="button" class="btn text-white">Editar processo</button></a></p>
         <br>
-        <h3>Actividades do Processo </h3>
+        <h3>Actividades associadas ao Processo </h3>
         <hr>
         {% for act in proc_acts %}
         <div class="row">
-        <div class="col-sm-1"> Actividade:</div>
-        <div class="col-sm-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
+        <div class="col-sm-4"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
         {% if perms.Users.test_GProc %}
-        <div class="col-sm-2"><a href="/actividades/ActivityDessociate/{{act.id}}">Desassociar</a></div>
+        <a href="/actividades/ActivityDessociate/{{act.id}}"><i class="material-icons text-danger">clear</i></a>
         {% endif %}
-        </div>
+        </div></div>
         {% endfor %}
         <hr>
         <br>
-        <h3>Actividades disponíveis: </h3>
+        <h3>Actividades base disponíveis: </h3>
         <hr>
         {% for act in non_acts %}
         <div class="row">
-        <div class="col-sm-1"> Actividade:</div>
-        <div class="col-sm-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
-        <div class="col-sm-4"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''>Ver</a></div>
+        <div class="col-sm-4"><a href="/actividades/ActivityDetail/{{act.id}}">{{act}}</a></div>
+        <div class="col-sm-7 text-right"><a data-toggle="modal" onclick='newModal("{% url "processes:ViewActivity" act.id %}", "Ver Actividade", "#Viewmodal", "")' href=''><i class="material-icons">search</i></a>
         {% if perms.Users.test_GProc %}
-        <div class="col-sm-1"><a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}">Associar</a></div>
+        <a href="/actividades/ActivitySwap/{{act.id}}/{{pid}}"><i class="material-icons text-success">add</i></a>
         {% endif %}
-        </div>
+        </div></div>
         {% endfor %}
         <hr>
 

@@ -54,5 +54,6 @@ urlpatterns = [
     path('actividades/SeeProduct/<int:pk>/', views.ViewProduct.as_view(), name='ViewProduct'),
     path('actividades/SeeRole/<int:pk>/', views.ViewRole.as_view(), name='ViewRole'),
     path('actividades/SeeActivity/<int:pk>/', views.ViewActivity.as_view(), name='ViewActivity'),
+    path('actividades/modalDelete/<int:pk>/', views.ActivityDeleteModal.as_view(), name='deleteModalActivity'),
 ]
 

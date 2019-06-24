@@ -448,3 +448,8 @@ class ViewActivity(AjaxableResponseMixin,DetailView):
 class ViewProduct(AjaxableResponseMixin,DetailView):
 	model = Product
 	template_name = "processes/modal/product.html"
+
+class ActivityDeleteModal(AjaxableResponseMixin,DetailView):
+	model = Activity
+	template_name = "processes/modal/activity.html"	
+	sucess
