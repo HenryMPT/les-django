@@ -51,13 +51,13 @@
 								
 										<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
 										<td class="col-4">{{act.description}}</td>
-										<td class="col-2">
-												<button type="button" class="btn btn-default btn-sm">							
-										<a href="/actividades/ActivityUpdate/{{act.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a></b>
-									</button>
-									<button type="button" class="btn btn-default btn-sm">	
-										<a href="/actividades/ActivityDelete/{{act.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
-									</button>
+										<td class="col-6 text-right">
+									
+										<a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a></b>
+							
+							
+										<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a>
+							
 									</td>
 									</div>
 									</tr>
@@ -95,13 +95,10 @@
 									
 											<td class="col-2"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}} </a></td>
 											<td class="col-4"><a href="/processos/ProcessDetail/{{act.process.id}}">{{act.process}}</a></td>
-											<td class="col-2">
-													<button type="button" class="btn btn-default btn-sm">							
-											<a href="/actividades/ActivityUpdate/{{act.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a></b>
-										</button>
-										<button type="button" class="btn btn-default btn-sm">	
-											<a href="/actividades/ActivityDelete/{{act.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
-										</button>
+											<td class="col-6 text-right">
+													<a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a></b>
+								
+											<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a>
 										</td>
 										</div>
 										</tr>

@@ -57,16 +57,16 @@
 										<td class="col-3">{{proc.user.username}} </td>	
 										{% endif %}
 									
-										<td class="col-2">
-												<button type="button" class="btn btn-default btn-sm">
-														<a href="/processos/ProcessUpdate/{{proc.id}} "><span class="fas fa-edit"></span> <b>Editar</b></a>
+										<td class="col-6 text-right">
+												
+														<a href="/processos/ProcessUpdate/{{proc.id}} "><i class="material-icons">create</i></a>
 														 
-													  </button> 
+													  
 								
-													  <button type="button" class="btn btn-default btn-sm">
-															<a href="/processos/ProcessDelete/{{proc.id}} "><span class="fas fa-trash-alt"></span> <b>Eliminar</b></a>
+
+															<a href="/processos/ProcessDelete/{{proc.id}} "><i class="material-icons text-danger">clear</i></a>
 															 
-														  </button> </td>
+														  </td>
 									</tr>
 									{% endfor %}
 						

@@ -47,8 +47,8 @@
 								<tr class="d-flex">
 										<td class="col-3"><span><a href="/empresas/OrganizationDetail/{{org.id}}">{{org.name}} </a></span></td>
 										<td class="col-3"><span>{{org.location}}</span></td>	
-										<td class="col-1"><b><a href="/empresas/OrganizationUpdate/{{org.id}} ">Editar</a></span></td>
-										<td class="col-1"><b><a href="/empresas/OrganizationDelete/{{org.id}} ">Eliminar</a></span></td>
+										<td class="col-6 text-right"><a href="/empresas/OrganizationUpdate/{{org.id}} "><i class="material-icons">create</i></a>
+										<a href="/empresas/OrganizationDelete/{{org.id}} "><i class="material-icons text-danger">clear</i></a></td>
 									
 									</tr>
 									{% endfor %}

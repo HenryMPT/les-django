@@ -356,7 +356,7 @@ def addRoleToActivity(request, **kwargs):
 def home(request):
 	return render(request=request,
 				  template_name="processes/homepage.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
+				   context={"procs": Process.objects.all(), "acts": Activity.objects.all().exclude(original__isnull=False),
 				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
 							 "orgs" : Organization.objects.all(), "prods" : Product.objects.all(),							
 							"proc_acts": Activity.objects.filter(process__user=request.user) 

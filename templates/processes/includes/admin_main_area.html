@@ -38,8 +38,8 @@
 										<p>{{group.name}}</p>	
 										{% endfor %} </td>
 										<td class="col-3">{{utilizador.email}}</span></td>
-										<td class="col-1"><b><a href="/utilizadores/UserUpdate/{{utilizador.id}}">Editar</a></td>
-										<td class="col-1"><b><a href="/utilizadores/UserDelete/{{utilizador.id}}">Eliminar</a></td>
+										<td class="col-3 text-right"><a href="/utilizadores/UserUpdate/{{utilizador.id}}"><i class="material-icons">create</i></a>
+										<a href="/utilizadores/UserDelete/{{utilizador.id}}"><i class="material-icons text-danger">clear</i></a></td>
 									
 									</tr>
 									{% endfor %}
@@ -80,8 +80,8 @@
 								<tr class="d-flex">
 										<td class="col-3"><span><a href="#">{{org.name}} </a></span></td>
 										<td class="col-3">{{org.location}} </td>
-										<td class="col-1"><b><a href="/empresas/OrganizationUpdate/{{org.id}}">Editar</a></b> </td>
-											<td class="col-1"><b><a href="/empresas/OrganizationDelete/{{org.id}}">Eliminar</a></b></td>
+										<td class="col-6 text-right"><a href="/empresas/OrganizationUpdate/{{org.id}}"><i class="material-icons">create</i></a>
+											<a href="/empresas/OrganizationDelete/{{org.id}}"><i class="material-icons text-danger">clear</i></a></td>
 							
 									
 									</tr>

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Permission
-from Users.models import User
+from Users.models import User, Organization
 from Activities.models import Sentence, Group, Pattern, Verb
+from processes.models import Activity, Process, Role, Product
 from django.db.models import Q
 from django.views.generic import ListView, TemplateView
 
@@ -19,7 +20,14 @@ def Home(request):
     "sentences":Sentence.objects.all().filter(userid=request.user),
     "verbs":Verb.objects.all(),
     "groups":Group.objects.all().filter(userid=request.user),
-    "patterns":Pattern.objects.all().filter(userid=request.user)})
+    "patterns":Pattern.objects.all().filter(userid=request.user),
+    "acts":Activity.objects.all().exclude(original__isnull=False),
+    "proc_acts": Activity.objects.filter(process__user=request.user),
+    "orgs": Organization.objects.all(),
+    "prods": Product.objects.all(),
+    "roles": Role.objects.all(),
+    "procs": Process.objects.all(),
+    	},)
 
 class SearchView(TemplateView):
     template_name = 'search_form.html'

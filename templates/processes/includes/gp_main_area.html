@@ -36,10 +36,10 @@
 				{% for proc in procs %} 
 				<tr class="d-flex">
 				
-						<td class="col-3"><span><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></span></td>
+						<td class="col-3"><a href="/processos/ProcessDetail/{{proc.id}}">{{proc.process_name}} </a></td>
 						<td class="col-3">{{proc.user.username}} </td>
-						<td class="col-1"><b><a href="/processos/ProcessUpdate/{{proc.id}} ">Editar</a></span></td>
-						<td class="col-1"><b><a href="/processos/ProcessDelete/{{proc.id}} ">Eliminar</a></span></td>
+						<td class="col-6 text-right"><a href="/processos/ProcessUpdate/{{proc.id}} "><i class="material-icons">create</i></a>
+						<a href="/processos/ProcessDelete/{{proc.id}} "><i class="material-icons text-danger">clear</i></a></td>
 			
 					</tr>
 					{% endfor %}
@@ -81,8 +81,8 @@
 			<tr class="d-flex">
 					<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
 					<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
-					<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
-					<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
+					<td class="col-6 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
+					<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a></td>
 				</tr>
 			
 				{% endfor %}
@@ -121,8 +121,8 @@
 				<tr class="d-flex">
 						<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
 						<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
-						<td class="col-1"><b><a href="/actividades/ActivityUpdate/{{act.id}} ">Editar</a></span></td>
-						<td class="col-1"><b><a href="/actividades/ActivityDelete/{{act.id}} ">Eliminar</a></span></td>
+						<td class="col-6 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
+						<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a></td>
 					</tr>
 				
 					{% endfor %}
@@ -173,8 +173,8 @@
 							{% endfor %}	
 							{% endfor %}</td>
 						</span></td>
-						<td class="col-1"><b><a href="/papeis/RoleUpdate/{{role.id}} ">Editar</a></span></td>
-						<td class="col-1"><b><a href="/papeis/RoleDelete/{{role.id}} ">Eliminar</a></span></td>
+						<td class="col-6 text-right"><a href="/papeis/RoleUpdate/{{role.id}} "><i class="material-icons">create</i></a>
+						<a href="/papeis/RoleDelete/{{role.id}} "><i class="material-icons text-danger">clear</i></a></td>
 		
 					</tr>
 					{% endfor %}
@@ -213,8 +213,8 @@
 			<tr class="d-flex">
 					<td class="col-3"> <a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}}</a></td>
 					<td class="col-3"> {{prod.product_format}}</td>
-					<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></span></td>
-					<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></span></td>
+					<td class="col-6 text-right"><b><a href="/produtos/ProductUpdate/{{prod.id}} "><i class="material-icons">create</i></a>
+					<a href="/produtos/ProductDelete/{{prod.id}} "><i class="material-icons text-danger">clear</i></a></td>
 				</tr>
 			
 				{% endfor %}

@@ -50,8 +50,10 @@
 								
 										<td class="col-3"><a href="/produtos/ProductDetail/{{prod.id}}">{{prod.product_name}} </a></td>
 										<td class="col-3">{{prod.product_format}}</td>
-										<td class="col-1"><b><a href="/produtos/ProductUpdate/{{prod.id}} ">Editar</a></td>
-										<td class="col-1"><b><a href="/produtos/ProductDelete/{{prod.id}} ">Eliminar</a></td>
+											<td class="col-6 text-right"><a href="/produtos/ProductUpdate/{{prod.id}} "><i class="material-icons">create</i></a>
+												<a href="/produtos/ProductDelete/{{prod.id}} "><i class="material-icons text-danger">clear</i></a>
+											</td>
+								
 						
 									
 									{% endfor %}
