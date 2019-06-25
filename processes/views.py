@@ -134,6 +134,7 @@ class ActivitySwap(CreateView):
 		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
 		form.fields['original'].empty_label = None
+		form.fields['process'] = forms.ModelChoiceField(queryset=Process.objects.filter(user__organization = self.request.user.organization))
 		form.fields['process'].empty_label = None
 		roles = Role.objects.filter(pk__in = this_act.role.all())
 		patterns = Pattern.objects.filter(pk__in = this_act.pattern.all())
