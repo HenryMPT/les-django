@@ -21,16 +21,19 @@ from django import forms
 
 @login_required(login_url='/login')
 def processos(request):
+	
+	company_acts = Activity.objects.filter(org=request.user.organization)
 	return render(request=request,
 				  template_name="processes/processos.html",
-				   context={"procs": Process.objects.filter(user__organization=request.user.organization), "acts": Activity.objects.all()})
+				   context={"procs": Process.objects.filter(user__organization=request.user.organization), "acts": company_acts})
 
 
 @login_required(login_url='/login')
 def actividades(request):
+	company_acts = Activity.objects.filter(org=request.user.organization)
 	return render(request=request,
 				  template_name="processes/actividades.html",
-				   context={"acts": Activity.objects.all().exclude(original__isnull=False), "proc_acts": Activity.objects.filter(process__user__organization=request.user.organization)})
+				   context={"acts": company_acts.exclude(original__isnull=False), "proc_acts": company_acts.exclude(original__isnull=True)})
 
 @login_required(login_url='/login')
 def removeActivityFromProcess(request, **kwargs):
@@ -42,15 +45,18 @@ def removeActivityFromProcess(request, **kwargs):
 
 class ActivityCreate(CreateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'pattern', 'role'] 
+	fields = ['activity_name', 'description', 'pattern', 'role','org'] 
 	template_name = "processes/forms/activity_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ActivityCreate, self).get_form(form_class)
-		#form.fields['user'].widget
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple(),required=False)
+		company_roles = Role.objects.all().filter(org=self.request.user.organization)
+		company_pats = Pattern.objects.filter(userid__organization=self.request.user.organization)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=company_pats ,widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=company_roles ,widget=forms.CheckboxSelectMultiple(),required=False)
 		form.fields['activity_name'].label = "Nome da actividade"
 		form.fields['description'].label = "Descrição"
 		form.fields['pattern'].label = "Padrões"
@@ -68,30 +74,37 @@ class ActivityDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		act_id = self.object.id
 		context['pid'] = self.kwargs['pk']
-		our_products = Product.objects.all().filter(activity__id=act_id)
+		company_products = Product.objects.all().filter(org=self.request.user.organization)
+		company_roles = Role.objects.all().filter(org=self.request.user.organization)
+		company_pats = Pattern.objects.filter(userid__organization=self.request.user.organization)
+		our_products = company_products.filter(activity__id=act_id)
 		this_act = Activity.objects.all().filter(id=act_id)[0]
 		our_roles = this_act.role.all()
 		our_patterns = this_act.pattern.all()
 		context['act_products'] = our_products
-		context['non_products'] = Product.objects.all().exclude(id__in=our_products)
+		context['non_products'] = company_products.exclude(id__in=our_products)
 		context['patterns'] = our_patterns
-		context['non_patterns'] = Pattern.objects.all().exclude(id__in=our_patterns)
+		context['non_patterns'] = company_pats.exclude(id__in=our_patterns)
 		context['roles'] = our_roles
-		context['non_roles'] = Role.objects.all().exclude(id__in=our_roles)
+		context['non_roles'] = our_roles.exclude(id__in=our_roles)
 		context['procs'] = Process.objects.filter(user__organization=self.request.user.organization)
 		return context
 
 class ActivityUpdate(UpdateView):
 	model = Activity
-	fields = ['activity_name', 'description', 'pattern', 'role'] 
+	fields = ['activity_name', 'description', 'pattern', 'role','org'] 
 	template_name = "processes/forms/activity_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ActivityUpdate, self).get_form(form_class)
+		company_roles = Role.objects.all().filter(org=self.request.user.organization)
+		company_pats = Pattern.objects.filter(userid__organization=self.request.user.organization)
 		#form.fields['user'].widget
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=Role.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all() ,widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=company_roles ,widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=company_pats ,widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['activity_name'].label = "Nome da actividade"
 		form.fields['description'].label = "Descrição"
 		form.fields['pattern'].label = "Padrões"
@@ -119,19 +132,23 @@ class ActivitySwap(CreateView):
 	model = Activity
 	sucess_url = "/actividades"
 	template_name = "processes/forms/activity_update_form.html"
-	fields = ['activity_name', 'description', 'role', 'pattern', 'process', 'original']
+	fields = ['activity_name', 'description', 'role', 'pattern', 'process', 'original','org']
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
+		company_roles = Role.objects.all().filter(org=self.request.user.organization)
+		company_pats = Pattern.objects.filter(userid__organization=self.request.user.organization)
 		form = super(ActivitySwap, self).get_form(form_class)
 		this_act = Activity.objects.filter(pk =self.kwargs['pk'])[0]
 		this_proc = Process.objects.filter(pk =self.kwargs['fk'])[0]
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
 		form.fields['activity_name'].widget = forms.TextInput(attrs={'value': this_act.activity_name})
 		form.fields['description'].widget = forms.TextInput(attrs={'value': this_act.description})
 		all_roles = Role.objects.all()
 		original_choice = Activity.objects.filter(pk =self.kwargs['pk'])
-		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=Pattern.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
-		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=all_roles, widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['pattern'] = forms.ModelMultipleChoiceField(queryset=company_pats, widget=forms.CheckboxSelectMultiple(), required=False)
+		form.fields['role'] = forms.ModelMultipleChoiceField(queryset=company_roles, widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['original'] = forms.ModelChoiceField(queryset=original_choice, widget=forms.RadioSelect())
 		form.fields['original'].empty_label = None
 		form.fields['process'] = forms.ModelChoiceField(queryset=Process.objects.filter(user__organization = self.request.user.organization))
@@ -239,27 +256,32 @@ class ProcessDetail(DetailView):
 
 @login_required(login_url='/login')
 def produtos(request):
+	company_acts = Activity.objects.filter(org=request.user.organization)
+	company_prods = Product.objects.filter(org=request.user.organization)
 	return render(request=request,
 					template_name="processes/produtos.html",
 					context={"users" : User.objects.all(),
 					"groups" : Group.objects.all(),
-					 "prods" : Product.objects.all() })
+					 "prods" : company_prods })
 
 
 
 
 class ProductCreate(CreateView):
 	model = Product
-	fields = ['product_name', 'product_format', 'activity']
+	fields = ['product_name', 'product_format', 'activity','org']
 	template_name = "processes/forms/product_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ProductCreate, self).get_form(form_class)
-		#form.fields['user'].widget
-		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
+		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=company_acts ,widget=forms.CheckboxSelectMultiple(), required=False)
 		form.fields['product_name'].label = "Nome do produto"
 		form.fields['product_format'].label = "Formato"
+		form.fields['product_format'].required = False
 		form.fields['activity'].label = "Actividades"
 		return form
 
@@ -274,9 +296,10 @@ class ProductDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		product_id = self.object.id
 		context['pid'] = self.kwargs['pk']
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
 		this_product = Product.objects.all().filter(id=product_id)[0]
-		original_acts = Activity.objects.all().exclude(original__isnull=False)
-		proc_acts = Activity.objects.all().exclude(original__isnull=True)
+		original_acts = company_acts.exclude(original__isnull=False)
+		proc_acts = company_acts.exclude(original__isnull=True)
 		our_acts = this_product.activity.all().exclude(id__in=proc_acts)
 		our_proc_acts = this_product.activity.all().exclude(id__in=original_acts)
 		context['acts'] = our_acts
@@ -288,17 +311,21 @@ class ProductDetail(DetailView):
 
 class ProductUpdate(UpdateView):
 	model = Product
-	fields = ['product_name', 'product_format', 'activity']
+	fields = ['product_name', 'product_format', 'activity','org']
 	template_name = "processes/forms/product_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(ProductUpdate, self).get_form(form_class)
 		#form.fields['user'].widget
-		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=Activity.objects.all() ,widget=forms.CheckboxSelectMultiple())
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
+		form.fields['activity'] = forms.ModelMultipleChoiceField(queryset=company_acts ,widget=forms.CheckboxSelectMultiple(),required=False)
 		form.fields['product_name'].label = "Nome do produto"
 		form.fields['product_format'].label = "Formato"
 		form.fields['activity'].label = "Actividades"
+		form.fields['product_format'].required = False
 		return form
 
 	def form_valid(self, form):
@@ -332,12 +359,14 @@ def addActivityToProduct(request, **kwargs):
 
 class RoleCreate(CreateView):
 	model = Role
-	fields = ['role_name' , 'description']
+	fields = ['role_name' , 'description','org']
 	template_name = "processes/forms/role_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleCreate, self).get_form(form_class)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
 		#form.fields['user'].widget
 		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		form.fields['role_name'].label = "Nome do papel"
@@ -355,9 +384,11 @@ class RoleDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		role_id = self.object.id
 		context['pid'] = self.kwargs['pk']
+		
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
 		this_rol = Role.objects.all().filter(id=role_id)[0]
-		original_acts = Activity.objects.all().exclude(original__isnull=False)
-		proc_acts = Activity.objects.all().exclude(original__isnull=True)
+		original_acts = company_acts.exclude(original__isnull=False)
+		proc_acts = company_acts.exclude(original__isnull=True)
 		our_acts = original_acts.filter(role__id=role_id)
 		our_proc_acts = proc_acts.filter(role__id=role_id)
 		context['acts'] = our_acts
@@ -369,12 +400,14 @@ class RoleDetail(DetailView):
 
 class RoleUpdate(UpdateView):
 	model = Role
-	fields = ['role_name' , 'description']
+	fields = ['role_name' , 'description','org']
 	template_name = "processes/forms/role_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
 			form_class = self.get_form_class()
 		form = super(RoleUpdate, self).get_form(form_class)
+		form.fields['org'].widget = forms.HiddenInput()
+		form.initial['org'] = self.request.user.organization
 		#form.fields['user'].widget
 		#form.fields['product'] = forms.ModelMultipleChoiceField(queryset=Product.objects.all() ,widget=forms.CheckboxSelectMultiple())
 		form.fields['role_name'].label = "Nome do papel"
@@ -421,11 +454,13 @@ def home(request):
 
 @login_required(login_url='/login')
 def papeis(request):
+
+	company_acts = Activity.objects.filter(org=request.user.organization)
+	company_roles = Role.objects.filter(org=request.user.organization)
 	return render(request=request,
 				  template_name="processes/papeis.html",
-				   context={"procs": Process.objects.all(), "acts": Activity.objects.all(),
-				   			"roles": Role.objects.all()	, "users" : User.objects.all(),	
-							  "prods" : Product.objects.all(),							
+				   context={"acts": company_acts,
+				   			"roles": company_roles	,						
 				   }
 				   )
 

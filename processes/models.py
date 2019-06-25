@@ -4,7 +4,7 @@ from django.core import validators
 from django.conf import settings
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser, Group
-from Users.models import User
+from Users.models import User, Organization
 from Activities.models import Pattern
 from django.core.exceptions import ValidationError
 
@@ -14,7 +14,7 @@ class Process(models.Model):
     process_name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     creation_date = models.DateTimeField("date created", default=django.utils.timezone.now)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=500)
 
 
 
@@ -24,10 +24,11 @@ class Process(models.Model):
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
     process = models.ForeignKey(Process, null=True,blank=True, on_delete=models.SET_NULL)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=500)
     role = models.ManyToManyField('Role', blank=True)
     original = models.ForeignKey('self', blank=True, null=True,on_delete=models.SET_NULL)
     pattern = models.ManyToManyField('Activities.Pattern', blank=True)
+    org = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL)
     class Meta:
         verbose_name = ("Activity") 
 
@@ -43,7 +44,8 @@ class Activity(models.Model):
                     raise ValidationError('Já existe uma Actividade Base com este nome.')
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=500)
+    org = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return self.role_name
 
@@ -54,6 +56,6 @@ class Product(models.Model):
     product_type = models.CharField(max_length=1)
     product_format = models.CharField(max_length=200)
     activity = models.ManyToManyField(Activity, blank=True)
-
+    org = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return self.product_name
