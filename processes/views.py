@@ -217,9 +217,8 @@ class ProcessUpdate(UpdateView):
 			form_class = self.get_form_class()
 		form = super(ProcessUpdate, self).get_form(form_class)
 		perm = Permission.objects.get(codename='test_GProc')  
-		gp_users = User.objects.filter(groups__permissions=perm)
-		form.fields['user'] = forms.ModelChoiceField(queryset=gp_users)
-		form.fields['user'].empty_label = None
+		form.fields['user'].widget = forms.HiddenInput()
+		form.initial['user'] = self.request.user
 		form.fields['process_name'].label = "Nome do Processo"
 		form.fields['description'].label = "Descrição"
 		return form
@@ -235,7 +234,8 @@ class ProcessDelete(DeleteView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		proc_id = self.object.id
-		our_acts = Activity.objects.all().filter(process__id=proc_id)
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
+		our_acts = company_acts.filter(process__id=proc_id)
 		context['acts'] = our_acts
 		return context
 	def delete(self, request, *args, **kwargs):
@@ -249,9 +249,10 @@ class ProcessDetail(DetailView):
 		context = super().get_context_data(**kwargs)
 		proc_id = self.object.id
 		context['pid'] = self.kwargs['pk']
-		our_acts = Activity.objects.all().filter(process__id=proc_id)
+		company_acts = Activity.objects.filter(org=self.request.user.organization)
+		our_acts = company_acts.filter(process__id=proc_id)
 		context['proc_acts'] = our_acts
-		context['non_acts'] = Activity.objects.all().exclude(id__in=our_acts).exclude(process__isnull=False)
+		context['non_acts'] = company_acts.exclude(id__in=our_acts).exclude(process__isnull=False)
 		return context
 
 @login_required(login_url='/login')
