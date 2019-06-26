@@ -63,7 +63,10 @@ class Product(models.Model):
     def clean(self):
         incident = Product.objects.filter(organization__id=self.organization.id).filter(product_name=self.product_name)
         if incident:
-            raise ValidationError('Já existe uma Produto com este nome.')
+            if not Product.objects.filter(id=self.pk).exists() : # check if any object exists
+                raise ValidationError('Já existe um Produto com este nome.')
+            elif not incident[0].pk == self.pk: 
+                raise ValidationError('Já existe um Produto com este nome.')
 
     def __str__(self):
         return self.product_name
