@@ -14,7 +14,7 @@ class Process(models.Model):
     process_name = models.CharField(max_length=200)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     creation_date = models.DateTimeField("date created", default=django.utils.timezone.now)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=400)
     
 
 
@@ -24,7 +24,7 @@ class Process(models.Model):
 class Activity(models.Model):
     activity_name = models.CharField(max_length=200)
     process = models.ForeignKey(Process, null=True,blank=True, on_delete=models.SET_NULL)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=400)
     role = models.ManyToManyField('Role', blank=True)
     original = models.ForeignKey('self', blank=True, null=True,on_delete=models.SET_NULL)
     pattern = models.ManyToManyField('Activities.Pattern', blank=True)
@@ -42,9 +42,10 @@ class Activity(models.Model):
                     raise ValidationError('Já existe uma Actividade Base com este nome.')
                 elif not incident[0].pk == self.pk: 
                     raise ValidationError('Já existe uma Actividade Base com este nome.')
+
 class Role(models.Model):
     role_name = models.CharField(max_length=200)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=300)
     organization = models.ForeignKey(Organization, null=True,blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -57,6 +58,12 @@ class Product(models.Model):
     product_format = models.CharField(max_length=200)
     activity = models.ManyToManyField(Activity, blank=True)
     organization = models.ForeignKey(Organization, null=True,blank=True, on_delete=models.SET_NULL)
+    product_input = models.CharField(max_length=200)
+    product_output = models.CharField(max_length=200)
+    def clean(self):
+        incident = Product.objects.filter(organization__id=self.organization.id).filter(product_name=self.product_name)
+        if incident:
+            raise ValidationError('Já existe uma Produto com este nome.')
 
     def __str__(self):
         return self.product_name

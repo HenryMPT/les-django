@@ -320,3 +320,15 @@ table > tbody.proctable{
 div#div_id_original.form-group{
     display: none;
 }
+
+div#div_id_role.form-group{
+    display: none;
+}
+
+#Viewmodal2{
+    z-index: 999;
+}
+
+.modal-backdrop #Viewmodal2{
+    
+}

@@ -76,8 +76,6 @@ class ActivityDetail(DetailView):
 		our_patterns = this_act.pattern.all()
 		context['act_products'] = our_products
 		context['non_products'] = Product.objects.filter(organization__exact=self.request.user.organization).exclude(id__in=our_products)
-		context['patterns'] = our_patterns
-		context['non_patterns'] = Pattern.objects.filter(userid__organization__exact=self.request.user.organization).exclude(id__in=our_patterns)
 		context['roles'] = our_roles
 		context['non_roles'] = Role.objects.filter(organization__exact=self.request.user.organization).exclude(id__in=our_roles)
 		context['procs'] = Process.objects.filter(user__organization__exact=self.request.user.organization)
@@ -244,7 +242,7 @@ def produtos(request):
 
 class ProductCreate(CreateView):
 	model = Product
-	fields = ['product_name', 'product_format', 'activity','organization']
+	fields = ['product_name', 'product_format', 'activity','organization', 'product_input', 'product_output']
 	template_name = "processes/forms/product_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
@@ -284,7 +282,7 @@ class ProductDetail(DetailView):
 
 class ProductUpdate(UpdateView):
 	model = Product
-	fields = ['product_name', 'product_format', 'activity']
+	fields = ['product_name', 'product_format', 'activity', 'product_input', 'product_output']
 	template_name = "processes/forms/product_update_form.html"
 	def get_form(self, form_class=None):
 		if form_class is None:
@@ -309,6 +307,11 @@ class ProductDelete(DeleteView):
 	def delete(self, request, *args, **kwargs):
 		messages.warning(self.request,f"Produto " +  " \""+ Product.objects.filter(id=self.kwargs['pk'])[0].product_name+ f"\" apagado do sistema")
 		return super(ProductDelete, self).delete(request, *args, **kwargs)
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		our_acts = self.object.activity.all()
+		context['acts'] = our_acts
+		return context
 
 @login_required(login_url='/login')
 def removeActivityFromProduct(request, **kwargs):
@@ -391,6 +394,7 @@ class RoleDelete(DeleteView):
 		messages.warning(self.request,f"Papel " +  " \""+ Role.objects.filter(id=self.kwargs['pk'])[0].role_name+ f"\" apagado do sistema")
 		return super(RoleDelete, self).delete(request, *args, **kwargs)
 
+
 @login_required(login_url='/login')
 def removeRoleFromActivity(request, **kwargs):
 	this_act = Activity.objects.filter(pk=kwargs['pk'])[0]
@@ -438,6 +442,7 @@ class ViewActivity(AjaxableResponseMixin,DetailView):
 class ViewProduct(AjaxableResponseMixin,DetailView):
 	model = Product
 	template_name = "processes/modal/product.html"
+
 
 @login_required(login_url='/login')
 def update_proc(request):

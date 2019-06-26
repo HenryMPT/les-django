@@ -3,11 +3,34 @@
 {% if perms.Users.test_GProc %}   
 <div class="container">
 <form method="post">{% csrf_token %}
-    <p>De certeza que pretende eliminar o produto <b>"{{ object.product_name}}</b>"?</p>
-    <a href="/produtos" class="text-danger">Cancelar</a>
-    <button type="submit" class="btn text-white">Eliminar</button>
+        {% if acts|length > 0 %}
+    <h3>Antes de apagar o produto, necessita remover as seguintes associações</h3>
+    <br>
+    {% for act in acts %}
+    <div class ="row" >
+        <div class ="col-sm-10">
+            <a href ="/actividades/ActivityDetail/{{act.id}}">{{act}}</a>
+        </div>   
+        <div class ="col-sm-2">
+                <a href ="/produtos/ProductDessociate/{{object.id}}/{{act.id}}"><i class="material-icons text-danger">clear</i></a>
+        </div>
+           
+</div>
+<hr>
+{% endfor %}
+<br>
+{% endif %}
+{% if acts|length == 0 %}
+<p>De certeza que pretende eliminar o produto <b>"{{ object.product_name}}</b>"?</p>
+<a href="/produtos" class="text-danger">Cancelar</a>
+<button type="submit" class="btn text-white">Eliminar</button>
+{% else %}
+<a href="/produtos" class="text-danger">Cancelar</a>
+{% endif %}
 </form>
 </div>
+
+
 {% else %}
 <h2>Não tem permissão para realizar esta ação.</h2>
 {% endif %}
