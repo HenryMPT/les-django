@@ -324,3 +324,8 @@ div#div_id_original.form-group{
 div#div_id_role.form-group{
     display: none;
 }
+
+.messagediv{
+    height:100%;
+    max-width: 50vw;
+}

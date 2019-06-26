@@ -2,8 +2,6 @@
 {% block content %}
 {% if perms.Users.test_GProc or perms.Users.test_Analist  %}
 <div class="container">
-  {% include "processes/includes/messages.html" %}
-
         <h3>Processo: {{object.process_name}} </h3>
         <hr>
             <div class="row">

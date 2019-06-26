@@ -60,9 +60,9 @@
 			{% for act in acts %}
 			
 			<tr class="d-flex">
-					<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
+					<td class="col-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
 					<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
-					<td class="col-6 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
+					<td class="col-4 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
 					<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a></td>
 				</tr>
 			
@@ -80,8 +80,8 @@
 				</tr>
 		
 				<tr class="d-flex nobluebar">
-						<td class="col-3"><b>Actividade</b> </td>
-						<td class="col-3"><b>Processo </b></td>
+						<td class="col-5"><b>Actividade</b> </td>
+						<td class="col-7"><b>Processo </b></td>
 					</tr>
 					
 		
@@ -91,9 +91,9 @@
 				{% for act in proc_acts %}
 				
 				<tr class="d-flex">
-						<td class="col-3"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
+						<td class="col-5"><a href="/actividades/ActivityDetail/{{act.id}}">{{act.activity_name}}</a></td>
 						{% if perms.Users.test_GProc %}	<td class="col-3"><a href="/processos/ProcessDetail/{{act.process.process_id}}">{{act.process.process_name}}</a></td>
-						<td class="col-6 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
+						<td class="col-4 text-right"><a href="/actividades/ActivityUpdate/{{act.id}} "><i class="material-icons">create</i></a>
 						<a href="/actividades/ActivityDelete/{{act.id}} "><i class="material-icons text-danger">clear</i></a></td>
 				{% endif%}	</tr>
 				
