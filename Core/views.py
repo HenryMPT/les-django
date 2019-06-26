@@ -20,13 +20,13 @@ def Home(request):
     "sentences":Sentence.objects.all().filter(userid=request.user),
     "verbs":Verb.objects.all(),
     "groups":Group.objects.all().filter(userid=request.user),
-    "patterns":Pattern.objects.all().filter(userid=request.user),
-    "acts":Activity.objects.all().exclude(original__isnull=False),
-    "proc_acts": Activity.objects.filter(process__user=request.user),
+    "patterns":Pattern.objects.filter(userid__organization__exact=request.user.organization),
+    "acts":Activity.objects.filter(organization__exact=request.user.organization).exclude(original__isnull=False),
+    "proc_acts": Activity.objects.filter(organization__exact=request.user.organization).exclude(original__isnull=True),
     "orgs": Organization.objects.all(),
-    "prods": Product.objects.all(),
-    "roles": Role.objects.all(),
-    "procs": Process.objects.all(),
+    "prods": Product.objects.filter(organization__exact=request.user.organization),
+    "roles": Role.objects.filter(organization__exact=request.user.organization),
+    "procs": Process.objects.filter(user__organization__exact=request.user.organization),
     	},)
 
 class SearchView(TemplateView):

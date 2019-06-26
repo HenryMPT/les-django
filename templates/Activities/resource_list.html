@@ -1,4 +1,7 @@
-{% extends "main/navbar.html" %} 
+{% extends "main/navbar.html" %}
+{% block title %}
+Recurso
+{% endblock %}
 {% block content %}
     <div class="container-fluid" style=" margin-top:-25px;">
         <div class="row">
@@ -18,6 +21,8 @@
         </div>
     </div>
     <div class="container">
-        {% include "tables/resource.html" %}
+        {% if perms.Users.test_Analist or perms.Users.test_Func %}
+        {% include "tables/resource.html" with object_list=resources %}
+        {% endif %}
     </div>
 {% endblock %}

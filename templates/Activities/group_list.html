@@ -1,4 +1,8 @@
-{% extends "main/navbar.html" %} 
+{% extends "main/navbar.html" %}
+{% block title %}
+Agrupamentos
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid" style=" margin-top:-25px;">
         <div class="row">
@@ -18,6 +22,8 @@
         </div>
     </div>
     <div class="container">
-        {% include "tables/group.html" %}
+        {% if perms.Users.test_Analist %}
+      {% include "tables/group.html" with object_list=groups %}
+      {% endif %}
     </div>
 {% endblock %}

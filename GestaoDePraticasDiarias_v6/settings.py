@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l9wr-0u2c*j=4m02e^250cng$0ne(v529!h55q5jt#i4#rl+t('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -56,17 +56,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
-SESSION_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'DENY'
-CSRF_COOKIE_SECURE = True
 ROOT_URLCONF = 'GestaoDePraticasDiarias_v6.urls'
-SECURE_SSL_REDIRECT = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_HSTS_SECONDS = 60
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+#SESSION_COOKIE_SECURE = True
+#X_FRAME_OPTIONS = 'DENY'
+#CSRF_COOKIE_SECURE = True
+
+#SECURE_SSL_REDIRECT = True
+#SECURE_BROWSER_XSS_FILTER = True
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+#SECURE_HSTS_SECONDS = 60
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#SECURE_HSTS_PRELOAD = True
 
 
 TEMPLATES = [
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'GestaoDePraticasDiarias_v6.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GestaoDePraticasDiarias_v6',
+        'NAME': 'group5_11',
         'USER': 'root',
         'PASSWORD':'root',
         'HOST': 'localhost',

@@ -1,4 +1,8 @@
-{% extends "main/navbar.html" %} 
+{% extends "main/navbar.html" %}
+{% block title %}
+Artefactos
+{% endblock %}
+
 {% block content %}
     <div class="container-fluid" style=" margin-top:-25px;">
         <div class="row">
@@ -18,6 +22,8 @@
         </div>
     </div>
     <div class="container">
-        {% include "tables/artefact.html" %}
+        {% if perms.Users.test_Analist or perms.Users.test_Func %}
+        {% include "tables/artefact.html" with object_list=artefacts %}
+        {% endif %}
     </div>
 {% endblock %}
